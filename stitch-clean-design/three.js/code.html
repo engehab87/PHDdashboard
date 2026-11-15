@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
+  </style>
+</head>
+<body>
+<!-- STITCH_THREEJS_START:ANIMATION_22 class="fixed inset-0 w-full h-full bg-transparent" -->
+<div class="fixed inset-0 w-full h-full bg-transparent" style="display:block;">
+<script src="https://ajax.googleapis.com/ajax/libs/threejs/r125/three.min.js"></script>
+<div id="threejs-container-ANIMATION_22" style="width:100%;height:100%"></div>
+<script>
+(function() {
+  const container = document.getElementById('threejs-container-ANIMATION_22');
+  const devicePixelRatio = window.devicePixelRatio || 1;
+  // ==========================================================================
+// Palm Hills Executive Real Estate Intelligence — Core Application Logic
+// File: app.js
+// ==========================================================================
+
+(function() {
+  'use strict';
+
+  window.PalmApp = {
+    state: {
+      isAuthenticated: true,
+      role: 'Super Admin', // 'Super Admin' | 'Management' | 'Operations'
+      currentRoute: 'overview',
+      selectedCompound: 'all',
+      selectedPeriod: 'sep-2026',
+      theme: 'light',
+      user: {
+        name: 'Mohamed Adel',
+        title: 'Group Chief Operations Officer',
+        clearance: 'Level 3 Root',
+        avatarInitials: 'MA'
+      },
+      hcpConnected: true,
+      crmSynced: true
+    },
+
+    roles: {
+      'Super Admin': {
+        title: 'Group Chief Operations Officer',
+        clearance: 'Level 3 Root',
+        badgeClass: 'operational',
+        bannerDesc: 'Elevated cluster orchestration, master CRM root synchronization, and biometric governance.',
+        routes: ['overview', 'units', 'residents', 'vehicles', 'vehicle-access', 'gate-passes', 'invitations', 'visitors', 'face-recognition', 'identity-matching', 'hcp-live', 'hcp-vehicle-counts', 'compound-comparison', 'portfolio-trends', 'ai-analyst', 'reports', 'kpi-definitions', 'data-quality', 'monthly-imports', 'hcp-connectivity', 'settings']
+      },
+      'Management': {
+        title: 'Executive Director — Portfolio Strategy',
+        clearance: 'Level 2 Executive',
+        badgeClass: 'neutral',
+        bannerDesc: 'Strategic portfolio yield, compound cross-benchmarking, and executive anomaly reporting.',
+        routes: ['overview', 'compound-comparison', 'portfolio-trends', 'ai-analyst', 'reports', 'kpi-definitions', 'data-quality', 'residents', 'units']
+      },
+      'Operations': {
+        title: 'Central Operations Field Controller',
+        clearance: 'Level 1 Tactical',
+        badgeClass: 'warning',
+        bannerDesc: 'Tactical field gate command, emergency overrides, and live ANPR / MinMoe telemetry streams.',
+        routes: ['overview', 'vehicles', 'vehicle-access', 'gate-passes', 'invitations', 'visitors', 'face-recognition', 'identity-matching', 'hcp-live', 'hcp-vehicle-counts', 'data-quality', 'hcp-connectivity']
+      }
+    },
+
+    init: function() {
+      // Check hash route on load
+      const hash = window.location.hash.replace('#/', '') || 'overview';
+      this.state.currentRoute = hash;
+
+      window.addEventListener('hashchange', () => {
+        const newHash = window.location.hash.replace('#/', '') || 'overview';
+        this.navigate(newHash, false);
+      });
+
+      this.render();
+    },
+
+    setRole: function(roleName) {
+      if (!this.roles[roleName]) return;
+      this.state.role = roleName;
+      const r = this.roles[roleName];
+      this.state.user.title = r.title;
+      this.state.user.clearance = r.clearance;
+      
+      this.showToast(`Switched active profile context to ${roleName}`);
+      
+      // If current route is forbidden, redirect to overview
+      if (!r.routes.includes(this.state.currentRoute)) {
+        this.navigate('overview');
+      } else {
+        this.render();
+      }
+    },
+
+    toggleTheme: function() {
+      this.state.theme = this.state.theme === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', this.state.theme);
+      this.showToast(`Switched theme to ${this.state.theme} mode`);
+      this.render();
+    },
+
+    navigate: function(route, pushHash = true) {
+      if (route === 'login') {
+        this.state.isAuthenticated = false;
+        this.render();
+        return;
+      }
+      
+      this.state.isAuthenticated = true;
+      this.state.currentRoute = route;
+      if (pushHash) {
+        window.location.hash = '#/' + route;
+      }
+      this.render();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    },
+
+    showToast: function(msg) {
+      const shelf = document.getElementById('toast-shelf');
+      if (!shelf) return;
+      const bubble = document.createElement('div');
+      bubble.className = 'toast-bubble';
+      bubble.innerHTML = `<span style="display:inline-block;width:8px;height:8px;border-radius:50%;background:#C4161C;"></span> ${msg}`;
+      shelf.appendChild(bubble);
+      setTimeout(() => {
+        bubble.style.opacity = '0';
+        bubble.style.transition = 'opacity 300ms ease';
+        setTimeout(() => bubble.remove(), 300);
+      }, 3200);
+    },
+
+    openDrawer: function(title, contentHtml) {
+      const backdrop = document.getElementById('drawer-backdrop');
+      const panel = document.getElementById('drawer-panel');
+      const container = document.getElementById('drawer-content');
+      if (!backdrop || !panel || !container) return;
+
+      container.innerHTML = `
+        <div style="padding:18px 24px; border-bottom:1px solid var(--hairline-divider); display:flex; justify-content:space-between; align-items:center;">
+          <h3 class="headline-sm">${title}</h3>
+          <button class="btn-ghost" onclick="PalmApp.closeDrawer()"><span class="material-symbols-outlined">close</span></button>
+        </div>
+        <div style="padding:24px; overflow-y:auto; flex:1;">
+          ${contentHtml}
+        </div>
+      `;
+
+      backdrop.classList.add('active');
+      panel.classList.add('open');
+      backdrop.onclick = () => this.closeDrawer();
+    },
+
+    closeDrawer: function() {
+      const backdrop = document.getElementById('drawer-backdrop');
+      const panel = document.getElementById('drawer-panel');
+      if (backdrop) backdrop.classList.remove('active');
+      if (panel) panel.classList.remove('open');
+    },
+
+    render: function() {
+      const root = document.getElementById('root');
+      if (!root) return;
+
+      if (!this.state.isAuthenticated) {
+        root.innerHTML = PalmPages['login']();
+        return;
+      }
+
+      const roleMeta = this.roles[this.state.role];
+      const allowed = roleMeta.routes;
+
+      // Master Shell Frame
+      root.innerHTML = `
+        <!-- Fixed Left Sidebar (256px) -->
+        <aside id="app-sidebar">
+          <div style="padding:22px 20px 18px; border-bottom:1px solid var(--hairline-divider); display:flex; align-items:center; gap:12px;">
+            <!-- Brand 4-diamond motif logo -->
+            <div style="width:34px; height:34px; background:#C4161C; display:grid; grid-template-columns:1fr 1fr; gap:2.5px; padding:6px; transform:rotate(45deg); border-radius:2px;">
+              <span style="background:#FFF;"></span>
+              <span style="background:#FFF;"></span>
+              <span style="background:#FFF;"></span>
+              <span style="background:#FFF;"></span>
+            </div>
+            <div>
+              <div style="font-family:var(--font-display); font-weight:800; font-size:14.5px; letter-spacing:0.04em; color:var(--on-surface);">PALM HILLS</div>
+              <div class="label-caps" style="color:var(--primary-container); font-size:9.5px;">EXECUTIVE CORE</div>
+            </div>
+          </div>
+
+          <!-- Navigation Groups -->
+          <div style="flex:1; padding:12px 0; overflow-y:auto;">
+            <div class="nav-group-header">Operations</div>
+            ${this.renderNavItem('overview', 'dashboard', 'Executive Overview', allowed)}
+            ${this.renderNavItem('units', 'apartment', 'Units', allowed)}
+            ${this.renderNavItem('residents', 'badge', 'Residents', allowed)}
+            ${this.renderNavItem('vehicles', 'directions_car', 'Vehicles & ANPR', allowed)}
+            ${this.renderNavItem('vehicle-access', 'toll', 'Vehicle Access (HCP)', allowed)}
+            ${this.renderNavItem('gate-passes', 'pin', 'Gate Passes', allowed)}
+            ${this.renderNavItem('invitations', 'mail', 'Invitations', allowed)}
+            ${this.renderNavItem('visitors', 'person_pin_circle', 'Visitors', allowed)}
+            ${this.renderNavItem('face-recognition', 'face', 'Face Recognition', allowed)}
+            ${this.renderNavItem('identity-matching', 'fingerprint', 'Identity Matching', allowed)}
+            ${this.renderNavItem('hcp-live', 'sensors', 'HCP Live Data', allowed)}
+            ${this.renderNavItem('hcp-vehicle-counts', 'compare_arrows', 'HCP Vehicle Counts', allowed)}
+
+            <div class="nav-group-header" style="margin-top:10px;">Intelligence</div>
+            ${this.renderNavItem('compound-comparison', 'domain_add', 'Compound Comparison', allowed)}
+            ${this.renderNavItem('portfolio-trends', 'trending_up', 'Portfolio Trends', allowed)}
+            ${this.renderNavItem('ai-analyst', 'psychology', 'Ask Palm AI Copilot', allowed)}
+            ${this.renderNavItem('reports', 'description', 'Reports', allowed)}
+            ${this.renderNavItem('kpi-definitions', 'tune', 'KPI Definitions', allowed)}
+
+            <div class="nav-group-header" style="margin-top:10px;">Governance</div>
+            ${this.renderNavItem('data-quality', 'verified', 'Data Quality', allowed)}
+            ${this.renderNavItem('monthly-imports', 'upload_file', 'Monthly Imports', allowed)}
+            ${this.renderNavItem('hcp-connectivity', 'hub', 'Compound Connectivity', allowed)}
+            ${this.renderNavItem('settings', 'settings', 'Settings', allowed)}
+          </div>
+
+          <!-- Bottom User & System Health Widget -->
+          <div style="padding:14px 16px; border-top:1px solid var(--hairline-divider); background:var(--surface-container-low);">
+            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; font-size:11px;">
+              <span style="display:flex; align-items:center; gap:6px; color:var(--status-active); font-weight:600;">
+                <span style="width:7px; height:7px; border-radius:50%; background:var(--status-active);"></span> Cluster Synchronized
+              </span>
+              <span class="font-mono" style="color:var(--secondary);">18ms</span>
+            </div>
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div style="width:34px; height:34px; border-radius:50%; background:#1c1b1a; color:#fff; display:flex; align-items:center; justify-content:center; font-family:var(--font-display); font-weight:700; font-size:12px;">
+                ${this.state.user.avatarInitials}
+              </div>
+              <div style="flex:1; min-width:0;">
+                <div style="font-weight:600; font-size:12.5px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${this.state.user.name}</div>
+                <div style="font-size:11px; color:var(--secondary); white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${this.state.user.clearance}</div>
+              </div>
+              <button class="btn-ghost" style="padding:4px;" title="Sign Out" onclick="PalmApp.navigate('login')">
+                <span class="material-symbols-outlined" style="font-size:18px;">logout</span>
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Right Content Frame -->
+        <div id="app-main-viewport">
+          <!-- Sticky Topbar (66px) -->
+          <header id="app-topbar">
+            <div style="display:flex; align-items:center; gap:16px;">
+              <div style="position:relative; width:340px;">
+                <span class="material-symbols-outlined" style="position:absolute; left:12px; top:10px; color:var(--secondary); font-size:20px;">search</span>
+                <input type="text" class="form-control-input" style="width:100%; padding-left:38px; height:38px; border-radius:var(--radius-default);" placeholder="Search units, residents, vehicles, passes..." />
+                <span class="font-mono" style="position:absolute; right:10px; top:11px; font-size:10px; color:var(--secondary); background:var(--surface-container); padding:1px 5px; border-radius:2px;">⌘K</span>
+              </div>
+            </div>
+
+            <!-- Role Switcher & Utilities -->
+            <div style="display:flex; align-items:center; gap:12px;">
+              <!-- 3-Role Switcher Segmented Control -->
+              <div style="display:flex; background:var(--surface-container); padding:3px; border-radius:var(--radius-default); border:1px solid var(--border-strong);">
+                ${this.renderRoleBtn('Super Admin')}
+                ${this.renderRoleBtn('Management')}
+                ${this.renderRoleBtn('Operations')}
+              </div>
+
+              <!-- Theme Toggle -->
+              <button class="btn-icon" onclick="PalmApp.toggleTheme()" title="Toggle Dark/Light Mode">
+                <span class="material-symbols-outlined">${this.state.theme === 'light' ? 'dark_mode' : 'light_mode'}</span>
+              </button>
+
+              <!-- Notifications -->
+              <button class="btn-icon" style="position:relative;">
+                <span class="material-symbols-outlined">notifications</span>
+                <span style="position:absolute; top:7px; right:7px; width:7px; height:7px; background:#C4161C; border-radius:50%;"></span>
+              </button>
+
+              <div style="display:flex; align-items:center; gap:8px; padding-left:8px; border-left:1px solid var(--hairline-divider);">
+                <span class="label-caps" style="color:var(--secondary);">HOTLINE</span>
+                <span class="font-mono" style="font-weight:700; font-size:13px; color:var(--primary-container);">19743</span>
+              </div>
+            </div>
+          </header>
+
+          <!-- Context Banner -->
+          <div class="role-context-bar">
+            <div>
+              <span class="status-pill ${roleMeta.badgeClass}" style="margin-right:8px;">${this.state.role}</span>
+              <span class="body-sm" style="color:var(--secondary);">${roleMeta.bannerDesc}</span>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button class="btn-ghost" style="font-size:12px;" onclick="PalmApp.navigate('reports')"><span class="material-symbols-outlined" style="font-size:16px;">file_download</span> Export Summary</button>
+              <button class="btn-ghost" style="font-size:12px;" onclick="PalmApp.navigate('hcp-connectivity')"><span class="material-symbols-outlined" style="font-size:16px;">sync</span> Verify Sync</button>
+            </div>
+          </div>
+
+          <!-- Dynamic Page Mount -->
+          <main id="content-container">
+            ${PalmPages[this.state.currentRoute] ? PalmPages[this.state.currentRoute]() : PalmPages['overview']()}
+          </main>
+        </div>
+
+        <!-- Floating AI Action Button -->
+        <button class="floating-ai-btn" onclick="PalmApp.navigate('ai-analyst')">
+          <span class="material-symbols-outlined" style="font-size:20px;">psychology</span>
+          <span>Ask Palm AI</span>
+        </button>
+      `;
+    },
+
+    renderRoleBtn: function(roleName) {
+      const active = this.state.role === roleName;
+      const activeStyle = active 
+        ? 'background:var(--primary-container); color:#ffffff; font-weight:600;' 
+        : 'background:transparent; color:var(--secondary);';
+      return `
+        <button style="border:none; padding:4px 12px; font-size:12px; border-radius:2px; cursor:pointer; font-family:var(--font-display); transition:all 120ms ease; ${activeStyle}" onclick="PalmApp.setRole('${roleName}')">
+          ${roleName}
+        </button>
+      `;
+    },
+
+    renderNavItem: function(route, icon, label, allowedRoutes) {
+      if (!allowedRoutes.includes(route)) return '';
+      const isActive = this.state.currentRoute === route;
+      return `
+        <a href="#/${route}" class="nav-item-link ${isActive ? 'active' : ''}">
+          <span class="material-symbols-outlined" style="font-size:20px;">${icon}</span>
+          <span>${label}</span>
+        </a>
+      `;
+    }
+  };
+
+  // Auto-bootstrap when DOM is ready
+  document.addEventListener('DOMContentLoaded', () => {
+    PalmApp.init();
+  });
+})();
+
+})();
+</script>
+</div>
+<!-- STITCH_THREEJS_END:ANIMATION_22 -->
+</body>
+</html>

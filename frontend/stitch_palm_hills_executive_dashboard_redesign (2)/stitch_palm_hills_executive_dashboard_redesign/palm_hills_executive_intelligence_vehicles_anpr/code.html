@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><meta content="web_dashboard" name="shell-type"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;600;700&amp;family=Outfit:wght@400;500;600&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 350,'GRAD' 0,'opsz' 20;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "secondary-container": "#e2dfde", "primary": "#9b000e", "inverse-on-surface": "#f4f0ed", "on-tertiary": "#ffffff", "surface-tint": "#bd0e18", "on-secondary": "#ffffff", "outline-variant": "#e5bdb9", "on-secondary-fixed": "#1c1b1b", "surface-container-highest": "#e6e2df", "on-background": "#1c1b1a", "background": "#fdf8f6", "surface-variant": "#e6e2df", "on-secondary-fixed-variant": "#474746", "surface": "#fdf8f6", "text-primary": "#181818", "border-strong": "#D5D5D0", "inverse-primary": "#ffb4ab", "surface-container-lowest": "#ffffff", "secondary-fixed-dim": "#c8c6c5", "surface-container": "#f1edea", "outline": "#906f6b", "tertiary-container": "#bb2a29", "on-error-container": "#93000a", "text-secondary": "#666666", "inverse-surface": "#31302f", "surface-card": "#FFFFFF", "on-primary-fixed": "#410002", "on-tertiary-fixed-variant": "#920411", "surface-subtle": "#F5F5F3", "border-hairline": "#EAEAE7", "text-muted": "#8C8A87", "secondary-fixed": "#e5e2e1", "on-primary-fixed-variant": "#93000c", "tertiary-fixed-dim": "#ffb3ac", "surface-bright": "#fdf8f6", "primary-fixed": "#ffdad6", "secondary": "#5f5e5e", "status-critical": "#B81D24", "error-container": "#ffdad6", "status-active": "#1E7E34", "error": "#ba1a1a", "on-error": "#ffffff", "status-warning": "#B8860B", "primary-container": "#c4161c", "surface-canvas": "#FBFBF9", "on-surface": "#1c1b1a", "tertiary-fixed": "#ffdad6", "primary-fixed-dim": "#ffb4ab", "tertiary": "#980c15", "on-tertiary-fixed": "#410003", "on-secondary-container": "#636262", "on-surface-variant": "#5c403d", "on-primary": "#ffffff", "surface-dim": "#ddd9d7", "on-primary-container": "#ffd6d2", "surface-container-low": "#f7f3f0", "on-tertiary-container": "#ffd6d2", "surface-container-high": "#ebe7e5" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "margin-tablet": "1.5rem", "gutter": "1.25rem", "space-sm": "0.5rem", "space-md": "1rem", "space-2xl": "3.5rem", "gutter-desktop": "1.5rem", "space-xs": "0.25rem", "margin-desktop": "2.5rem", "space-lg": "1.5rem", "margin": "1rem", "space-xl": "2.25rem" }, "fontFamily": { "display-lg": [ "Montserrat" ], "label-caps": [ "Montserrat" ], "display-lg-mobile": [ "Montserrat" ], "body-sm": [ "Outfit" ], "label-md": [ "Outfit" ], "body-md": [ "Outfit" ], "headline-lg": [ "Montserrat" ], "title-md": [ "Outfit" ], "headline-sm": [ "Montserrat" ], "body-lg": [ "Outfit" ], "label-sm": [ "Outfit" ], "headline-md": [ "Montserrat" ] }, "fontSize": { "display-lg": [ "40px", { "lineHeight": "48px", "letterSpacing": "-0.02em", "fontWeight": "700" } ], "label-caps": [ "11px", { "lineHeight": "16px", "letterSpacing": "0.12em", "fontWeight": "700" } ], "display-lg-mobile": [ "30px", { "lineHeight": "38px", "letterSpacing": "-0.01em", "fontWeight": "700" } ], "body-sm": [ "12px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "400" } ], "label-md": [ "13px", { "lineHeight": "18px", "letterSpacing": "0.02em", "fontWeight": "500" } ], "body-md": [ "14px", { "lineHeight": "20px", "letterSpacing": "0.01em", "fontWeight": "400" } ], "headline-lg": [ "28px", { "lineHeight": "36px", "letterSpacing": "-0.01em", "fontWeight": "600" } ], "title-md": [ "16px", { "lineHeight": "24px", "letterSpacing": "0.02em", "fontWeight": "600" } ], "headline-sm": [ "18px", { "lineHeight": "26px", "letterSpacing": "0.01em", "fontWeight": "600" } ], "body-lg": [ "16px", { "lineHeight": "24px", "letterSpacing": "0em", "fontWeight": "400" } ], "label-sm": [ "11px", { "lineHeight": "16px", "letterSpacing": "0.02em", "fontWeight": "500" } ], "headline-md": [ "22px", { "lineHeight": "30px", "letterSpacing": "0em", "fontWeight": "600" } ] } } } };</script></head><body class="bg-surface-canvas font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-72 bg-surface-card border-r border-border-hairline z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(24,24,24,0.03)]"><div class="flex flex-col h-[calc(100%-4rem)]"><div class="h-16 px-space-lg flex items-center border-b border-border-hairline bg-surface-card shrink-0"><img alt="Palm Hills Executive Intelligence Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1UmVaYjwK-tDEK3yyyBo8SbYjjp7F3-3kCQSLXv0etVsBo965z7Z_yVQzF6yfapGQi54ddk0A8SUwqcJ6uAYqnXUva8m109fwtG7Y86B2ChbKKMVi7S3iMPnx0JLrbqZbL5CBKGK75_gZn_tcoc5IBcsoVx2kHuJyyR1sLhRHI6Y3FNRn6bR5mb4BhbnPB8ICjZTY3OOLKEG-NRHa_l0pbDS6M_PaBmIMNYv7stQZcLeJjk6NbTLctN9Mg"/><div class="ml-3 flex flex-col"><span class="font-headline-sm text-headline-sm uppercase tracking-wider text-text-primary font-bold">Palm Hills</span><span class="font-label-caps text-label-caps text-text-muted tracking-widest uppercase">Executive Core</span></div></div><div class="flex-1 overflow-y-auto px-space-md py-space-lg space-y-space-lg"><nav class="space-y-space-lg" data-active-classes="bg-surface-subtle text-primary border-l-2 border-primary font-title-md"><div class="space-y-1"><div class="px-3 pb-1 font-label-caps text-label-caps text-text-muted tracking-wider uppercase font-semibold">Executive Overview</div><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all font-body-md text-body-md" data-path="executive-dashboard" href="#"><span class="material-symbols-outlined text-[19px]">dashboard</span><span>Executive Dashboard</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all font-body-md text-body-md" data-path="kpi-command-center" href="#"><span class="material-symbols-outlined text-[19px]">analytics</span><span>KPI Command Center</span></a></div><div class="space-y-1"><div class="px-3 pb-1 font-label-caps text-label-caps text-text-muted tracking-wider uppercase font-semibold">Access &amp; Mobility</div><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all font-body-md text-body-md" data-path="vehicles-and-anpr" href="#"><span class="material-symbols-outlined text-[19px]">directions_car</span><span>Vehicles &amp; ANPR</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all font-body-md text-body-md" data-path="resident-gates" href="#"><span class="material-symbols-outlined text-[19px]">sensor_door</span><span>Resident Gates</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all font-body-md text-body-md" data-path="visitor-passes" href="#"><span class="material-symbols-outlined text-[19px]">badge</span><span>Visitor Passes</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all font-body-md text-body-md" data-path="commercial-fleet" href="#"><span class="material-symbols-outlined text-[19px]">local_shipping</span><span>Commercial Fleet</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all font-body-md text-body-md" data-path="blacklist-and-watchlist" href="#"><span class="material-symbols-outlined text-[19px]">gshield</span><span>Blacklist &amp; Watchlist</span></a></div><div class="space-y-1"><div class="px-3 pb-1 font-label-caps text-label-caps text-text-muted tracking-wider uppercase font-semibold">Surveillance &amp; IoT</div><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all font-body-md text-body-md" data-path="hikvision-hcp-feeds" href="#"><span class="material-symbols-outlined text-[19px]">videocam</span><span>Hikvision HCP Feeds</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all font-body-md text-body-md" data-path="perimeter-sensors" href="#"><span class="material-symbols-outlined text-[19px]">radar</span><span>Perimeter Sensors</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all font-body-md text-body-md" data-path="incident-dispatch" href="#"><span class="material-symbols-outlined text-[19px]">fmd_bad</span><span>Incident Dispatch</span></a></div><div class="space-y-1"><div class="px-3 pb-1 font-label-caps text-label-caps text-text-muted tracking-wider uppercase font-semibold">Governance &amp; Audit</div><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all font-body-md text-body-md" data-path="access-logs" href="#"><span class="material-symbols-outlined text-[19px]">history</span><span>Access Logs</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all font-body-md text-body-md" data-path="compliance-reports" href="#"><span class="material-symbols-outlined text-[19px]">verified</span><span>Compliance Reports</span></a><a class="flex items-center gap-3 px-3 py-2 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all font-body-md text-body-md" data-path="system-settings" href="#"><span class="material-symbols-outlined text-[19px]">tune</span><span>System Settings</span></a></div></nav></div></div><div class="h-16 px-space-md border-t border-border-hairline bg-surface-subtle flex items-center justify-between shrink-0"><div class="flex items-center gap-2"><span class="inline-block w-2 h-2 rounded-full bg-status-active"></span><div class="flex flex-col"><span class="font-label-sm text-label-sm text-text-primary font-medium leading-none">HCP Cluster: Connected</span><span class="font-label-sm text-label-sm text-text-muted leading-tight mt-0.5">Latency 24ms · 99.98%</span></div></div><button class="w-8 h-8 flex items-center justify-center rounded-lg text-text-muted hover:text-text-primary hover:bg-surface-card transition-colors" title="Collapse navigation" type="button"><span class="material-symbols-outlined text-lg">dock_to_left</span></button></div></aside><div class="pl-72 flex flex-col min-h-screen"><header class="fixed top-0 left-72 right-0 h-16 bg-surface-card border-b border-border-hairline z-40 px-gutter-desktop flex items-center justify-between shadow-[0_1px_4px_rgba(24,24,24,0.02)]"><div class="flex items-center gap-space-lg flex-1 max-w-2xl"><div class="relative w-full max-w-md"><div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-muted"><span class="material-symbols-outlined text-[18px]">search</span></div><input class="w-full h-10 pl-9 pr-14 bg-surface-subtle rounded-lg border border-border-hairline font-body-sm text-body-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all" placeholder="Search license plate, gate, sensor, resident..." type="search"/><div class="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none"><kbd class="font-label-sm text-label-sm text-text-muted bg-surface-card border border-border-hairline px-1.5 py-0.5 rounded shadow-sm">⌘K</kbd></div></div><div class="hidden xl:flex items-center gap-2 bg-surface-subtle border border-border-hairline rounded-lg px-3 py-1.5"><span class="material-symbols-outlined text-[18px] text-text-muted">location_city</span><select class="bg-transparent font-label-md text-label-md text-text-primary focus:outline-none cursor-pointer pr-2"><option>All Developments</option><option>Badya, Palm Hills October</option><option>Palm Hills New Cairo</option><option>Hacienda White &amp; Bay</option></select></div></div><div class="flex items-center gap-space-md shrink-0"><div class="hidden lg:flex items-center bg-surface-subtle p-0.5 rounded-lg border border-border-hairline"><button class="px-2.5 py-1 text-label-sm font-label-sm rounded-md bg-surface-card text-text-primary shadow-xs font-semibold" type="button">Live Ops</button><button class="px-2.5 py-1 text-label-sm font-label-sm rounded-md text-text-muted hover:text-text-primary transition-colors" type="button">Executive Audit</button><button class="px-2.5 py-1 text-label-sm font-label-sm rounded-md text-text-muted hover:text-text-primary transition-colors" type="button">Incident Command</button></div><div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-border-hairline bg-surface-subtle text-text-secondary"><span class="material-symbols-outlined text-[16px] text-primary">phone_in_talk</span><span class="font-label-sm text-label-sm font-semibold tracking-wide text-text-primary">19743</span></div><div class="hidden md:flex items-center gap-2 px-2.5 py-1 rounded-lg bg-surface-subtle border border-border-hairline font-label-sm text-label-sm"><span class="w-2 h-2 rounded-full bg-status-active animate-pulse"></span><span class="text-text-secondary font-medium">HCP Live Sync</span></div><button class="text-label-sm font-label-sm font-semibold text-text-secondary hover:text-text-primary px-2 py-1 rounded border border-border-hairline bg-surface-card transition-colors" type="button">عربي</button><div class="relative"><button class="w-9 h-9 rounded-lg border border-border-hairline flex items-center justify-center text-text-secondary hover:text-text-primary hover:bg-surface-subtle transition-colors" type="button"><span class="material-symbols-outlined text-[20px]">notifications</span><span class="absolute top-1.5 right-1.5 w-2 h-2 bg-primary rounded-full ring-2 ring-surface-card"></span></button></div><div class="h-7 w-[1px] bg-border-hairline mx-1"></div><div class="flex items-center gap-3 pl-1"><img alt="Profile" class="w-8 h-8 rounded-full object-cover ring-1 ring-border-hairline" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCvrIQ7JQOOCxcGIr5sSSKum5ixbygAzSvmEHfEr_h-eSkDqoF3W0WTd01So2nze7V5fXs7ZWgXqjNlWQrb8F0EiSYgnntZ978_tEfhNvD5NzcM_EEQT1O64ZvLUO_X8VKRoVfuMj2GgH-EXx3eCxFbjPuWq5yPP9htX4uRkCtwH-_eo1CvrnGmzedaA7XEYxBq0UnjHKwRupuRe4yC3kARBjUNdwjeE9L_FHquAE0sNxAmZ_V0TLME"/><div class="hidden 2xl:flex flex-col text-left"><span class="font-label-md text-label-md text-text-primary font-semibold leading-tight">Tarek El-Mansoury</span><span class="font-label-sm text-label-sm text-text-muted leading-tight">Head of Compound Security &amp; Access</span></div></div></div></header><main class="relative pt-16 bg-surface-canvas min-h-screen w-full px-gutter-desktop py-space-lg"><div class="flex flex-col w-full space-y-space-lg">
+<!-- Breadcrumbs & Executive Operational Header -->
+<section class="flex flex-col gap-space-sm">
+<nav class="flex items-center gap-2 font-label-sm text-label-sm text-text-muted">
+<span class="hover:text-text-primary transition-colors cursor-pointer">Palm Hills Operations</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="hover:text-text-primary transition-colors cursor-pointer">Access &amp; Mobility</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-text-primary font-semibold">Registered Vehicles &amp; ANPR</span>
+</nav>
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md pt-1">
+<div class="space-y-1 max-w-4xl">
+<div class="flex items-center gap-3">
+<h1 class="font-headline-lg text-headline-lg text-text-primary font-bold tracking-tight">Vehicles &amp; ANPR Intelligence</h1>
+<span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-surface-subtle text-text-secondary font-label-caps text-label-caps uppercase shadow-xs">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active"></span>
+            HCP Core Online
+          </span>
+</div>
+<p class="font-body-md text-body-md text-text-secondary leading-relaxed">
+          Real-time monitoring, Hikvision HCP automated license plate recognition, resident vehicle registry, and gate access authorizations across Palm Hills communities.
+        </p>
+</div>
+<!-- Action Cluster -->
+<div class="flex items-center flex-wrap gap-2.5 shrink-0">
+<button class="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-surface-card hover:bg-surface-subtle text-text-primary font-label-md text-label-md shadow-sm transition-all" title="Synchronize Hikvision HCP Feeds" type="button">
+<span class="material-symbols-outlined text-[18px] text-text-secondary">sync</span>
+<span>Sync HCP Feeds</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-surface-card hover:bg-surface-subtle text-text-primary font-label-md text-label-md shadow-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[18px] text-text-secondary">file_download</span>
+<span>Export Report</span>
+</button>
+<button class="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-lg bg-surface-card hover:bg-surface-subtle text-text-primary font-label-md text-label-md shadow-sm transition-all" type="button">
+<span class="material-symbols-outlined text-[18px] text-text-secondary">fact_check</span>
+<span>Batch Audit</span>
+</button>
+<button class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-primary hover:bg-tertiary text-on-primary font-label-md text-label-md shadow-md transition-all active:scale-[0.98]" type="button">
+<span class="material-symbols-outlined text-[19px]">add</span>
+<span>Register New Vehicle</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Executive Architectural KPI Strip -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-space-md">
+<!-- Total Registered -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between pb-2">
+<span class="font-label-caps text-label-caps text-text-muted tracking-wider uppercase">Total Registered</span>
+<span class="w-1.5 h-1.5 bg-text-muted rounded-full"></span>
+</div>
+<div>
+<div class="font-display-lg text-display-lg text-text-primary tracking-tight font-bold">14,820</div>
+<div class="flex items-center gap-1.5 pt-1.5 font-label-sm text-label-sm text-text-secondary">
+<span class="text-status-active font-semibold flex items-center"><span class="material-symbols-outlined text-[15px]">trending_up</span> +4.2%</span>
+<span>MoM · 8 compounds</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-0.5 bg-surface-subtle group-hover:bg-text-primary transition-colors"></div>
+</div>
+<!-- Approved & Active -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between pb-2">
+<span class="font-label-caps text-label-caps text-text-muted tracking-wider uppercase">Approved &amp; Active</span>
+<span class="w-1.5 h-1.5 bg-status-active rounded-full"></span>
+</div>
+<div>
+<div class="font-display-lg text-display-lg text-text-primary tracking-tight font-bold">13,942</div>
+<div class="flex items-center gap-1.5 pt-1.5 font-label-sm text-label-sm text-text-secondary">
+<span class="font-medium text-text-primary">94.1%</span>
+<span>automated gate pass</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-0.5 bg-surface-subtle group-hover:bg-status-active transition-colors"></div>
+</div>
+<!-- Under Review / Verification -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between pb-2">
+<span class="font-label-caps text-label-caps text-text-muted tracking-wider uppercase">Under Review</span>
+<span class="w-1.5 h-1.5 bg-status-warning rounded-full"></span>
+</div>
+<div>
+<div class="font-display-lg text-display-lg text-text-primary tracking-tight font-bold">614</div>
+<div class="flex items-center gap-1.5 pt-1.5 font-label-sm text-label-sm">
+<span class="text-status-warning font-semibold">48 flagged</span>
+<span class="text-text-secondary">for manual audit</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-0.5 bg-surface-subtle group-hover:bg-status-warning transition-colors"></div>
+</div>
+<!-- Deactivated / Revoked -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between pb-2">
+<span class="font-label-caps text-label-caps text-text-muted tracking-wider uppercase">Deactivated / Expired</span>
+<span class="w-1.5 h-1.5 bg-text-muted rounded-full"></span>
+</div>
+<div>
+<div class="font-display-lg text-display-lg text-text-primary tracking-tight font-bold">264</div>
+<div class="flex items-center gap-1.5 pt-1.5 font-label-sm text-label-sm text-text-secondary">
+<span>Leases ended / tags revoked</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-0.5 bg-surface-subtle group-hover:bg-text-secondary transition-colors"></div>
+</div>
+<!-- ANPR Telemetry Today -->
+<div class="bg-surface-card rounded-xl p-space-lg shadow-sm flex flex-col justify-between relative overflow-hidden group hover:shadow-md transition-shadow">
+<div class="flex items-center justify-between pb-2">
+<span class="font-label-caps text-label-caps text-text-muted tracking-wider uppercase">Today's ANPR Reads</span>
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+</div>
+<div>
+<div class="font-display-lg text-display-lg text-text-primary tracking-tight font-bold">8,419</div>
+<div class="flex items-center gap-1.5 pt-1.5 font-label-sm text-label-sm text-text-secondary">
+<span class="text-status-active font-semibold">99.4%</span>
+<span>HCP dual-cam accuracy</span>
+</div>
+</div>
+<div class="absolute bottom-0 left-0 right-0 h-0.5 bg-surface-subtle group-hover:bg-primary transition-colors"></div>
+</div>
+</section>
+<!-- Coherent Operational Filter Bar -->
+<section class="bg-surface-card rounded-xl shadow-sm p-4 space-y-3">
+<div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-12 gap-3 items-center">
+<!-- Search Input -->
+<div class="xl:col-span-4 relative">
+<span class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-text-muted">
+<span class="material-symbols-outlined text-[19px]">search</span>
+</span>
+<input class="w-full h-10 pl-10 pr-4 bg-surface-subtle rounded-lg font-body-sm text-body-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-1 focus:ring-primary transition-all" placeholder="Search plate (Arabic/EN), RFID tag, resident name, or unit #..." type="search"/>
+</div>
+<!-- Compound Selector -->
+<div class="xl:col-span-2 relative">
+<select class="w-full h-10 px-3 bg-surface-subtle rounded-lg font-label-md text-label-md text-text-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all cursor-pointer">
+<option>All Palm Hills Compounds</option>
+<option>Badya October</option>
+<option>Palm Hills October</option>
+<option>Palm Hills New Cairo</option>
+<option>The Crown</option>
+<option>Golf Views</option>
+<option>Woodville</option>
+<option>Hacienda Bay &amp; White</option>
+</select>
+</div>
+<!-- Status Filter -->
+<div class="xl:col-span-2 relative">
+<select class="w-full h-10 px-3 bg-surface-subtle rounded-lg font-label-md text-label-md text-text-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all cursor-pointer">
+<option>Status: All Statuses</option>
+<option>Approved (13,942)</option>
+<option>Under Review (614)</option>
+<option>Deactivated (264)</option>
+<option>Watchlist Flagged (12)</option>
+</select>
+</div>
+<!-- Vehicle Category -->
+<div class="xl:col-span-2 relative">
+<select class="w-full h-10 px-3 bg-surface-subtle rounded-lg font-label-md text-label-md text-text-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all cursor-pointer">
+<option>Category: All Vehicles</option>
+<option>Resident Primary</option>
+<option>Resident Family</option>
+<option>Long-Term Tenant</option>
+<option>VIP / Executive</option>
+<option>Contractor / Fleet</option>
+</select>
+</div>
+<!-- Entry Gate Selector -->
+<div class="xl:col-span-2 relative">
+<select class="w-full h-10 px-3 bg-surface-subtle rounded-lg font-label-md text-label-md text-text-primary focus:outline-none focus:ring-1 focus:ring-primary transition-all cursor-pointer">
+<option>Gate: All Portals</option>
+<option>Main Boulevard Gate 1</option>
+<option>Gate 2 (Residential)</option>
+<option>Gate 3 (Clubhouse &amp; Sports)</option>
+<option>West Perimeter Portal</option>
+<option>Service Gate C</option>
+</select>
+</div>
+</div>
+<!-- Secondary Filter Sub-Bar -->
+<div class="flex flex-wrap items-center justify-between gap-3 pt-2 text-text-secondary font-label-sm text-label-sm">
+<div class="flex items-center gap-4 flex-wrap">
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-surface-subtle text-text-primary">
+<span class="material-symbols-outlined text-[16px] text-text-muted">calendar_today</span>
+<span>Log Scope: <strong class="font-semibold">Today (Oct 24, 2024)</strong></span>
+</div>
+<div class="inline-flex items-center gap-2">
+<span class="text-text-muted">Applied:</span>
+<span class="inline-flex items-center gap-1 bg-surface-subtle text-text-primary px-2 py-0.5 rounded text-label-sm">
+            All Compounds
+            <button class="material-symbols-outlined text-[13px] hover:text-primary">close</button>
+</span>
+<span class="inline-flex items-center gap-1 bg-surface-subtle text-text-primary px-2 py-0.5 rounded text-label-sm">
+            Active HCP Feeds
+            <button class="material-symbols-outlined text-[13px] hover:text-primary">close</button>
+</span>
+<button class="text-text-muted hover:text-primary transition-colors underline decoration-dotted underline-offset-4">Reset Filters</button>
+</div>
+</div>
+<div class="flex items-center gap-3">
+<span class="font-label-caps text-label-caps tracking-wider text-text-muted uppercase">Showing 1–10 of 14,820 vehicles</span>
+<div class="flex items-center gap-1 bg-surface-subtle p-0.5 rounded">
+<button class="w-6 h-6 flex items-center justify-center rounded bg-surface-card text-text-primary shadow-xs">
+<span class="material-symbols-outlined text-[15px]">table_rows</span>
+</button>
+<button class="w-6 h-6 flex items-center justify-center rounded text-text-muted hover:text-text-primary transition-colors">
+<span class="material-symbols-outlined text-[15px]">grid_view</span>
+</button>
+</div>
+</div>
+</div>
+</section>
+<!-- Executive ANPR Telemetry Table -->
+<section class="bg-surface-card rounded-xl shadow-sm overflow-hidden flex flex-col">
+<div class="overflow-x-auto w-full">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-subtle font-label-caps text-label-caps text-text-secondary uppercase tracking-wider">
+<th class="py-3 pl-4 pr-2 w-10">
+<input class="rounded accent-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</th>
+<th class="py-3 px-3">License Plate (EG / ANPR)</th>
+<th class="py-3 px-3">Resident / Owner</th>
+<th class="py-3 px-3">Vehicle Specifications</th>
+<th class="py-3 px-3">Tag &amp; Authorization</th>
+<th class="py-3 px-3">Authorized Compound &amp; Gates</th>
+<th class="py-3 px-3">Last Recorded Passage (HCP)</th>
+<th class="py-3 px-3 text-center">Status</th>
+<th class="py-3 pr-4 pl-2 text-right">Actions</th>
+</tr>
+</thead>
+<tbody class="font-body-sm text-body-sm divide-y-0 text-text-primary">
+<!-- Row 1 -->
+<tr class="hover:bg-surface-canvas transition-colors group">
+<td class="py-3 pl-4 pr-2">
+<input class="rounded accent-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<a class="inline-flex items-center gap-1.5 text-text-primary group-hover:text-primary transition-colors font-semibold" href="#">
+<span class="font-mono tracking-wider">س ق ر ٨ ٩ ٤</span>
+<span class="text-text-muted">/</span>
+<span class="font-mono tracking-wider">SQR 894</span>
+<span class="material-symbols-outlined text-[14px] opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</a>
+<div class="font-label-sm text-label-sm text-text-muted">Giza Registered · Dual Plate Read</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<a class="block font-title-md text-title-md text-text-primary hover:text-primary transition-colors leading-snug" href="#">
+                Dr. Karim Mansour <span class="font-normal text-text-muted">/ د. كريم منصور</span>
+</a>
+<span class="font-label-sm text-label-sm text-text-secondary">Badya — District 4, Villa 112</span>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium text-text-primary">Porsche Cayenne (2023)</div>
+<div class="font-label-sm text-label-sm text-text-muted">Dolomite Silver Metallic · SUV</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-subtle font-mono text-label-sm text-text-secondary">
+<span class="material-symbols-outlined text-[14px] text-text-muted">contactless</span>
+                PHD-8829-UHF
+              </span>
+<div class="font-label-sm text-label-sm text-text-muted mt-0.5">Primary Pass · Auto-Barrier</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium text-text-primary">Badya Palm Hills</div>
+<div class="font-label-sm text-label-sm text-text-secondary">All Gates + Clubhouse Portal</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-1.5 font-medium text-text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active"></span>
+<span>Today, 14:22</span>
+</div>
+<div class="font-label-sm text-label-sm text-text-muted">Main Gate 1 · Inbound (Lane 2)</div>
+</td>
+<td class="py-3 px-3 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#f2f9f4] text-status-active font-label-caps text-label-caps uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active"></span>
+                Approved
+              </span>
+</td>
+<td class="py-3 pr-4 pl-2 text-right whitespace-nowrap">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Telemetry History">
+<span class="material-symbols-outlined text-[18px]">history</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Access Permissions">
+<span class="material-symbols-outlined text-[18px]">key</span>
+</button>
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Actions Menu">
+<span class="material-symbols-outlined text-[18px]">more_vert</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="bg-surface-card hover:bg-surface-canvas transition-colors group">
+<td class="py-3 pl-4 pr-2">
+<input class="rounded accent-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<a class="inline-flex items-center gap-1.5 text-text-primary group-hover:text-primary transition-colors font-semibold" href="#">
+<span class="font-mono tracking-wider">ن ص ر ٥ ٥ ٥</span>
+<span class="text-text-muted">/</span>
+<span class="font-mono tracking-wider">NSR 555</span>
+<span class="material-symbols-outlined text-[14px] opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</a>
+<div class="font-label-sm text-label-sm text-text-muted">Cairo Registered · Dual Plate Read</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<a class="block font-title-md text-title-md text-text-primary hover:text-primary transition-colors leading-snug" href="#">
+                Eng. Tarek Hegazy <span class="font-normal text-text-muted">/ م. طارق حجازي</span>
+</a>
+<span class="font-label-sm text-label-sm text-text-secondary">Palm Hills October — Bamboo, V-44</span>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium text-text-primary">Mercedes-Benz S580 (2024)</div>
+<div class="font-label-sm text-label-sm text-text-muted">Obsidian Black · Sedan</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-subtle font-mono text-label-sm text-text-secondary">
+<span class="material-symbols-outlined text-[14px] text-text-muted">contactless</span>
+                PHD-3041-UHF
+              </span>
+<div class="font-label-sm text-label-sm text-text-muted mt-0.5">VIP Priority · Fast Lane</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium text-text-primary">Palm Hills October</div>
+<div class="font-label-sm text-label-sm text-text-secondary">Gates 1, 3 &amp; VIP South Portal</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-1.5 font-medium text-text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active"></span>
+<span>Today, 13:05</span>
+</div>
+<div class="font-label-sm text-label-sm text-text-muted">West Gate · Outbound (Lane 1)</div>
+</td>
+<td class="py-3 px-3 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#f2f9f4] text-status-active font-label-caps text-label-caps uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active"></span>
+                Approved
+              </span>
+</td>
+<td class="py-3 pr-4 pl-2 text-right whitespace-nowrap">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Telemetry History"><span class="material-symbols-outlined text-[18px]">history</span></button>
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Access Permissions"><span class="material-symbols-outlined text-[18px]">key</span></button>
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Actions Menu"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 3: Flagged / Review item -->
+<tr class="bg-surface-card hover:bg-surface-canvas transition-colors group">
+<td class="py-3 pl-4 pr-2">
+<input class="rounded accent-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<a class="inline-flex items-center gap-1.5 text-text-primary group-hover:text-primary transition-colors font-semibold" href="#">
+<span class="font-mono tracking-wider">ق هـ د ٧ ٢ ١</span>
+<span class="text-text-muted">/</span>
+<span class="font-mono tracking-wider">QHD 721</span>
+<span class="material-symbols-outlined text-[14px] opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</a>
+<div class="font-label-sm text-label-sm text-text-muted">Alexandria · Tag Mismatch Flag</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<a class="block font-title-md text-title-md text-text-primary hover:text-primary transition-colors leading-snug" href="#">
+                Nouran Al-Alfy <span class="font-normal text-text-muted">/ نورهان الألفي</span>
+</a>
+<span class="font-label-sm text-label-sm text-text-secondary">The Crown — Street 8, Villa 7</span>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium text-text-primary">BMW X7 xDrive40i (2023)</div>
+<div class="font-label-sm text-label-sm text-text-muted">Mineral White · Luxury SUV</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#fdfbf2] text-status-warning font-mono text-label-sm">
+<span class="material-symbols-outlined text-[14px]">warning</span>
+                PHD-9912-UHF
+              </span>
+<div class="font-label-sm text-label-sm text-status-warning mt-0.5">Plate re-check required</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium text-text-primary">The Crown October</div>
+<div class="font-label-sm text-label-sm text-text-secondary">Gate 1 &amp; Residents South</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-1.5 font-medium text-text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-status-warning"></span>
+<span>Today, 11:48</span>
+</div>
+<div class="font-label-sm text-label-sm text-text-muted">Crown East Gate · Guard Overrode</div>
+</td>
+<td class="py-3 px-3 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#fdfbf2] text-status-warning font-label-caps text-label-caps uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-status-warning"></span>
+                Under Review
+              </span>
+</td>
+<td class="py-3 pr-4 pl-2 text-right whitespace-nowrap">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-subtle text-primary font-medium text-label-sm inline-flex items-center gap-0.5">
+                  Verify Now
+                </button>
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Actions Menu"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 4 -->
+<tr class="bg-surface-card hover:bg-surface-canvas transition-colors group">
+<td class="py-3 pl-4 pr-2">
+<input class="rounded accent-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<a class="inline-flex items-center gap-1.5 text-text-primary group-hover:text-primary transition-colors font-semibold" href="#">
+<span class="font-mono tracking-wider">أ ب ج ١ ٢ ٣</span>
+<span class="text-text-muted">/</span>
+<span class="font-mono tracking-wider">ABJ 123</span>
+<span class="material-symbols-outlined text-[14px] opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</a>
+<div class="font-label-sm text-label-sm text-text-muted">Cairo Registered · Dual ANPR Match</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<a class="block font-title-md text-title-md text-text-primary hover:text-primary transition-colors leading-snug" href="#">
+                Sherif Sabry <span class="font-normal text-text-muted">/ شريف صبري</span>
+</a>
+<span class="font-label-sm text-label-sm text-text-secondary">Palm Hills New Cairo — Phase 2, TW-08</span>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium text-text-primary">Range Rover Autobiography (2022)</div>
+<div class="font-label-sm text-label-sm text-text-muted">Carpathian Grey · Full Size</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-subtle font-mono text-label-sm text-text-secondary">
+<span class="material-symbols-outlined text-[14px] text-text-muted">contactless</span>
+                PHD-7123-UHF
+              </span>
+<div class="font-label-sm text-label-sm text-text-muted mt-0.5">Family Authorization #2</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium text-text-primary">Palm Hills New Cairo</div>
+<div class="font-label-sm text-label-sm text-text-secondary">Club Gate &amp; Ring Road Entry</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-1.5 font-medium text-text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active"></span>
+<span>Today, 10:14</span>
+</div>
+<div class="font-label-sm text-label-sm text-text-muted">North Gate · Inbound</div>
+</td>
+<td class="py-3 px-3 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#f2f9f4] text-status-active font-label-caps text-label-caps uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active"></span>
+                Approved
+              </span>
+</td>
+<td class="py-3 pr-4 pl-2 text-right whitespace-nowrap">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Telemetry History"><span class="material-symbols-outlined text-[18px]">history</span></button>
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Access Permissions"><span class="material-symbols-outlined text-[18px]">key</span></button>
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Actions Menu"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 5 -->
+<tr class="bg-surface-card hover:bg-surface-canvas transition-colors group">
+<td class="py-3 pl-4 pr-2">
+<input class="rounded accent-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<a class="inline-flex items-center gap-1.5 text-text-primary group-hover:text-primary transition-colors font-semibold" href="#">
+<span class="font-mono tracking-wider">س ع د ٤ ٠ ٩</span>
+<span class="text-text-muted">/</span>
+<span class="font-mono tracking-wider">SAD 409</span>
+<span class="material-symbols-outlined text-[14px] opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</a>
+<div class="font-label-sm text-label-sm text-text-muted">Giza Registered · Resident Pass</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<a class="block font-title-md text-title-md text-text-primary hover:text-primary transition-colors leading-snug" href="#">
+                Youssef El-Gammal <span class="font-normal text-text-muted">/ يوسف الجمال</span>
+</a>
+<span class="font-label-sm text-label-sm text-text-secondary">Golf Views — Fairway 12, Villa 04</span>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium text-text-primary">Audi Q8 S-Line (2023)</div>
+<div class="font-label-sm text-label-sm text-text-muted">Mythos Black Metallic · Coupe SUV</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-subtle font-mono text-label-sm text-text-secondary">
+<span class="material-symbols-outlined text-[14px] text-text-muted">contactless</span>
+                PHD-4418-UHF
+              </span>
+<div class="font-label-sm text-label-sm text-text-muted mt-0.5">Primary Pass · Automatic</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium text-text-primary">Golf Views &amp; Badya</div>
+<div class="font-label-sm text-label-sm text-text-secondary">Golf Portal &amp; Central Access</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-1.5 font-medium text-text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active"></span>
+<span>Today, 09:31</span>
+</div>
+<div class="font-label-sm text-label-sm text-text-muted">Golf Views Gate 2 · Outbound</div>
+</td>
+<td class="py-3 px-3 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#f2f9f4] text-status-active font-label-caps text-label-caps uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active"></span>
+                Approved
+              </span>
+</td>
+<td class="py-3 pr-4 pl-2 text-right whitespace-nowrap">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Telemetry History"><span class="material-symbols-outlined text-[18px]">history</span></button>
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Access Permissions"><span class="material-symbols-outlined text-[18px]">key</span></button>
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Actions Menu"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 6: Watchlist / Flagged -->
+<tr class="bg-surface-card hover:bg-surface-canvas transition-colors group">
+<td class="py-3 pl-4 pr-2">
+<input class="rounded accent-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<a class="inline-flex items-center gap-1.5 text-status-critical group-hover:text-primary transition-colors font-semibold" href="#">
+<span class="font-mono tracking-wider">ط ر ق ٩ ٦ ٢</span>
+<span class="text-text-muted">/</span>
+<span class="font-mono tracking-wider">TRQ 962</span>
+<span class="material-symbols-outlined text-[14px]">priority_high</span>
+</a>
+<div class="font-label-sm text-label-sm text-status-critical font-medium">Flagged: Unsettled Lease Incident</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<a class="block font-title-md text-title-md text-text-primary hover:text-primary transition-colors leading-snug" href="#">
+                Hossam El-Din Badr <span class="font-normal text-text-muted">/ حسام الدين بدر</span>
+</a>
+<span class="font-label-sm text-label-sm text-text-secondary">Woodville — Townhouse Cluster B</span>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium text-text-primary">BMW 530i M-Sport (2021)</div>
+<div class="font-label-sm text-label-sm text-text-muted">Phytonic Blue · Executive Sedan</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-[#fdf3f3] text-status-critical font-mono text-label-sm">
+<span class="material-symbols-outlined text-[14px]">block</span>
+                PHD-1102-REV
+              </span>
+<div class="font-label-sm text-label-sm text-status-critical mt-0.5">Barrier Intercept Mandatory</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium text-text-primary">Woodville Only</div>
+<div class="font-label-sm text-label-sm text-text-secondary">Gate 1 Hold-at-Barrier</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-1.5 font-medium text-status-critical">
+<span class="w-1.5 h-1.5 rounded-full bg-status-critical"></span>
+<span>Today, 08:12</span>
+</div>
+<div class="font-label-sm text-label-sm text-status-critical">Gate 1 Inbound · Denied at Barrier</div>
+</td>
+<td class="py-3 px-3 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#fdf3f3] text-status-critical font-label-caps text-label-caps uppercase font-semibold">
+<span class="w-1.5 h-1.5 rounded-full bg-status-critical"></span>
+                Watchlist Alert
+              </span>
+</td>
+<td class="py-3 pr-4 pl-2 text-right whitespace-nowrap">
+<div class="inline-flex items-center gap-1">
+<button class="px-2 py-1 rounded bg-[#fdf3f3] text-status-critical text-label-sm font-semibold hover:bg-status-critical hover:text-on-primary transition-colors">
+                  Incident Log
+                </button>
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Actions Menu"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 7 -->
+<tr class="bg-surface-card hover:bg-surface-canvas transition-colors group">
+<td class="py-3 pl-4 pr-2">
+<input class="rounded accent-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<a class="inline-flex items-center gap-1.5 text-text-primary group-hover:text-primary transition-colors font-semibold" href="#">
+<span class="font-mono tracking-wider">م هـ ر ٧ ٨ ٩</span>
+<span class="text-text-muted">/</span>
+<span class="font-mono tracking-wider">MHR 789</span>
+<span class="material-symbols-outlined text-[14px] opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</a>
+<div class="font-label-sm text-label-sm text-text-muted">Giza Registered · Fleet Delivery</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<a class="block font-title-md text-title-md text-text-primary hover:text-primary transition-colors leading-snug" href="#">
+                Palm Hills Facility Operations <span class="font-normal text-text-muted">/ قطاع التشغيل</span>
+</a>
+<span class="font-label-sm text-label-sm text-text-secondary">Central Facilities Hub — Fleet Bay 3</span>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium text-text-primary">Toyota Hilux 4x4 (2023)</div>
+<div class="font-label-sm text-label-sm text-text-muted">Super White · Maintenance Support</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-subtle font-mono text-label-sm text-text-secondary">
+<span class="material-symbols-outlined text-[14px] text-text-muted">contactless</span>
+                PHD-OPS-044
+              </span>
+<div class="font-label-sm text-label-sm text-text-muted mt-0.5">Commercial / Service Fleet</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium text-text-primary">All Palm Hills Communities</div>
+<div class="font-label-sm text-label-sm text-text-secondary">Service Gates &amp; Utility Portals</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-1.5 font-medium text-text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active"></span>
+<span>Today, 07:55</span>
+</div>
+<div class="font-label-sm text-label-sm text-text-muted">Badya Service Gate C · Inbound</div>
+</td>
+<td class="py-3 px-3 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#f2f9f4] text-status-active font-label-caps text-label-caps uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active"></span>
+                Approved
+              </span>
+</td>
+<td class="py-3 pr-4 pl-2 text-right whitespace-nowrap">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Telemetry History"><span class="material-symbols-outlined text-[18px]">history</span></button>
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Access Permissions"><span class="material-symbols-outlined text-[18px]">key</span></button>
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Actions Menu"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 8 -->
+<tr class="bg-surface-card hover:bg-surface-canvas transition-colors group">
+<td class="py-3 pl-4 pr-2">
+<input class="rounded accent-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<a class="inline-flex items-center gap-1.5 text-text-primary group-hover:text-primary transition-colors font-semibold" href="#">
+<span class="font-mono tracking-wider">و ل د ٣ ٤ ١</span>
+<span class="text-text-muted">/</span>
+<span class="font-mono tracking-wider">WLD 341</span>
+<span class="material-symbols-outlined text-[14px] opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</a>
+<div class="font-label-sm text-label-sm text-text-muted">Cairo Registered · Dual ANPR Match</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<a class="block font-title-md text-title-md text-text-primary hover:text-primary transition-colors leading-snug" href="#">
+                Laila Mostafa Choucri <span class="font-normal text-text-muted">/ ليلى مصطفى شكري</span>
+</a>
+<span class="font-label-sm text-label-sm text-text-secondary">Palm Hills October — Bamboo Ext, V-19</span>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium text-text-primary">Volvo XC90 Recharge (2024)</div>
+<div class="font-label-sm text-label-sm text-text-muted">Crystal White · Plug-in Hybrid</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-subtle font-mono text-label-sm text-text-secondary">
+<span class="material-symbols-outlined text-[14px] text-text-muted">contactless</span>
+                PHD-5509-UHF
+              </span>
+<div class="font-label-sm text-label-sm text-text-muted mt-0.5">Primary Pass · Auto-Barrier</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium text-text-primary">Palm Hills October</div>
+<div class="font-label-sm text-label-sm text-text-secondary">Gates 1, 2, 3 &amp; East Link</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-1.5 font-medium text-text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active"></span>
+<span>Yesterday, 22:40</span>
+</div>
+<div class="font-label-sm text-label-sm text-text-muted">Gate 2 · Inbound</div>
+</td>
+<td class="py-3 px-3 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#f2f9f4] text-status-active font-label-caps text-label-caps uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active"></span>
+                Approved
+              </span>
+</td>
+<td class="py-3 pr-4 pl-2 text-right whitespace-nowrap">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Telemetry History"><span class="material-symbols-outlined text-[18px]">history</span></button>
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Access Permissions"><span class="material-symbols-outlined text-[18px]">key</span></button>
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Actions Menu"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 9: Deactivated / Expired -->
+<tr class="bg-surface-card hover:bg-surface-canvas transition-colors group opacity-80">
+<td class="py-3 pl-4 pr-2">
+<input class="rounded accent-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<a class="inline-flex items-center gap-1.5 text-text-secondary group-hover:text-primary transition-colors font-medium" href="#">
+<span class="font-mono tracking-wider">ر م ز ٦ ١ ٥</span>
+<span class="text-text-muted">/</span>
+<span class="font-mono tracking-wider">RMZ 615</span>
+</a>
+<div class="font-label-sm text-label-sm text-text-muted">Lease Ended Sept 30, 2024</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<a class="block font-title-md text-title-md text-text-secondary hover:text-primary transition-colors leading-snug" href="#">
+                Ziad Abdel-Nour <span class="font-normal text-text-muted">/ زياد عبد النور</span>
+</a>
+<span class="font-label-sm text-label-sm text-text-muted">Badya — Apartment Complex 12B, #302</span>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium text-text-secondary">Alfa Romeo Stelvio (2022)</div>
+<div class="font-label-sm text-label-sm text-text-muted">Alfa Red · Crossover</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-subtle font-mono text-label-sm text-text-muted line-through">
+                PHD-2018-UHF
+              </span>
+<div class="font-label-sm text-label-sm text-text-muted mt-0.5">Tag Hardware Revoked</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium text-text-secondary">Badya (Historical)</div>
+<div class="font-label-sm text-label-sm text-text-muted">No Authorized Gates</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-1.5 font-medium text-text-muted">
+<span class="w-1.5 h-1.5 rounded-full bg-text-muted"></span>
+<span>Sep 29, 18:02</span>
+</div>
+<div class="font-label-sm text-label-sm text-text-muted">Badya Gate 3 · Final Outbound</div>
+</td>
+<td class="py-3 px-3 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-surface-subtle text-text-muted font-label-caps text-label-caps uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-text-muted"></span>
+                Deactivated
+              </span>
+</td>
+<td class="py-3 pr-4 pl-2 text-right whitespace-nowrap">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Reactivate Pass"><span class="material-symbols-outlined text-[18px]">published_with_changes</span></button>
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Actions Menu"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+<!-- Row 10 -->
+<tr class="bg-surface-card hover:bg-surface-canvas transition-colors group">
+<td class="py-3 pl-4 pr-2">
+<input class="rounded accent-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<a class="inline-flex items-center gap-1.5 text-text-primary group-hover:text-primary transition-colors font-semibold" href="#">
+<span class="font-mono tracking-wider">ف هـ د ٨ ١ ٠</span>
+<span class="text-text-muted">/</span>
+<span class="font-mono tracking-wider">FHD 810</span>
+<span class="material-symbols-outlined text-[14px] opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+</a>
+<div class="font-label-sm text-label-sm text-text-muted">Giza Registered · Dual ANPR Match</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<a class="block font-title-md text-title-md text-text-primary hover:text-primary transition-colors leading-snug" href="#">
+                Hatem Fahmy <span class="font-normal text-text-muted">/ حاتم فهمي</span>
+</a>
+<span class="font-label-sm text-label-sm text-text-secondary">Palm Hills October — Palm Valley, V-09</span>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium text-text-primary">Land Rover Defender 110 (2024)</div>
+<div class="font-label-sm text-label-sm text-text-muted">Gondwana Stone · 4WD</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-surface-subtle font-mono text-label-sm text-text-secondary">
+<span class="material-symbols-outlined text-[14px] text-text-muted">contactless</span>
+                PHD-6321-UHF
+              </span>
+<div class="font-label-sm text-label-sm text-text-muted mt-0.5">Resident Primary · Auto-Gate</div>
+</td>
+<td class="py-3 px-3">
+<div class="font-medium text-text-primary">Palm Hills October &amp; The Crown</div>
+<div class="font-label-sm text-label-sm text-text-secondary">Gate 1 &amp; Crown North Portal</div>
+</td>
+<td class="py-3 px-3 whitespace-nowrap">
+<div class="flex items-center gap-1.5 font-medium text-text-primary">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active"></span>
+<span>Yesterday, 19:15</span>
+</div>
+<div class="font-label-sm text-label-sm text-text-muted">Main Gate 1 · Inbound</div>
+</td>
+<td class="py-3 px-3 text-center whitespace-nowrap">
+<span class="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-[#f2f9f4] text-status-active font-label-caps text-label-caps uppercase">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active"></span>
+                Approved
+              </span>
+</td>
+<td class="py-3 pr-4 pl-2 text-right whitespace-nowrap">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Telemetry History"><span class="material-symbols-outlined text-[18px]">history</span></button>
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Access Permissions"><span class="material-symbols-outlined text-[18px]">key</span></button>
+<button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Actions Menu"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Architectural Pagination & Mass Action Footer -->
+<div class="p-4 bg-surface-subtle flex flex-col md:flex-row items-center justify-between gap-4">
+<div class="flex items-center gap-4 flex-wrap">
+<span class="font-label-sm text-label-sm text-text-secondary">
+          Showing <strong class="font-semibold text-text-primary">1 to 10</strong> of <strong class="font-semibold text-text-primary">14,820</strong> records
+        </span>
+<button class="text-text-secondary hover:text-primary font-label-sm text-label-sm transition-colors underline decoration-dotted underline-offset-4" type="button">
+          Select all 14,820 vehicles across all compounds
+        </button>
+</div>
+<div class="flex items-center gap-3">
+<div class="flex items-center gap-1.5 font-label-sm text-label-sm text-text-secondary">
+<span>Rows per page:</span>
+<select class="bg-surface-card rounded px-2 py-1 text-text-primary focus:outline-none cursor-pointer">
+<option>10</option>
+<option>25</option>
+<option>50</option>
+<option>100</option>
+</select>
+</div>
+<nav class="inline-flex items-center gap-1 font-label-sm text-label-sm">
+<button class="w-8 h-8 flex items-center justify-center rounded bg-surface-card hover:bg-surface-canvas text-text-secondary transition-colors" disabled="" title="Previous Page">
+<span class="material-symbols-outlined text-[17px]">chevron_left</span>
+</button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-on-primary font-semibold shadow-xs">1</button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-surface-card hover:bg-surface-canvas text-text-primary transition-colors">2</button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-surface-card hover:bg-surface-canvas text-text-primary transition-colors">3</button>
+<span class="px-1 text-text-muted">…</span>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-surface-card hover:bg-surface-canvas text-text-primary transition-colors">1482</button>
+<button class="w-8 h-8 flex items-center justify-center rounded bg-surface-card hover:bg-surface-canvas text-text-primary transition-colors" title="Next Page">
+<span class="material-symbols-outlined text-[17px]">chevron_right</span>
+</button>
+</nav>
+</div>
+</div>
+</section>
+<!-- Live ANPR Visual Verification Bar & Realtime Snapshot Gallery -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-space-md">
+<!-- Camera Stream 1: Badya Gate 1 -->
+<div class="bg-surface-card rounded-xl shadow-sm p-4 flex flex-col justify-between space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-active"></span>
+<span class="font-title-md text-title-md text-text-primary">Badya · Gate 1 ANPR-01</span>
+</div>
+<span class="font-mono text-label-sm text-text-muted">CAM-HCP-8841</span>
+</div>
+<div class="relative w-full h-44 rounded-lg overflow-hidden bg-surface-subtle group">
+<img class="w-full h-full object-cover" data-alt="High-resolution security surveillance view of a luxury modern community gate at Badya Palm Hills in Egypt, showing a sleek Porsche Cayenne passing through automated boom barrier with ANPR scanning visual overlay and green optical verification square." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsdKsVTSUgIOkY3vQWRvILJcvm0Vdphidkm0_kgG08ensP1DVtRM_XjBjHWTZ_f196xtFp1DpwLsh8Nay1M0kB1emITlaSfI9oqNy_qXGZbC85I9kLdy4AsoDDqvk3MeIL8f9TdMfNuvA86LbBfb3v5sLcTF9C1XMW9RJZdvv-Vsfb2LQTM0ouBBSHe2PK9JpXI_4qLXCKxe-kR1nVgQfoHwA2N7Hc7qgI2Z6sz0xu1ianNOwkzDEB"/>
+<div class="absolute inset-0 bg-gradient-to-t from-text-primary/80 via-transparent to-transparent flex flex-col justify-between p-3 pointer-events-none">
+<div class="flex items-center justify-between">
+<span class="bg-primary/90 text-on-primary font-label-caps text-label-caps px-2 py-0.5 rounded uppercase font-bold tracking-wider">LIVE 1080P</span>
+<span class="text-white font-mono text-label-sm">30 FPS · 4.2 Mbps</span>
+</div>
+<div class="flex items-center justify-between text-white font-mono text-label-sm">
+<span>س ق ر ٨ ٩ ٤ (99.8%)</span>
+<span class="text-[#8cd99f] font-semibold">BARRIER LIFTED</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between text-text-secondary font-label-sm text-label-sm pt-1">
+<span>Capture Latency: <strong class="text-text-primary font-semibold">18ms</strong></span>
+<button class="text-primary hover:underline font-medium">Enlarge Stream</button>
+</div>
+</div>
+<!-- Camera Stream 2: Palm Hills October Gate 3 -->
+<div class="bg-surface-card rounded-xl shadow-sm p-4 flex flex-col justify-between space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-active"></span>
+<span class="font-title-md text-title-md text-text-primary">October · West Gate VIP ANPR-03</span>
+</div>
+<span class="font-mono text-label-sm text-text-muted">CAM-HCP-1209</span>
+</div>
+<div class="relative w-full h-44 rounded-lg overflow-hidden bg-surface-subtle group">
+<img class="w-full h-full object-cover" data-alt="High-resolution surveillance camera capture of an upscale residential boulevard entry in Palm Hills October with palm trees and a black Mercedes-Benz S-Class sedan approaching the security lane under warm daylight." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAY7HGDf80floLwEEmZ587pfNcCvuGrJ3i2GMhZYatYwRyHrzClYIqSEvcl_tqh9AqlYun7euQBmUGDo1LacYCovgYT3PFFSyAvfPS5NHMBoNqGn3E-1PZQyUBzT0R784JsV5uHYgngxtbQ3UfNYzaQ71R3-l7lSmfmevB9E-qsGfDA2XE6oOPvA_0l9R1Bf8y3ao3_6A9ZTH8MpzmbnjkWOspm0Vs4bqwxXObM0kKXiaasRpUq0Eqf"/>
+<div class="absolute inset-0 bg-gradient-to-t from-text-primary/80 via-transparent to-transparent flex flex-col justify-between p-3 pointer-events-none">
+<div class="flex items-center justify-between">
+<span class="bg-primary/90 text-on-primary font-label-caps text-label-caps px-2 py-0.5 rounded uppercase font-bold tracking-wider">LIVE 1080P</span>
+<span class="text-white font-mono text-label-sm">30 FPS · 3.9 Mbps</span>
+</div>
+<div class="flex items-center justify-between text-white font-mono text-label-sm">
+<span>ن ص ر ٥ ٥ ٥ (99.6%)</span>
+<span class="text-[#8cd99f] font-semibold">FAST PASS VERIFIED</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between text-text-secondary font-label-sm text-label-sm pt-1">
+<span>Capture Latency: <strong class="text-text-primary font-semibold">22ms</strong></span>
+<button class="text-primary hover:underline font-medium">Enlarge Stream</button>
+</div>
+</div>
+<!-- Camera Stream 3: The Crown East Portal Incident Audit -->
+<div class="bg-surface-card rounded-xl shadow-sm p-4 flex flex-col justify-between space-y-3">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-warning"></span>
+<span class="font-title-md text-title-md text-text-primary">The Crown · East Portal ANPR-02</span>
+</div>
+<span class="font-mono text-label-sm text-text-muted">CAM-HCP-4033</span>
+</div>
+<div class="relative w-full h-44 rounded-lg overflow-hidden bg-surface-subtle group">
+<img class="w-full h-full object-cover" data-alt="Security camera telemetry snapshot showing the architectural guardhouse of The Crown by Palm Hills with a white luxury SUV stopped at the entry lane during a manual security check inspection." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAYqRsUOGRHXfS0d-ETb5vBjMOOCtGPnkfQx_dnzLDCsPDRmLQ4WqY3LLk0TF44B6vywyuSFOBPg3lW8JBtIo1rmKMWrDxRAinrmhm9WkhO-kHIYE4YWWSoXl6x09__LVzLPYSBGzF92SjPiTReXS4GzDMN-2jdxuWC6jbIaC5c32EowY8TuNKQX2JrYSK0z3G-OT9X5MkwHT5AmB8KF7T8RS9Y_LVvFXGt29irA-bIn5sqr76_8xtC"/>
+<div class="absolute inset-0 bg-gradient-to-t from-text-primary/80 via-transparent to-transparent flex flex-col justify-between p-3 pointer-events-none">
+<div class="flex items-center justify-between">
+<span class="bg-status-warning text-white font-label-caps text-label-caps px-2 py-0.5 rounded uppercase font-bold tracking-wider">AUDIT HOLD</span>
+<span class="text-white font-mono text-label-sm">Manual Gate Protocol</span>
+</div>
+<div class="flex items-center justify-between text-white font-mono text-label-sm">
+<span>ق هـ د ٧ ٢ ١ (96.4%)</span>
+<span class="text-amber-300 font-semibold">GUARD VERIFIED</span>
+</div>
+</div>
+</div>
+<div class="flex items-center justify-between text-text-secondary font-label-sm text-label-sm pt-1">
+<span>Audit Timestamp: <strong class="text-text-primary font-semibold">11:48:19 AM</strong></span>
+<button class="text-primary hover:underline font-medium">Review Incident</button>
+</div>
+</div>
+</section>
+</div>
+<script>
+  // Interactive micro-behavior for license plate quick-lookup & filter toggling
+  document.addEventListener('DOMContentLoaded', () => {
+    const searchInput = document.querySelector('input[type="search"]');
+    if (searchInput) {
+      searchInput.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter') {
+          console.log(`Executing ANPR query for: ${searchInput.value}`);
+        }
+      });
+    }
+  });
+</script></main></div></body></html>

@@ -1,0 +1,380 @@
+<!-- ==========================================================================
+     Palm Hills Executive Real Estate Intelligence — HTML Bootstrap
+     File: index.html
+     ========================================================================== -->
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Palm Hills Executive Real Estate Intelligence</title>
+  
+  <!-- Font Imports -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap&subset=ar" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap&subset=ar" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400..700,0..1,-50..200&display=swap" rel="stylesheet">
+
+  <!-- Core Stylesheet -->
+  <link rel="stylesheet" href="style.css" />
+  
+  <!-- Design Token Layer — Tailwind utilities mapped to the Palm Hills executive design system -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script id="tailwind-config">
+  tailwind.config = {
+  "darkMode": "class",
+  "theme": {
+    "extend": {
+      "colors": {
+        "secondary-container": "#e2dfde",
+        "primary": "#9b000e",
+        "inverse-on-surface": "#f4f0ed",
+        "on-tertiary": "#ffffff",
+        "surface-tint": "#bd0e18",
+        "on-secondary": "#ffffff",
+        "outline-variant": "#e5bdb9",
+        "on-secondary-fixed": "#1c1b1b",
+        "surface-container-highest": "#e6e2df",
+        "on-background": "#1c1b1a",
+        "background": "#fdf8f6",
+        "surface-variant": "#e6e2df",
+        "on-secondary-fixed-variant": "#474746",
+        "surface": "#fdf8f6",
+        "text-primary": "#181818",
+        "border-strong": "#D5D5D0",
+        "inverse-primary": "#ffb4ab",
+        "surface-container-lowest": "#ffffff",
+        "surface-container": "#f1edea",
+        "outline": "#906f6b",
+        "tertiary-container": "#bb2a29",
+        "on-error-container": "#93000a",
+        "text-secondary": "#666666",
+        "inverse-surface": "#31302f",
+        "surface-card": "#FFFFFF",
+        "on-tertiary-fixed": "#410003",
+        "surface-subtle": "#F5F5F3",
+        "border-hairline": "#EAEAE7",
+        "text-muted": "#8C8A87",
+        "secondary-fixed": "#e5e2e1",
+        "on-primary-fixed": "#93000c",
+        "tertiaryFixed": "#ffdad6",
+        "primary-fixed-dim": "#ffb4ab",
+        "tertiary": "#980c15",
+        "on-tertiary-fixed-variant": "#920411",
+        "tertiaryContainer": "#bb2a29",
+        "on-tertiary-container": "#ffd6d2",
+        "secondaryContainerFixed": "#e2dfde",
+        "secondaryFixed": "#e5e2e1",
+        "secondaryContainerHigh": "#e6e2df",
+        "secondaryContainerHighest": "#e6e2df",
+        "surfaceBright": "#fdf8f6",
+        "surfaceCanvas": "#FBFBF9",
+        "surfaceCard": "#FFFFFF",
+        "surfaceContainer": "#f1edea",
+        "surfaceContainerHigh": "#ebe7e5",
+        "surfaceContainerHighest": "#e6e2df",
+        "surfaceTint": "#bd0e18",
+        "surfaceVariant": "#e6e2df",
+        "surfaceSubtle": "#F5F5F3",
+        "surfaceContainerLowest": "#ffffff",
+        "primaryContainer": "#c4161c",
+        "primaryFixed": "#ffdad6",
+        "primaryFixedDim": "#ffb4ab",
+        "error": "#ba1a1a",
+        "errorContainer": "#ffdad6",
+        "statusActive": "#1E7E34",
+        "statusWarning": "#B8860B",
+        "statusCritical": "#B81D24",
+        "warning": "#B8860B",
+        "critical": "#B81D24",
+        "active": "#1E7E34",
+        "muted": "#8C8A87"
+      },
+      "borderRadius": {
+        "DEFAULT": "0.125rem",
+        "xs": "0.125rem",
+        "sm": "0.25rem",
+        "md": "0.375rem",
+        "lg": "0.5rem",
+        "xl": "0.75rem",
+        "2xl": "1rem",
+        "3xl": "1.5rem",
+        "full": "0.75rem"
+      },
+      "boxShadow": {
+        "DEFAULT": "0 1px 2px rgba(0, 0, 0, 0.06)",
+        "sm": "0 1px 2px rgba(0, 0, 0, 0.05)",
+        "xs": "0 1px 2px rgba(0, 0, 0, 0.06)",
+        "2xs": "0 1px 1px rgba(0, 0, 0, 0.04)",
+        "md": "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
+        "lg": "0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1)",
+        "xl": "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)",
+        "2xl": "0 25px 50px -12px rgba(0, 0, 0, 0.25)"
+      },
+      "fontFamily": {
+        "display-lg": [
+          "Montserrat"
+        ],
+        "label-caps": [
+          "Montserrat"
+        ],
+        "display-lg-mobile": [
+          "Montserrat"
+        ],
+        "body-sm": [
+          "Outfit"
+        ],
+        "label-md": [
+          "Outfit"
+        ],
+        "body-md": [
+          "Outfit"
+        ],
+        "headline-lg": [
+          "Montserrat"
+        ],
+        "title-md": [
+          "Outfit"
+        ],
+        "headline-sm": [
+          "Montserrat"
+        ],
+        "body-lg": [
+          "Outfit"
+        ],
+        "label-sm": [
+          "Outfit"
+        ],
+        "headline-md": [
+          "Montserrat"
+        ]
+      },
+      "fontSize": {
+        "display-lg": [
+          "40px",
+          {
+            "lineHeight": "48px",
+            "letterSpacing": "-0.02em",
+            "fontWeight": "700"
+          }
+        ],
+        "label-caps": [
+          "11px",
+          {
+            "lineHeight": "16px",
+            "letterSpacing": "0.12em",
+            "fontWeight": "700"
+          }
+        ],
+        "display-lg-mobile": [
+          "30px",
+          {
+            "lineHeight": "38px",
+            "letterSpacing": "-0.01em",
+            "fontWeight": "400"
+          }
+        ],
+        "body-sm": [
+          "12px",
+          {
+            "lineHeight": "18px",
+            "letterSpacing": "0.01em",
+            "fontWeight": "400"
+          }
+        ],
+        "label-md": [
+          "13px",
+          {
+            "lineHeight": "18px",
+            "letterSpacing": "0.02em",
+            "fontWeight": "500"
+          }
+        ],
+        "body-md": [
+          "14px",
+          {
+            "lineHeight": "20px",
+            "letterSpacing": "0.01em",
+            "fontWeight": "400"
+          }
+        ],
+        "headline-lg": [
+          "28px",
+          {
+            "lineHeight": "36px",
+            "letterSpacing": "-0.01em",
+            "fontWeight": "600"
+          }
+        ],
+        "title-md": [
+          "16px",
+          {
+            "lineHeight": "24px",
+            "letterSpacing": "0.02em",
+            "fontWeight": "600"
+          }
+        ],
+        "headline-sm": [
+          "18px",
+          {
+            "lineHeight": "26px",
+            "letterSpacing": "0.01em",
+            "fontWeight": "600"
+          }
+        ],
+        "body-lg": [
+          "16px",
+          {
+            "lineHeight": "24px",
+            "letterSpacing": "0.01em",
+            "fontWeight": "400"
+          }
+        ],
+        "label-sm": [
+          "11px",
+          {
+            "lineHeight": "16px",
+            "letterSpacing": "0.02em",
+            "fontWeight": "500"
+          }
+        ],
+        "headline-md": [
+          "22px",
+          {
+            "lineHeight": "30px",
+            "letterSpacing": "0.01em",
+            "fontWeight": "600"
+          }
+        ]
+      }
+    }
+  }
+};
+  </script></script>
+  <style>
+    /* Design base layer (executive vehicle access console) */
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+      main > :first-child { margin-top: 0 !important; }
+      main > :last-child { margin-bottom: 0 !important; }
+      ::-webkit-scrollbar { display: none; }
+      .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 350, 'GRAD' 0, 'opsz' 20; }
+    }
+  </style>
+  
+  <style>
+    /* Critical Shell Structure */
+    #root {
+      display: flex;
+      min-height: 100vh;
+      width: 100%;
+      background-color: var(--background);
+    }
+    
+    /* Left Sidebar (256px Fixed) */
+    #app-sidebar {
+      width: 256px;
+      min-width: 256px;
+      background-color: var(--surface-container-lowest);
+      border-right: 1px solid var(--hairline-divider);
+      display: flex;
+      flex-direction: column;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      z-index: 100;
+      overflow-y: auto;
+    }
+    
+    /* Topbar (66px Sticky) */
+    #app-topbar {
+      height: 66px;
+      background-color: var(--surface-container-lowest);
+      border-bottom: 1px solid var(--hairline-divider);
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+    }
+    
+    #app-main-viewport {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      background-color: var(--background);
+    }
+    
+    #content-container {
+      max-width: 1520px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 24px;
+      flex: 1;
+    }
+
+    /* Nav Item States */
+    .nav-item-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 16px;
+      margin: 2px 10px;
+      border-radius: var(--radius-default);
+      color: var(--secondary);
+      text-decoration: none;
+      font-size: 13.5px;
+      font-weight: 500;
+      transition: all 120ms ease;
+    }
+    .nav-item-link:hover {
+      background-color: var(--surface-subtle);
+      color: var(--primary-container);
+    }
+    .nav-item-link.active {
+      background-color: #ffdad6;
+      color: var(--primary-container);
+      font-weight: 600;
+    }
+    [data-theme="dark"] .nav-item-link.active {
+      background-color: rgba(196, 22, 28, 0.2);
+      color: #ffb4ab;
+    }
+    
+    .nav-group-header {
+      font-family: var(--font-display);
+      font-size: 10.5px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: #8c8885;
+      padding: 16px 20px 6px;
+    }
+  </style>
+</head>
+<body>
+  <!-- Master Application Mount Root -->
+  <div id="root">
+    <!-- Populated dynamically by app.js (renders either Login Screen or Dashboard Shell) -->
+  </div>
+
+  <!-- Global Slide-Out Detail Drawer Scrim & Panel -->
+  <div id="drawer-backdrop" class="drawer-backdrop"></div>
+  <div id="drawer-panel" class="drawer-panel">
+    <div id="drawer-content" style="height:100%; display:flex; flex-direction:column;"></div>
+  </div>
+
+  <!-- Global Notification Shelf -->
+  <div id="toast-shelf"></div>
+
+  <!-- Core Logic & Pages -->
+  <script src="app-pages.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

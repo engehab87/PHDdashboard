@@ -1,0 +1,795 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="web_dashboard" name="shell-type">
+<title>Palm Hills Executive Intelligence — Executive Overview</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&amp;family=Outfit:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<style>
+    @layer base {
+      html, body { margin: 0; padding: 0; }
+      body { overscroll-behavior: none; }
+    }
+    ::-webkit-scrollbar { display: none; }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 350, 'GRAD' 0, 'opsz' 20;
+    }
+    .material-symbols-filled {
+      font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+    }
+  </style>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            primary: "#c4161c",
+            "primary-dark": "#9b000e",
+            "primary-subtle": "#fdf1f1",
+            "surface-canvas": "#FBFBF9",
+            "surface-card": "#FFFFFF",
+            "surface-subtle": "#F6F5F2",
+            "border-hairline": "#ECEAE5",
+            "border-strong": "#D8D6D0",
+            "text-primary": "#1A1A1A",
+            "text-secondary": "#63615E",
+            "text-muted": "#8E8C88",
+            "status-active": "#1E7E34",
+            "status-warning": "#B8860B",
+            "status-critical": "#B81D24",
+            "warning-bg": "#FEF8EC",
+            "warning-border": "#F3E3B6",
+            "warning-text": "#7A5300"
+          },
+          fontFamily: {
+            sans: ["Outfit", "sans-serif"],
+            display: ["Montserrat", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          }
+        }
+      }
+    };
+  </script>
+</head>
+<body class="bg-surface-canvas font-sans text-text-primary antialiased selection:bg-primary/10 selection:text-primary">
+<!-- Left Sidebar (Accurate to IMAGE_2) -->
+<aside class="fixed left-0 top-0 h-full w-64 bg-surface-card border-r border-border-hairline z-50 flex flex-col justify-between shadow-[1px_0_10px_rgba(26,26,26,0.02)]">
+<div class="flex flex-col h-[calc(100%-5.5rem)]">
+<!-- Palm Hills Brand Header -->
+<div class="h-16 px-5 flex items-center border-b border-border-hairline bg-surface-card shrink-0">
+<!-- Palm Hills Official Geometric Red Mark -->
+<svg class="h-7 w-7 text-primary shrink-0" fill="currentColor" viewBox="0 0 100 100">
+<path d="M50 0 L75 25 L50 50 L25 25 Z" opacity="0.95"></path>
+<path d="M75 25 L100 50 L75 75 L50 50 Z" opacity="0.8"></path>
+<path d="M50 50 L75 75 L50 100 L25 75 Z" opacity="0.95"></path>
+<path d="M25 25 L50 50 L25 75 L0 50 Z" opacity="0.8"></path>
+</svg>
+<div class="ml-3 flex flex-col">
+<span class="font-display text-[15px] font-bold tracking-[0.14em] uppercase text-text-primary leading-tight">Palm Hills</span>
+<span class="font-display text-[9.5px] font-semibold tracking-[0.22em] text-text-muted uppercase leading-tight mt-0.5">Executive Intelligence</span>
+</div>
+</div>
+<!-- Navigation Tree matching IMAGE_2 -->
+<div class="flex-1 overflow-y-auto px-3.5 py-4 space-y-5">
+<!-- Operations Section -->
+<div class="space-y-0.5">
+<div class="px-3 pb-1.5 font-display text-[10px] font-bold tracking-[0.18em] text-text-muted uppercase">Operations</div>
+<!-- Executive Overview (Active) -->
+<a class="flex items-center gap-3 px-3 py-2 rounded-lg bg-surface-subtle text-primary font-medium text-[13px] border-l-[3px] border-primary -ml-[1px]" href="#">
+<span class="material-symbols-outlined text-[19px] text-primary">dashboard</span>
+<span class="font-semibold">Executive overview</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all text-[13px]" href="#">
+<span class="material-symbols-outlined text-[19px]">domain</span>
+<span class="">Units</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all text-[13px]" href="#">
+<span class="material-symbols-outlined text-[19px]">group</span>
+<span class="">Residents</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all text-[13px]" href="#">
+<span class="material-symbols-outlined text-[19px]">directions_car</span>
+<span class="">Vehicles</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all text-[13px]" href="#">
+<span class="material-symbols-outlined text-[19px]">toll</span>
+<span class="">Vehicle access</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all text-[13px]" href="#">
+<span class="material-symbols-outlined text-[19px]">badge</span>
+<span class="">Gate passes</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all text-[13px]" href="#">
+<span class="material-symbols-outlined text-[19px]">forward_to_inbox</span>
+<span class="">Invitations</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all text-[13px]" href="#">
+<span class="material-symbols-outlined text-[19px]">contact_emergency</span>
+<span class="">Visitors</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all text-[13px]" href="#">
+<span class="material-symbols-outlined text-[19px]">face_retouching_natural</span>
+<span class="">Face recognition</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all text-[13px]" href="#">
+<span class="material-symbols-outlined text-[19px]">fingerprint</span>
+<span class="">Identity matching</span>
+</a>
+</div>
+<!-- Governance Section -->
+<div class="space-y-0.5 pt-1">
+<div class="px-3 pb-1.5 font-display text-[10px] font-bold tracking-[0.18em] text-text-muted uppercase">Governance</div>
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all text-[13px]" href="#">
+<span class="material-symbols-outlined text-[19px]">verified</span>
+<span class="">Data quality</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all text-[13px]" href="#">
+<span class="material-symbols-outlined text-[19px]">publish</span>
+<span class="">Monthly imports</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all text-[13px]" href="#">
+<span class="material-symbols-outlined text-[19px]">router</span>
+<span class="">Compound Connectivity &amp; HCP</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-1.5 rounded-lg text-text-secondary hover:bg-surface-subtle hover:text-text-primary transition-all text-[13px]" href="#">
+<span class="material-symbols-outlined text-[19px]">settings</span>
+<span class="">Settings</span>
+</a>
+</div>
+</div>
+</div>
+<!-- Persistent Bottom Left User Card & System Telemetry -->
+<div class="border-t border-border-hairline bg-surface-card p-3 space-y-2 shrink-0">
+<div class="flex items-center justify-between px-1.5">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-status-active"></span>
+<span class="text-[11.5px] text-text-secondary font-medium">All systems operational</span>
+</div>
+<span class="text-[10.5px] text-text-muted">2 min ago</span>
+</div>
+<!-- HCP & CRM mini telemetry indicator -->
+<div class="px-1.5 py-1 bg-surface-subtle rounded text-[10.5px] text-text-secondary flex items-center justify-between">
+<span class="flex items-center gap-1 font-mono text-[10px]">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-status-active"></span>
+          HCP 18ms · CRM Sync OK
+        </span>
+<span class="font-display font-semibold text-[9.5px] tracking-wider text-text-muted uppercase">99.98%</span>
+</div>
+<!-- User Card (Mohamed Adel - Chief Operations Officer) -->
+<div class="flex flex-col gap-1.5 p-2 rounded-lg bg-surface-subtle/80 border border-border-hairline transition-colors"><div class="flex items-center justify-between"><div class="flex items-center gap-2.5 min-w-0"><div class="w-8 h-8 rounded-full bg-primary text-white font-display font-bold text-xs flex items-center justify-center shrink-0 shadow-xs">MA</div><div class="min-w-0 flex flex-col"><span class="text-[12.5px] font-semibold text-text-primary truncate">Mohamed Adel</span><span id="user-role-label" class="text-[11px] text-text-muted truncate">Group Chief Operations Officer</span></div></div><button class="p-1 rounded text-text-muted hover:text-text-primary transition-colors shrink-0" title="Sign out / Switch user"><span class="material-symbols-outlined text-[18px]">logout</span></button></div><div class="flex items-center justify-between pt-1 border-t border-border-hairline/60 text-[10px]"><span id="user-role-badge" class="px-1.5 py-0.5 rounded font-mono font-medium bg-primary/10 text-primary border border-primary/20">Super Admin • Full Privileges</span><span id="user-access-level" class="text-text-muted font-mono">Level 3 Root</span></div></div>
+</div>
+</aside>
+<!-- Main Content Wrapper -->
+<div class="pl-64 flex flex-col min-h-screen">
+<!-- Top Global Header -->
+<header class="fixed top-0 left-64 right-0 h-16 bg-surface-card border-b border-border-hairline z-40 px-8 flex items-center justify-between">
+<!-- Search Input -->
+<div class="relative w-full max-w-md">
+<div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-text-muted">
+<span class="material-symbols-outlined text-[18px]">search</span>
+</div>
+<input class="w-full h-9 pl-10 pr-14 bg-surface-subtle rounded-lg border border-transparent font-sans text-xs text-text-primary placeholder:text-text-muted focus:outline-none focus:border-border-strong focus:bg-white transition-all" placeholder="Search units, residents, vehicles..." type="search">
+<div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+<kbd class="font-mono text-[10px] text-text-muted bg-surface-card border border-border-hairline px-1.5 py-0.5 rounded shadow-xs">⌘ K</kbd>
+</div>
+</div>
+<!-- HCP & CRM Sync Controls & Utility Actions -->
+<div class="flex items-center gap-4 shrink-0">
+<!-- Live Sync Status Badges -->
+<div class="hidden xl:flex items-center gap-2 border-r border-border-hairline pr-4">
+<!-- HCP Cluster Sync Status -->
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-subtle hover:bg-border-hairline text-text-secondary text-[11.5px] transition-colors border border-border-hairline" title="Hikvision HCP live cluster sync (Portals, ANPR, Gateways)">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active animate-pulse"></span>
+<span class="font-medium text-text-primary">HCP Live Sync</span>
+<span class="text-text-muted text-[10px] font-mono">18ms</span>
+</button>
+<!-- CRM Data Sync Status -->
+<button class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-subtle hover:bg-border-hairline text-text-secondary text-[11.5px] transition-colors border border-border-hairline" title="Bi-directional Property CRM sync: 31,015 Units verified">
+<span class="material-symbols-outlined text-[14px] text-status-active">sync</span>
+<span class="font-medium text-text-primary">CRM Synced</span>
+<span class="text-text-muted text-[10px]">4m ago</span>
+</button>
+</div>
+<!-- Management / Operations Mode Pill (IMAGE_2) -->
+<div id="role-switcher-container" class="flex items-center bg-surface-subtle p-0.5 rounded-lg border border-border-hairline text-xs font-medium shadow-xs"><button id="btn-role-superadmin" data-role="superadmin" class="role-switch-btn px-2.5 py-1 rounded-md text-white bg-primary font-semibold shadow-xs transition-all flex items-center gap-1.5" type="button"><span class="w-1.5 h-1.5 rounded-full bg-white"></span><span class="">Super Admin</span></button><button id="btn-role-management" data-role="management" class="role-switch-btn px-2.5 py-1 rounded-md text-text-muted hover:text-text-primary transition-all flex items-center gap-1.5" type="button"><span class="w-1.5 h-1.5 rounded-full bg-transparent"></span><span class="">Management</span></button><button id="btn-role-operations" data-role="operations" class="role-switch-btn px-2.5 py-1 rounded-md text-text-muted hover:text-text-primary transition-all flex items-center gap-1.5" type="button"><span class="w-1.5 h-1.5 rounded-full bg-transparent"></span><span class="">Operations</span></button></div>
+<!-- Theme / Night Mode Toggle -->
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-text-muted hover:text-text-primary hover:bg-surface-subtle transition-colors" title="Toggle dark mode">
+<span class="material-symbols-outlined text-[19px]">dark_mode</span>
+</button>
+<!-- Official Support / Hotline -->
+<div class="hidden sm:flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-surface-subtle text-text-secondary text-xs">
+<span class="material-symbols-outlined text-[15px] text-primary">phone_in_talk</span>
+<span class="font-display font-semibold text-text-primary tracking-wide">19743</span>
+</div>
+<!-- Notification Bell with Counter -->
+<div class="relative">
+<button class="w-8 h-8 rounded-lg flex items-center justify-center text-text-muted hover:text-text-primary hover:bg-surface-subtle transition-colors">
+<span class="material-symbols-outlined text-[20px]">notifications</span>
+<span class="absolute top-1 right-1 w-4 h-4 bg-primary text-white text-[9px] font-display font-bold rounded-full flex items-center justify-center ring-2 ring-white">2</span>
+</button>
+</div>
+<!-- Profile Avatar Pill -->
+<div class="w-8 h-8 rounded-full bg-primary text-white font-display font-bold text-xs flex items-center justify-center shadow-xs cursor-pointer">
+          MA
+        </div>
+</div>
+</header>
+<!-- Main Body Container -->
+<main class="relative pt-20 px-8 pb-20 w-full space-y-6">
+<!-- Breadcrumbs & Page Header Section -->
+<section class="space-y-4">
+<!-- Breadcrumb matching IMAGE_2 -->
+<nav class="flex items-center gap-1.5 text-xs text-text-muted font-normal">
+<span class="">Intelligence</span>
+<span class="text-text-muted/60">&gt;</span>
+<span class="text-text-primary font-medium">Executive overview</span>
+</nav>
+<!-- Title, Subtitle, and Scope Toolbar -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 pt-1 pb-1">
+<div>
+<h1 class="font-display text-2xl font-bold text-text-primary tracking-tight">Executive overview</h1>
+<p class="text-xs text-text-secondary mt-0.5">A unified view of community performance and operational health.</p>
+</div>
+<!-- Compound Scope & Date Filters + Export Button -->
+<div class="flex items-center flex-wrap gap-2.5">
+<!-- Compound Selector Dropdown -->
+<div class="relative inline-flex items-center">
+<button class="h-9 pl-3 pr-8 bg-surface-card hover:bg-surface-subtle rounded-lg border border-border-hairline text-xs font-medium text-text-primary flex items-center gap-2 shadow-xs transition-colors">
+<span class="material-symbols-outlined text-[16px] text-text-muted">apartment</span>
+<span class="">All compounds</span>
+<span class="material-symbols-outlined text-[16px] text-text-muted absolute right-2.5 pointer-events-none">expand_more</span>
+</button>
+</div>
+<!-- Date Scope Selector -->
+<div class="relative inline-flex items-center">
+<button class="h-9 pl-3 pr-8 bg-surface-card hover:bg-surface-subtle rounded-lg border border-border-hairline text-xs font-medium text-text-primary flex items-center gap-2 shadow-xs transition-colors">
+<span class="material-symbols-outlined text-[16px] text-text-muted">calendar_today</span>
+<span class="">September 2026</span>
+<span class="material-symbols-outlined text-[16px] text-text-muted absolute right-2.5 pointer-events-none">expand_more</span>
+</button>
+</div>
+<!-- Palm Hills Red Export Button -->
+<button class="h-9 px-4 rounded-lg bg-primary hover:bg-primary-dark text-white text-xs font-semibold tracking-wide flex items-center gap-2 shadow-xs transition-colors" type="button">
+<span class="material-symbols-outlined text-[17px]">file_download</span>
+<span class="">Export report</span>
+</button>
+</div>
+</div>
+</section>
+<!-- Scope Context Strip (from IMAGE_2) -->
+<div class="flex items-center justify-between border-b border-border-hairline pb-3">
+<div class="flex items-center gap-2">
+<span class="font-display text-[13px] font-semibold text-text-primary">Executive overview</span>
+<span class="text-text-muted text-xs">·</span>
+<span class="text-xs text-text-muted">September 2026 · All compounds (Badya, October, The Crown, Golf Views, New Cairo)</span>
+</div>
+<div class="flex items-center gap-3 text-xs text-text-secondary">
+<span class="flex items-center gap-1.5">
+<span class="w-2 h-2 rounded-full bg-status-active"></span>
+            HCP Dual-Node Cluster Active
+          </span>
+<span class="text-text-muted">|</span>
+<span class="flex items-center gap-1.5">
+<span class="material-symbols-outlined text-[15px] text-text-muted">cloud_done</span>
+            Property CRM Synchronized
+          </span>
+</div>
+</div><div id="role-context-bar" class="flex items-center justify-between bg-surface-card border border-border-hairline rounded-lg px-4 py-2 text-xs shadow-xs"><div class="flex items-center gap-2.5"><span id="role-icon-indicator" class="material-symbols-outlined text-[18px] text-primary">admin_panel_settings</span><div><span id="role-title-banner" class="font-display font-bold text-text-primary text-[12.5px]">Active Context: Super Admin Mode</span><span class="text-text-muted mx-1.5">·</span><span id="role-desc-banner" class="text-text-secondary text-[11.5px]">Full governance, HikCentral cluster orchestration, biometrics schema &amp; CRM master reconciliation authorized.</span></div></div><div id="role-quick-actions" class="flex items-center gap-2"><span class="text-[11px] font-mono px-2 py-0.5 rounded bg-surface-subtle text-text-primary border border-border-hairline">Elevated Root Auth</span></div></div>
+<!-- CRITICAL REQUIREMENT 3: Elegant Warning Banners (Directly from IMAGE_2) -->
+<section class="space-y-2.5">
+<!-- Warning Banner 1 -->
+<div class="bg-warning-bg/90 border border-warning-border rounded-lg px-4 py-2.5 flex items-center justify-between shadow-xs">
+<div class="flex items-center gap-2.5 text-xs text-warning-text">
+<span class="material-symbols-outlined text-[17px] text-amber-700 shrink-0">warning</span>
+<span class="">Potentially incomplete dataset "Active Gate Passes 02-10-2026 13-38-00.xlsx": source returned exactly 100000 records (possible export limit).</span>
+</div>
+<button class="text-xs text-text-secondary hover:text-text-primary font-medium underline underline-offset-2 shrink-0 ml-4">
+            Dismiss
+          </button>
+</div>
+<!-- Warning Banner 2 -->
+<div class="bg-warning-bg/90 border border-warning-border rounded-lg px-4 py-2.5 flex items-center justify-between shadow-xs">
+<div class="flex items-center gap-2.5 text-xs text-warning-text">
+<span class="material-symbols-outlined text-[17px] text-amber-700 shrink-0">warning</span>
+<span class="">Potentially incomplete dataset "Entrance and Exit Retrieval_20261002122649.csv": source returned exactly 100000 records (possible export limit).</span>
+</div>
+<button class="text-xs text-text-secondary hover:text-text-primary font-medium underline underline-offset-2 shrink-0 ml-4">
+            Dismiss
+          </button>
+</div>
+<!-- Warning Banner 3 -->
+<div class="bg-warning-bg/90 border border-warning-border rounded-lg px-4 py-2.5 flex items-center justify-between shadow-xs">
+<div class="flex items-center gap-2.5 text-xs text-warning-text">
+<span class="material-symbols-outlined text-[17px] text-amber-700 shrink-0">warning</span>
+<span class="">Potentially incomplete dataset "Entrance and Exit Retrieval_20261002125636.xlsx": source returned exactly 100000 records (possible export limit).</span>
+</div>
+<button class="text-xs text-text-secondary hover:text-text-primary font-medium underline underline-offset-2 shrink-0 ml-4">
+            Dismiss
+          </button>
+</div>
+</section>
+<!-- CRITICAL REQUIREMENT 4: Metrics / KPI Grid (Exact metrics from IMAGE_2 with architectural refinement) -->
+<section class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+<!-- Card 1: Active Units -->
+<div class="bg-surface-card rounded-xl border border-border-hairline p-5 shadow-xs hover:border-border-strong transition-all flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-text-secondary">Active Units</span>
+<div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center text-text-secondary">
+<span class="material-symbols-outlined text-[18px]">apartment</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="font-display text-2xl font-bold tracking-tight text-text-primary">31,015</div>
+<div class="flex items-center gap-1.5 mt-1.5 text-[11.5px] text-text-muted">
+<span class="text-status-active font-semibold flex items-center">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +1.4%
+              </span>
+<span class="">vs last month · CRM Synced</span>
+</div>
+</div>
+</div>
+<!-- Card 2: Units With Users -->
+<div class="bg-surface-card rounded-xl border border-border-hairline p-5 shadow-xs hover:border-border-strong transition-all flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-text-secondary">Units With Users</span>
+<div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center text-text-secondary">
+<span class="material-symbols-outlined text-[18px]">home_app_logo</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="font-display text-2xl font-bold tracking-tight text-text-primary">8,117</div>
+<div class="flex items-center gap-1.5 mt-1.5 text-[11.5px] text-text-muted">
+<span class="font-medium text-text-primary">26.17%</span>
+<span class="">total community occupancy</span>
+</div>
+</div>
+</div>
+<!-- Card 3: Registration Coverage -->
+<div class="bg-surface-card rounded-xl border border-border-hairline p-5 shadow-xs hover:border-border-strong transition-all flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-text-secondary">Registration Coverage</span>
+<div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center text-text-secondary">
+<span class="material-symbols-outlined text-[18px]">pie_chart</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="font-display text-2xl font-bold tracking-tight text-text-primary">26.17%</div>
+<div class="flex items-center gap-1.5 mt-1.5 text-[11.5px] text-text-muted">
+<span class="text-status-active font-semibold flex items-center">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +3.1%
+              </span>
+<span class="">Target: 35.0% by Q4</span>
+</div>
+</div>
+</div>
+<!-- Card 4: Active Users -->
+<div class="bg-surface-card rounded-xl border border-border-hairline p-5 shadow-xs hover:border-border-strong transition-all flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-text-secondary">Active Users</span>
+<div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center text-text-secondary">
+<span class="material-symbols-outlined text-[18px]">person</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="font-display text-2xl font-bold tracking-tight text-text-primary">15,048</div>
+<div class="flex items-center gap-1.5 mt-1.5 text-[11.5px] text-text-muted">
+<span class="text-status-active font-semibold flex items-center">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +8.2%
+              </span>
+<span class="">MoM digital app users</span>
+</div>
+</div>
+</div>
+<!-- Card 5: Registered Vehicles -->
+<div class="bg-surface-card rounded-xl border border-border-hairline p-5 shadow-xs hover:border-border-strong transition-all flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-text-secondary">Registered Vehicles</span>
+<div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center text-text-secondary">
+<span class="material-symbols-outlined text-[18px]">directions_car</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="font-display text-2xl font-bold tracking-tight text-text-primary">2,059</div>
+<div class="flex items-center gap-1.5 mt-1.5 text-[11.5px] text-text-muted">
+<span class="text-status-active font-semibold">100% paired</span>
+<span class="">with Hikvision ANPR</span>
+</div>
+</div>
+</div>
+<!-- Card 6: Unique Vehicles Accessing -->
+<div class="bg-surface-card rounded-xl border border-border-hairline p-5 shadow-xs hover:border-border-strong transition-all flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-text-secondary">Unique Vehicles Accessing</span>
+<div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center text-text-secondary">
+<span class="material-symbols-outlined text-[18px]">commute</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="font-display text-2xl font-bold tracking-tight text-text-primary">21,972</div>
+<div class="flex items-center gap-1.5 mt-1.5 text-[11.5px] text-text-muted">
+<span class="">This month across 8 compounds</span>
+</div>
+</div>
+</div>
+<!-- Card 7: Vehicle Access Events -->
+<div class="bg-surface-card rounded-xl border border-border-hairline p-5 shadow-xs hover:border-border-strong transition-all flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-text-secondary">Vehicle Access Events</span>
+<div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center text-text-secondary">
+<span class="material-symbols-outlined text-[18px]">traffic</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="font-display text-2xl font-bold tracking-tight text-text-primary">147,500</div>
+<div class="flex items-center gap-1.5 mt-1.5 text-[11.5px] text-text-muted">
+<span class="font-medium text-text-primary">HCP telemetry</span>
+<span class="">· 0.02% error rate</span>
+</div>
+</div>
+</div>
+<!-- Card 8: Automatic Openings -->
+<div class="bg-surface-card rounded-xl border border-border-hairline p-5 shadow-xs hover:border-border-strong transition-all flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-text-secondary">Automatic Openings</span>
+<div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center text-text-secondary">
+<span class="material-symbols-outlined text-[18px]">gate</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="font-display text-2xl font-bold tracking-tight text-text-primary">2,123</div>
+<div class="flex items-center gap-1.5 mt-1.5 text-[11.5px] text-text-muted">
+<span class="text-status-active font-semibold">Fast-lane UHF</span>
+<span class="">barrier triggers</span>
+</div>
+</div>
+</div>
+<!-- Card 9: Unique Auto Vehicles -->
+<div class="bg-surface-card rounded-xl border border-border-hairline p-5 shadow-xs hover:border-border-strong transition-all flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-text-secondary">Unique Auto Vehicles</span>
+<div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center text-text-secondary">
+<span class="material-symbols-outlined text-[18px]">local_shipping</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="font-display text-2xl font-bold tracking-tight text-text-primary">76</div>
+<div class="flex items-center gap-1.5 mt-1.5 text-[11.5px] text-text-muted">
+<span class="">Palm Hills fleet &amp; service passes</span>
+</div>
+</div>
+</div>
+<!-- Card 10: Invitations Issued -->
+<div class="bg-surface-card rounded-xl border border-border-hairline p-5 shadow-xs hover:border-border-strong transition-all flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-text-secondary">Invitations</span>
+<div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center text-text-secondary">
+<span class="material-symbols-outlined text-[18px]">qr_code_2</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="font-display text-2xl font-bold tracking-tight text-text-primary">23,681</div>
+<div class="flex items-center gap-1.5 mt-1.5 text-[11.5px] text-text-muted">
+<span class="text-status-active font-semibold flex items-center">
+<span class="material-symbols-outlined text-[14px]">trending_up</span> +11.4%
+              </span>
+<span class="">Resident guest QR passes</span>
+</div>
+</div>
+</div>
+<!-- Card 11: Gate Passes Generated -->
+<div class="bg-surface-card rounded-xl border border-border-hairline p-5 shadow-xs hover:border-border-strong transition-all flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-text-secondary">Gate Passes</span>
+<div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center text-amber-700">
+<span class="material-symbols-outlined text-[18px]">warning</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="font-display text-2xl font-bold tracking-tight text-text-primary flex items-center gap-2">
+              100,000
+              <span class="text-[11px] font-mono px-1.5 py-0.5 rounded bg-warning-bg text-amber-800 border border-warning-border">LIMIT</span>
+</div>
+<div class="flex items-center gap-1.5 mt-1.5 text-[11.5px] text-text-muted">
+<span class="text-amber-700 font-semibold">Capped at 100k</span>
+<span class="">· Needs full database dump</span>
+</div>
+</div>
+</div>
+<!-- Card 12: Face Recognition Matches (HCP) -->
+<div class="bg-surface-card rounded-xl border border-border-hairline p-5 shadow-xs hover:border-border-strong transition-all flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-xs font-medium text-text-secondary">Face Recognition Matches</span>
+<div class="w-8 h-8 rounded-lg bg-surface-subtle flex items-center justify-center text-text-secondary">
+<span class="material-symbols-outlined text-[18px]">face</span>
+</div>
+</div>
+<div class="mt-3">
+<div class="font-display text-2xl font-bold tracking-tight text-text-primary">4,892</div>
+<div class="flex items-center gap-1.5 mt-1.5 text-[11.5px] text-text-muted">
+<span class="text-status-active font-semibold">99.8% precision</span>
+<span class="">Hikvision MinMoe Terminals</span>
+</div>
+</div>
+</div>
+</section>
+<!-- CRITICAL REQUIREMENT 5: HCP & CRM Live Intelligence Panels -->
+<section class="grid grid-cols-1 lg:grid-cols-3 gap-6 pt-2">
+<!-- Panel 1: HikCentral Professional (HCP) Gate Controllers & Edge Nodes -->
+<div class="bg-surface-card rounded-xl border border-border-hairline p-5 shadow-xs flex flex-col justify-between space-y-4">
+<div>
+<div class="flex items-center justify-between pb-3 border-b border-border-hairline">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-status-active"></span>
+<h3 class="font-display text-sm font-bold text-text-primary">HikCentral (HCP) Gate Topology</h3>
+</div>
+<span class="text-[11px] font-mono text-text-muted">56 Gates Online</span>
+</div>
+<!-- Compound Node List -->
+<div class="divide-y divide-border-hairline/60 text-xs">
+<!-- Badya -->
+<div class="py-2.5 flex items-center justify-between">
+<div>
+<div class="font-medium text-text-primary">Badya Palm Hills</div>
+<div class="text-[11px] text-text-muted">HCP Node A · 14 ANPR Lanes</div>
+</div>
+<div class="text-right">
+<span class="inline-flex items-center gap-1 text-status-active font-semibold text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active"></span> 100% Operational
+                  </span>
+<div class="text-[10px] font-mono text-text-muted">14ms ping</div>
+</div>
+</div>
+<!-- Palm Hills October -->
+<div class="py-2.5 flex items-center justify-between">
+<div>
+<div class="font-medium text-text-primary">Palm Hills October</div>
+<div class="text-[11px] text-text-muted">HCP Node B · 22 Gates &amp; Portals</div>
+</div>
+<div class="text-right">
+<span class="inline-flex items-center gap-1 text-status-active font-semibold text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active"></span> 99.4% Latency OK
+                  </span>
+<div class="text-[10px] font-mono text-text-muted">22ms ping</div>
+</div>
+</div>
+<!-- The Crown -->
+<div class="py-2.5 flex items-center justify-between">
+<div>
+<div class="font-medium text-text-primary">The Crown</div>
+<div class="text-[11px] text-text-muted">HCP Node C · 8 Executive Gates</div>
+</div>
+<div class="text-right">
+<span class="inline-flex items-center gap-1 text-status-active font-semibold text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active"></span> 100% Normal
+                  </span>
+<div class="text-[10px] font-mono text-text-muted">19ms ping</div>
+</div>
+</div>
+<!-- Golf Views & Woodville -->
+<div class="py-2.5 flex items-center justify-between">
+<div>
+<div class="font-medium text-text-primary">Golf Views &amp; Woodville</div>
+<div class="text-[11px] text-text-muted">HCP Node D · 12 Perimeter Portals</div>
+</div>
+<div class="text-right">
+<span class="inline-flex items-center gap-1 text-status-active font-semibold text-[11px]">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active"></span> 100% Normal
+                  </span>
+<div class="text-[10px] font-mono text-text-muted">17ms ping</div>
+</div>
+</div>
+</div>
+</div>
+<a class="inline-flex items-center justify-center gap-1.5 w-full py-2 rounded-lg bg-surface-subtle hover:bg-border-hairline text-text-primary text-xs font-semibold transition-colors" href="#">
+<span class="">Open HikCentral Cluster Manager</span>
+<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</a>
+</div>
+<!-- Panel 2: Real Estate CRM Sync Pipeline & Biometrics -->
+<div class="bg-surface-card rounded-xl border border-border-hairline p-5 shadow-xs flex flex-col justify-between space-y-4">
+<div>
+<div class="flex items-center justify-between pb-3 border-b border-border-hairline">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-primary">sync_saved_locally</span>
+<h3 class="font-display text-sm font-bold text-text-primary">Property CRM Data Pipeline</h3>
+</div>
+<span class="text-[11px] font-mono text-text-muted">Synced 4m ago</span>
+</div>
+<div class="py-3 space-y-3">
+<!-- Occupancy Bar -->
+<div>
+<div class="flex justify-between text-xs mb-1">
+<span class="text-text-secondary">Resident Unit Occupancy</span>
+<span class="font-semibold text-text-primary">8,117 / 31,015 (26.2%)</span>
+</div>
+<div class="w-full h-2 bg-surface-subtle rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full" style="width: 26.17%"></div>
+</div>
+</div>
+<!-- Biometric Match Readiness -->
+<div>
+<div class="flex justify-between text-xs mb-1">
+<span class="text-text-secondary">Enrolled Biometrics (Face / RFID)</span>
+<span class="font-semibold text-text-primary">15,048 Residents (68.4%)</span>
+</div>
+<div class="w-full h-2 bg-surface-subtle rounded-full overflow-hidden">
+<div class="h-full bg-status-active rounded-full" style="width: 68.4%"></div>
+</div>
+</div>
+<!-- CRM Contract Validations -->
+<div class="pt-2 grid grid-cols-2 gap-2 text-xs">
+<div class="p-2.5 rounded-lg bg-surface-subtle">
+<span class="text-text-muted block text-[10.5px]">Owner Contracts</span>
+<span class="font-display font-bold text-text-primary text-sm mt-0.5">24,890</span>
+<span class="text-[10px] text-status-active block mt-0.5">Verified clean</span>
+</div>
+<div class="p-2.5 rounded-lg bg-surface-subtle">
+<span class="text-text-muted block text-[10.5px]">Active Leases</span>
+<span class="font-display font-bold text-text-primary text-sm mt-0.5">6,125</span>
+<span class="text-[10px] text-text-muted block mt-0.5">Tenant gated access</span>
+</div>
+</div>
+</div>
+</div>
+<a class="inline-flex items-center justify-center gap-1.5 w-full py-2 rounded-lg bg-surface-subtle hover:bg-border-hairline text-text-primary text-xs font-semibold transition-colors" href="#">
+<span class="">Force CRM Reconciliation</span>
+<span class="material-symbols-outlined text-[15px]">refresh</span>
+</a>
+</div>
+<!-- Panel 3: Recent Operational Alerts & Anomalies -->
+<div class="bg-surface-card rounded-xl border border-border-hairline p-5 shadow-xs flex flex-col justify-between space-y-4">
+<div>
+<div class="flex items-center justify-between pb-3 border-b border-border-hairline">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px] text-amber-700">warning</span>
+<h3 class="font-display text-sm font-bold text-text-primary">Intelligence &amp; Anomaly Feed</h3>
+</div>
+<span class="text-[11px] font-mono text-status-critical font-medium">3 Actionable</span>
+</div>
+<div class="divide-y divide-border-hairline/60 text-xs">
+<!-- Item 1 -->
+<div class="py-2.5 flex items-start gap-2.5">
+<span class="w-1.5 h-1.5 rounded-full bg-status-critical mt-1.5 shrink-0"></span>
+<div class="min-w-0 flex-1">
+<div class="font-medium text-text-primary">Tag Mismatch Flag (Gate 1, The Crown)</div>
+<div class="text-[11px] text-text-muted">Plate QHD 721 paired with unverified UHF tag PHD-9912.</div>
+<div class="text-[10.5px] text-text-muted/80 mt-0.5">14 mins ago · Guard verified manually</div>
+</div>
+</div>
+<!-- Item 2 -->
+<div class="py-2.5 flex items-start gap-2.5">
+<span class="w-1.5 h-1.5 rounded-full bg-status-warning mt-1.5 shrink-0"></span>
+<div class="min-w-0 flex-1">
+<div class="font-medium text-text-primary">Gate Pass Export Truncation Warning</div>
+<div class="text-[11px] text-text-muted">100,000 threshold reached on monthly entrance logs.</div>
+<div class="text-[10.5px] text-text-muted/80 mt-0.5">38 mins ago · Storage volume normal</div>
+</div>
+</div>
+<!-- Item 3 -->
+<div class="py-2.5 flex items-start gap-2.5">
+<span class="w-1.5 h-1.5 rounded-full bg-status-active mt-1.5 shrink-0"></span>
+<div class="min-w-0 flex-1">
+<div class="font-medium text-text-primary">CRM Biometrics Batch Complete</div>
+<div class="text-[11px] text-text-muted">342 new resident profiles synced to Hikvision MinMoe hubs.</div>
+<div class="text-[10.5px] text-text-muted/80 mt-0.5">1 hour ago · Palm Hills October</div>
+</div>
+</div>
+</div>
+</div>
+<a class="inline-flex items-center justify-center gap-1.5 w-full py-2 rounded-lg bg-surface-subtle hover:bg-border-hairline text-text-primary text-xs font-semibold transition-colors" href="#">
+<span class="">View All Operational Logs</span>
+<span class="material-symbols-outlined text-[15px]">arrow_forward</span>
+</a>
+</div>
+</section>
+</main>
+</div>
+<!-- CRITICAL REQUIREMENT 6: Floating "Ask Palm AI" Assistant Pill (bottom right as seen in IMAGE_2) -->
+<aside aria-label="Palm Hills AI Assistant" class="fixed bottom-6 right-6 z-50">
+<button class="flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-primary hover:bg-primary-dark text-white shadow-[0_4px_16px_rgba(196,22,28,0.35)] transition-all transform hover:-translate-y-0.5 active:translate-y-0" type="button">
+<span class="material-symbols-outlined text-[19px]">auto_awesome</span>
+<span class="font-display text-xs font-bold tracking-wide">Ask Palm AI</span>
+</button>
+</aside>
+<script>
+    // Micro-interactions: Dismiss warning banners elegantly
+    document.addEventListener('DOMContentLoaded', () => {
+      document.querySelectorAll('.bg-warning-bg button').forEach(button => {
+        button.addEventListener('click', (e) => {
+          const banner = e.target.closest('.bg-warning-bg');
+          if (banner) {
+            banner.style.transition = 'all 0.25s ease';
+            banner.style.opacity = '0';
+            banner.style.transform = 'translateY(-6px)';
+            setTimeout(() => banner.remove(), 250);
+          }
+        });
+      });
+    });
+  </script>
+
+
+<script id="multi-role-controller">
+(function() {
+  const roleConfigs = {
+    superadmin: {
+      name: 'Super Admin',
+      badge: 'Super Admin • Full Privileges',
+      access: 'Level 3 Root',
+      userTitle: 'Group Chief Operations Officer',
+      icon: 'admin_panel_settings',
+      bannerTitle: 'Active Context: Super Admin Mode',
+      bannerDesc: 'Full governance, HikCentral cluster orchestration, biometrics schema & CRM master reconciliation authorized.',
+      quickPill: '<span class="text-[11px] font-mono px-2 py-0.5 rounded bg-primary/10 text-primary border border-primary/20 font-semibold">Root Security Active</span>'
+    },
+    management: {
+      name: 'Management',
+      badge: 'Management • Strategic Scope',
+      access: 'Level 2 Executive',
+      userTitle: 'Executive Director — Portfolio Strategy',
+      icon: 'insights',
+      bannerTitle: 'Active Context: Executive Management Mode',
+      bannerDesc: 'Executive KPIs, occupancy economics, anomaly intelligence, tenant lease oversight & consolidated reporting.',
+      quickPill: '<button class="text-[11px] font-sans font-semibold px-2 py-0.5 rounded bg-surface-subtle text-primary border border-primary/30 hover:bg-white transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-[13px]">download</span>Executive Summary PDF</button>'
+    },
+    operations: {
+      name: 'Operations',
+      badge: 'Operations • Field Command',
+      access: 'Level 1 Tactical',
+      userTitle: 'Central Operations Field Controller',
+      icon: 'security',
+      bannerTitle: 'Active Context: Central Operations & Gate Command',
+      bannerDesc: 'Real-time Hikvision ANPR streams, rapid barrier triggers, guest QR verification, and tactical gate overrides.',
+      quickPill: '<div class="flex items-center gap-1.5"><button class="text-[10.5px] font-semibold px-2 py-0.5 rounded bg-status-critical text-white hover:bg-status-critical/90 transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">emergency_home</span>Gate Override</button><button class="text-[10.5px] font-semibold px-2 py-0.5 rounded bg-surface-subtle text-text-primary border border-border-hairline hover:bg-white transition-colors flex items-center gap-1"><span class="material-symbols-outlined text-[12px]">videocam</span>ANPR Feeds</button></div>'
+    }
+  };
+
+  function setRole(roleKey) {
+    const config = roleConfigs[roleKey];
+    if (!config) return;
+
+    // Update pill group states
+    document.querySelectorAll('.role-switch-btn').forEach(btn => {
+      const isActive = btn.dataset.role === roleKey;
+      const dot = btn.querySelector('span:first-child');
+      if (isActive) {
+        btn.className = 'role-switch-btn px-2.5 py-1 rounded-md text-white bg-primary font-semibold shadow-xs transition-all flex items-center gap-1.5';
+        if (dot) dot.className = 'w-1.5 h-1.5 rounded-full bg-white';
+      } else {
+        btn.className = 'role-switch-btn px-2.5 py-1 rounded-md text-text-muted hover:text-text-primary transition-all flex items-center gap-1.5';
+        if (dot) dot.className = 'w-1.5 h-1.5 rounded-full bg-transparent';
+      }
+    });
+
+    // Update User Card in Sidebar
+    const labelElem = document.getElementById('user-role-label');
+    const badgeElem = document.getElementById('user-role-badge');
+    const accessElem = document.getElementById('user-access-level');
+    if (labelElem) labelElem.textContent = config.userTitle;
+    if (badgeElem) badgeElem.textContent = config.badge;
+    if (accessElem) accessElem.textContent = config.access;
+
+    // Update Role Context Banner
+    const iconElem = document.getElementById('role-icon-indicator');
+    const bannerTitle = document.getElementById('role-title-banner');
+    const bannerDesc = document.getElementById('role-desc-banner');
+    const quickActions = document.getElementById('role-quick-actions');
+    if (iconElem) iconElem.textContent = config.icon;
+    if (bannerTitle) bannerTitle.textContent = config.bannerTitle;
+    if (bannerDesc) bannerDesc.textContent = config.bannerDesc;
+    if (quickActions) quickActions.innerHTML = config.quickPill;
+  }
+
+  // Attach click listeners to role switch buttons
+  document.querySelectorAll('.role-switch-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const targetRole = e.currentTarget.dataset.role;
+      setRole(targetRole);
+    });
+  });
+})();
+</script></body></html>

@@ -1,0 +1,394 @@
+  // 3. VEHICLE ACCESS (HCP) — DESIGN: EXECUTIVE VEHICLE ACCESS CONSOLE
+  'vehicle-access': async function() {
+    const af = PalmApp.state.accessFilters || { direction: 'all', result: 'all', gate: 'all' };
+    const plateFilter = PalmApp.state.accessPlate || '';
+    const compound = PalmApp.state.selectedCompound || 'all';
+    const period = PalmApp.state.selectedPeriod || '';
+    const periodMeta = (PalmApp.state.periods || []).find(p => p.period_key === period) || null;
+    const from = PalmApp.state.accessFrom || (periodMeta ? periodMeta.period_start || '' : '');
+    const to = PalmApp.state.accessTo || (periodMeta ? periodMeta.period_end || '' : '');
+    const listParams = { period, compound, direction: af.direction, result: af.result, gate: af.gate, search: plateFilter || undefined, from: from || undefined, to: to || undefined };
+    let access = { rows: [], total: 0 };
+    try { access = await PalmApp.loadPagedList('access', '/api/access', listParams); } catch (e) { access = { rows: [], total: 0 }; }
+    const rows = access.rows || [];
+    const total = access.total != null ? access.total : rows.length;
+    const compounds = PalmApp.state.compounds || [];
+    const gateOpts = ['all', 'G1', 'G2', 'G3_1', 'G3_2', 'V1A_CH', 'V1B_CH'];
+    const gateLabels = { all: 'All gates', G1: 'G1 (Main Boulevard)', G2: 'G2 (Commercial)', G3_1: 'G3_1 (Service South)', G3_2: 'G3_2 (Service North)', V1A_CH: 'V1A_CH (Executive)', V1B_CH: 'V1B_CH (VIP North)' };
+    const resultOpts = ['all', 'PASS', 'NOT_PASSED'];
+    const resultLabels = { all: 'All results', PASS: 'Passed', NOT_PASSED: 'Not Passed' };
+    const dirOpts = ['all', 'ENTRY', 'EXIT'];
+    const dirLabels = { all: 'Entry+Exit', ENTRY: 'Entry Only', EXIT: 'Exit Only' };
+    const resPill = res => (/not\s*passed|fail|denied|rejected|hold|blocked/i.test(String(res || '')) ? 'critical' : (/pass|ok|approved|valid|success|open/i.test(String(res || '')) ? 'operational' : 'neutral'));
+
+    let hourly = [];
+    let heatmap = [];
+    try { hourly = await PalmApp.loadAccessHourly({ period, compound }); } catch (e) { hourly = []; }
+    try { heatmap = await PalmApp.loadAccessHeatmap({ period, compound }); } catch (e) { heatmap = []; }
+    const hourMap = {};
+    (Array.isArray(hourly) ? hourly : []).forEach(x => { hourMap[String(x.hh).padStart(2, '0')] = x.v; });
+    const hourRows = [];
+    for (let h = 0; h < 24; h += 1) { const hh = String(h).padStart(2, '0'); hourRows.push({ hh, v: hourMap[hh] || 0 }); }
+    const maxHour = hourRows.reduce((m, r) => Math.max(m, r.v), 0);
+    const daysMap = {};
+    (Array.isArray(heatmap) ? heatmap : []).forEach(x => { const d = String(x.d); const hh = String(x.hh).padStart(2, '0'); if (!daysMap[d]) daysMap[d] = {}; daysMap[d][hh] = x.v; });
+    const heatDays = Object.keys(daysMap).sort();
+    const heatMax = (Array.isArray(heatmap) ? heatmap : []).reduce((m, x) => Math.max(m, x.v), 0);
+
+    const hourBarHtml = hourRows.map(r => {
+      const w = maxHour > 0 ? (r.v / maxHour) * 100 : 0;
+      const alpha = maxHour > 0 ? Math.max(0.2, Math.min(1, 0.2 + 0.8 * (r.v / maxHour))) : 0.3;
+      const bg = 'rgba(155, 0, 14, ' + alpha.toFixed(3) + ')';
+      const label = String(r.hh).padStart(2, '0') + ':00';
+      const v = r.v;
+      return `
+<div class="flex items-center text-xs font-body-sm">
+  <span class="w-11 text-text-muted font-mono">${pEsc(label)}</span>
+  <div class="flex-1 bg-surface-subtle h-3 rounded-xs overflow-hidden mx-2 relative">
+    <div class="h-full rounded-xs" style="width: ${w}%; background: ${bg};"></div>
+  </div>
+  <span class="w-12 text-right font-mono text-text-secondary text-[11px]">${pFmt(v)}</span>
+</div>`;
+    }).join('');
+
+    const heatCell = (d, hh) => {
+      const v = (daysMap[d] || {})[hh] || 0;
+      let bg = 'transparent';
+      let fg = 'var(--text-secondary)';
+      if (v > 0) {
+        const t = heatMax > 0 ? v / heatMax : 0;
+        bg = t < 0.33 ? '#e2f0d9' : (t < 0.66 ? '#a8d08d' : '#548235');
+        fg = t < 0.66 ? '#1c1b1a' : '#ffffff';
+      }
+      return `<td class="py-2 px-1 text-center font-body-sm" style="background-color: ${bg}; color: ${fg};">${v > 0 ? String(v) : '—'}</td>`;
+    };
+    const heatRowHtml = heatDays.map(d => {
+      const cells = [];
+      for (let h = 0; h < 24; h += 1) cells.push(heatCell(d, String(h).padStart(2, '0')));
+      return `
+<tr class="hover:bg-surface-subtle/50 transition-colors">
+  <td class="py-2.5 pr-3 text-text-secondary font-semibold">${pEsc(d)}</td>
+  ${cells.join('')}
+</tr>`;
+    }).join('');
+
+    const gateSelect = (key, value, opts, labels) => `
+      <select class="w-full h-10 px-3 rounded-lg bg-surface-subtle border border-border-hairline font-label-md text-label-md text-text-primary appearance-none cursor-pointer focus:outline-none focus:border-primary" onchange="PalmApp.setAccessFilter('${key}', this.value)">
+        ${opts.map(o => `<option value="${pEsc(o)}" ${value === o ? 'selected' : ''}>${pEsc(labels[o] || o)}</option>`).join('')}
+      </select>`;
+    const compoundSelect = `
+      <select class="w-full h-10 pl-9 pr-8 rounded-lg bg-surface-subtle border border-border-hairline font-label-md text-label-md text-text-primary appearance-none cursor-pointer focus:outline-none focus:border-primary" onchange="PalmApp.selectCompound(this.value)">
+        <option value="all" ${compound === 'all' ? 'selected' : ''}>All compounds</option>
+        ${compounds.map(c => `<option value="${pEsc(c.name)}" ${compound === c.name ? 'selected' : ''}>${pEsc(c.name)}</option>`).join('')}
+      </select>
+      <span class="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none text-text-muted">
+        <span class="material-symbols-outlined text-[16px]">expand_more</span>
+      </span>`;
+
+    const rowsHtml = rows.map(r => {
+      const pill = resPill(r.result);
+      const flagged = String(r.result || '') === 'NOT_PASSED';
+      const ownerName = r.owner_matched || r.owner_raw || 'Unassigned Visitor';
+      const ownerArabic = r.owner_raw && r.owner_raw !== ownerName ? `<span class="font-normal text-text-muted"> / ${pEsc(r.owner_raw)}</span>` : '';
+      const ownerHref = (PalmApp.can('resident.detail') && r.owner_user_id) ? `href="#/resident-detail?id=${Number(r.owner_user_id)}"` : 'href="#"';
+      const ownerTarget = (PalmApp.can('resident.detail') && r.owner_user_id) ? ` onclick="PalmApp.openResidentPage(${Number(r.owner_user_id)}); return false;"` : '';
+      const ownerLink = flagged
+        ? `<a class="block font-title-md text-title-md text-text-primary hover:text-primary transition-colors leading-snug" ${ownerHref}${ownerTarget}>${pEsc(ownerName)}${ownerArabic}</a>`
+        : `<a class="block font-title-md text-title-md text-text-primary hover:text-primary transition-colors leading-snug" ${ownerHref}${ownerTarget}>${pEsc(ownerName)}</a>`;
+      const ownerSub = [r.compound, r.vehicle_list].filter(Boolean).join(' · ');
+      const actions = flagged
+        ? `<div class="flex items-center justify-end gap-2">
+            <button class="px-2 py-1 rounded bg-[#FDF3F3] text-status-critical text-label-sm font-semibold hover:bg-status-critical hover:text-on-primary transition-colors">${flagged && String(r.result || '') === 'NOT_PASSED' ? 'Verify Now' : 'Incident Log'}</button>
+            <button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Actions Menu"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+          </div>`
+        : `<div class="flex items-center justify-end gap-1">
+            <button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Telemetry History"><span class="material-symbols-outlined text-[18px]">history</span></button>
+            <button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Access Permissions"><span class="material-symbols-outlined text-[18px]">key</span></button>
+            <button class="p-1.5 rounded hover:bg-surface-subtle text-text-muted hover:text-text-primary transition-colors" title="Actions Menu"><span class="material-symbols-outlined text-[18px]">more_vert</span></button>
+          </div>`;
+      return `
+<tr class="hover:bg-surface-canvas transition-colors group">
+  <td class="py-3 pl-4 pr-2">
+    <input class="rounded accent-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+  </td>
+  <td class="py-3 px-3 whitespace-nowrap">
+    <a class="inline-flex items-center gap-1.5 text-text-primary group-hover:text-primary transition-colors font-semibold" href="#">
+      <span class="font-mono tracking-wider">${pEsc(r.plate)}</span>
+      <span class="text-text-muted">/</span>
+      <span class="font-mono tracking-wider">${pEsc(r.plate_normalized_latin || r.plate || '')}</span>
+      <span class="material-symbols-outlined text-[14px] opacity-0 group-hover:opacity-100 transition-opacity">arrow_forward</span>
+    </a>
+    <div class="font-label-sm text-label-sm text-text-muted">${pEsc(r.source_kind || 'HCP')}</div>
+  </td>
+  <td class="py-3 px-3">${pEsc(r.compound || '—')}</td>
+  <td class="py-3 px-3">
+    <span class="status-pill neutral">${pEsc(r.direction || '—')}</span>
+  </td>
+  <td class="py-3 px-3 font-mono">${pEsc(r.enter_time || '—')}</td>
+  <td class="py-3 px-3 font-mono">${pEsc(r.exit_time || '—')}</td>
+  <td class="py-3 px-3">${pEsc(r.gate || '—')}</td>
+  <td class="py-3 px-3">
+    <span class="status-pill ${pill}">${pEsc(r.result || '—')}</span>
+  </td>
+  <td class="py-3 px-4 text-text-secondary text-xs">${pEsc(r.reason || '—')}</td>
+  <td class="py-3 pr-4 pl-2 text-right">
+    <div>${ownerLink}</div>
+    ${ownerSub ? `<div class="font-label-sm text-label-sm text-text-secondary">${pEsc(ownerSub)}</div>` : ''}
+    <div class="mt-2 flex items-center justify-end gap-1">${actions}</div>
+  </td>
+</tr>`;
+    }).join('');
+
+    const firstIdx = rows.length ? (access.page - 1) * access.limit : 0;
+    const lastIdx = rows.length ? firstIdx + rows.length : 0;
+    const rangeText = rows.length ? `${pFmt(firstIdx + 1)}–${pFmt(lastIdx)}` : '0';
+
+    return `
+      <!-- Executive Header: breadcrumbs, title, live badge, subtitle + role switcher -->
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between pb-6 gap-4">
+        <div class="flex flex-col space-y-1">
+          <nav class="flex items-center gap-2 font-label-sm text-label-sm text-text-muted">
+            <span class="hover:text-text-primary transition-colors cursor-pointer">Executive Overview</span>
+            <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+            <span class="text-text-primary font-semibold">Vehicle Access</span>
+          </nav>
+          <div class="flex items-baseline gap-3">
+            <h1 class="font-headline-lg text-headline-lg text-text-primary tracking-tight font-bold">Vehicle Access (HCP)</h1>
+            <span class="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-status-active/10 text-status-active font-label-sm text-label-sm font-semibold">
+              <span class="w-1.5 h-1.5 rounded-full bg-status-active animate-pulse"></span>
+              Live Stream Active
+            </span>
+          </div>
+          <p class="font-body-md text-body-md text-text-secondary">
+            Entry/exit events — totals vs unique vehicles are reported separately across master-planned compounds.
+          </p>
+        </div>
+        <div class="flex items-center gap-3 self-start lg:self-center">
+          <div class="flex items-center bg-surface-card p-1 rounded-xl shadow-sm border border-border-hairline">
+            <button class="px-3 py-1.5 rounded-lg bg-primary text-on-primary font-label-md text-label-md font-semibold transition-all">Super Admin</button>
+            <button class="px-3 py-1.5 rounded-lg text-text-secondary hover:text-text-primary font-label-md text-label-md font-semibold transition-all">Management</button>
+            <button class="px-3 py-1.5 rounded-lg text-text-secondary hover:text-text-primary font-label-md text-label-md font-semibold transition-all">Operations</button>
+          </div>
+          <div class="hidden sm:flex items-center gap-2 px-3 py-2 bg-surface-card rounded-xl shadow-sm border border-border-hairline text-text-secondary">
+            <span class="material-symbols-outlined text-[18px] text-primary">sensors</span>
+            <span class="font-label-sm text-label-sm font-medium">HCP Artemis v4.8</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Primary Filter Bar -->
+      <div class="w-full bg-surface-card rounded-xl p-4 shadow-sm border border-border-hairline mb-6">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-3 items-center">
+          <div class="lg:col-span-3 relative">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-muted">
+              <span class="material-symbols-outlined text-[18px]">search</span>
+            </span>
+            <input class="w-full h-10 pl-9 pr-3 rounded-lg bg-surface-subtle border border-border-hairline font-body-sm text-body-sm text-text-primary placeholder:text-text-muted focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all" placeholder="Plate, QR token, or owner..." type="text" value="${pEsc(plateFilter)}" onchange="PalmApp.setAccessPlate(this.value)" />
+          </div>
+          <div class="lg:col-span-2 relative">
+            <span class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-text-muted">
+              <span class="material-symbols-outlined text-[18px]">apartment</span>
+            </span>
+            ${compoundSelect}
+          </div>
+          <div class="lg:col-span-1">
+            <select class="w-full h-10 px-3 rounded-lg bg-surface-subtle border border-border-hairline font-label-md text-label-md text-text-primary appearance-none cursor-pointer focus:outline-none focus:border-primary" onchange="PalmApp.setAccessFilter('direction', this.value)">
+              ${dirOpts.map(d => `<option value="${pEsc(d)}" ${af.direction === d ? 'selected' : ''}>${pEsc(dirLabels[d] || d)}</option>`).join('')}
+            </select>
+          </div>
+          <div class="lg:col-span-1">
+            <select class="w-full h-10 px-3 rounded-lg bg-surface-subtle border border-border-hairline font-label-md text-label-md text-text-primary appearance-none cursor-pointer focus:outline-none focus:border-primary" onchange="PalmApp.setAccessFilter('result', this.value)">
+              ${resultOpts.map(r => `<option value="${pEsc(r)}" ${af.result === r ? 'selected' : ''}>${pEsc(resultLabels[r] || r)}</option>`).join('')}
+            </select>
+          </div>
+          <div class="lg:col-span-1">
+            <select class="w-full h-10 px-3 rounded-lg bg-surface-subtle border border-border-hairline font-label-md text-label-md text-text-primary appearance-none cursor-pointer focus:outline-none focus:border-primary" onchange="PalmApp.setAccessFilter('gate', this.value)">
+              ${gateOpts.map(g => `<option value="${pEsc(g)}" ${af.gate === g ? 'selected' : ''}>${pEsc(gateLabels[g] || g)}</option>`).join('')}
+            </select>
+          </div>
+          <div class="lg:col-span-2 flex items-center gap-1.5">
+            <div class="relative flex-1">
+              <input class="w-full h-10 px-2 pl-7 rounded-lg bg-surface-subtle border border-border-hairline font-body-sm text-body-sm text-text-primary focus:outline-none focus:border-primary text-center" type="date" value="${pEsc(from)}" onchange="PalmApp.setAccessFrom(this.value)" />
+              <span class="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none text-text-muted">
+                <span class="material-symbols-outlined text-[15px]">calendar_today</span>
+              </span>
+            </div>
+            <span class="text-text-muted text-xs">→</span>
+            <div class="relative flex-1">
+              <input class="w-full h-10 px-2 pl-7 rounded-lg bg-surface-subtle border border-border-hairline font-body-sm text-body-sm text-text-primary focus:outline-none focus:border-primary text-center" type="date" value="${pEsc(to)}" onchange="PalmApp.setAccessTo(this.value)" />
+              <span class="absolute inset-y-0 left-0 pl-2 flex items-center pointer-events-none text-text-muted">
+                <span class="material-symbols-outlined text-[15px]">event</span>
+              </span>
+            </div>
+          </div>
+          <div class="lg:col-span-2 flex items-center gap-2 justify-end">
+            <button class="h-10 px-5 rounded-lg bg-primary hover:bg-[#820E13] text-on-primary font-label-md text-label-md font-semibold transition-all shadow-xs flex items-center gap-1.5" type="button" onclick="PalmApp.applyAccessFilters()">
+              <span class="material-symbols-outlined text-[16px]">tune</span>
+              Apply
+            </button>
+            <button class="h-10 px-3 rounded-lg text-text-secondary hover:text-text-primary font-label-md text-label-md font-semibold transition-colors hover:bg-surface-subtle" type="button" onclick="PalmApp.resetAccessFilters()">Reset</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Analytical Intelligence Grid: By Hour + Heatmap -->
+      <div class="grid grid-cols-1 xl:grid-cols-12 gap-6 mb-6">
+        <div class="xl:col-span-4 bg-surface-card rounded-xl p-5 shadow-sm border border-border-hairline flex flex-col justify-between">
+          <div class="flex items-center justify-between pb-3 border-b border-border-hairline mb-3">
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-xs bg-primary"></span>
+              <h2 class="font-headline-sm text-headline-sm text-text-primary font-bold">By Hour</h2>
+            </div>
+            <span class="font-label-caps text-label-caps text-text-muted uppercase">Distribution (24H)</span>
+          </div>
+          <p class="font-body-sm text-body-sm text-text-secondary mb-3">Concentration peaks at 08:00–12:00 morning residential exit &amp; 16:00–18:00 commuter return.</p>
+          <div class="flex-1 space-y-1.5 overflow-y-auto max-h-[380px] pr-2">
+${hourBarHtml}
+          </div>
+        </div>
+
+        <div class="xl:col-span-8 bg-surface-card rounded-xl p-5 shadow-sm border border-border-hairline flex flex-col justify-between">
+          <div class="flex items-center justify-between pb-3 border-b border-border-hairline mb-3">
+            <div class="flex items-center gap-2">
+              <span class="material-symbols-outlined text-[19px] text-primary">grid_view</span>
+              <h2 class="font-headline-sm text-headline-sm text-text-primary font-bold">Heatmap (Hour × Day)</h2>
+            </div>
+            <div class="flex items-center gap-3 font-label-sm text-label-sm text-text-muted">
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-xs bg-[#e2f0d9]"></span> Low</span>
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-xs bg-[#a8d08d]"></span> Med</span>
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-xs bg-[#548235]"></span> Peak Volume</span>
+            </div>
+          </div>
+          <div class="overflow-x-auto w-full pb-2">
+            <table class="w-full border-collapse text-left min-w-[760px]">
+              <thead>
+                <tr class="bg-surface-subtle text-text-secondary font-label-caps text-label-caps uppercase border-b border-border-strong tracking-wider">
+                  <th class="py-2 pr-3 font-bold">DAY</th>
+                  ${hourRows.map(h => `<th class="py-2 px-1 text-center font-bold">${pEsc(h.hh)}</th>`).join('')}
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-border-hairline font-body-sm text-body-sm">
+${heatRowHtml}
+              </tbody>
+            </table>
+          </div>
+          <div class="mt-3 pt-3 border-t border-border-hairline flex items-center justify-between text-xs text-text-muted">
+            <span>Heat cell opacity represents normalized 15-minute gate pulse frequency</span>
+            <button class="text-primary hover:underline font-medium inline-flex items-center gap-1" type="button" onclick="PalmApp.mountPage()">Full 30-Day Heat Analysis <span class="material-symbols-outlined text-[14px]">arrow_forward</span></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- High-Density Operational Records & Telemetry Table -->
+      <div class="w-full bg-surface-card rounded-xl shadow-sm border border-border-hairline mb-8 overflow-hidden flex flex-col">
+        <div class="p-4 px-5 border-b border-border-hairline flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-card">
+          <div class="flex items-center gap-3">
+            <span class="font-headline-sm text-headline-sm font-bold text-text-primary">${pFmt(total)} records</span>
+            <span class="text-text-muted font-body-sm text-body-sm">|</span>
+            <span class="font-body-sm text-body-sm text-text-secondary">Live Audit Trail (HCP Cluster Delta 0.8s)</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <button class="h-9 px-3 rounded-lg border border-border-hairline bg-surface-card hover:bg-surface-subtle text-text-primary font-label-md text-label-md font-medium transition-all shadow-2xs flex items-center gap-1.5" type="button" onclick="PalmApp.exportEntity('access', { period: period, compound: compound, direction: af.direction, result: af.result, gate: af.gate, from: from, to: to })">
+              <span class="material-symbols-outlined text-[16px] text-text-secondary">download</span>
+              Export current view (.xlsx)
+            </button>
+            <button class="h-9 px-3 rounded-lg border border-border-hairline bg-surface-card hover:bg-surface-subtle text-text-primary font-label-md text-label-md font-medium transition-all shadow-2xs flex items-center gap-1.5" type="button" onclick="PalmApp.exportEntity('access', { period: period, compound: compound })">
+              <span class="material-symbols-outlined text-[16px] text-text-secondary">table_view</span>
+              Export all matching (.xlsx)
+            </button>
+          </div>
+        </div>
+        <div class="overflow-x-auto w-full">
+          <table class="w-full text-left border-collapse min-w-[1040px]">
+            <thead>
+              <tr class="bg-surface-subtle text-text-secondary font-label-caps text-label-caps uppercase border-b border-border-strong tracking-wider">
+                <th class="py-3 pl-4 pr-2 w-10">
+                  <input class="rounded accent-primary w-4 h-4 cursor-pointer" type="checkbox"/>
+                </th>
+                <th class="py-3 px-3 font-bold">PLATE</th>
+                <th class="py-3 px-3 font-bold">COMPOUND</th>
+                <th class="py-3 px-3 font-bold">DIR</th>
+                <th class="py-3 px-3 font-bold">ENTER</th>
+                <th class="py-3 px-3 font-bold">EXIT</th>
+                <th class="py-3 px-3 font-bold">GATE</th>
+                <th class="py-3 px-3 font-bold">RESULT</th>
+                <th class="py-3 px-4 font-bold">REASON</th>
+                <th class="py-3 pr-4 pl-2 text-right font-bold">OWNER / IDENTITY</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-border-hairline font-body-sm text-body-sm">
+              ${rowsHtml}
+              ${rows.length === 0 ? `<tr><td colspan="10" style="text-align:center; color:var(--text-secondary); padding:32px;">No access events found for the selected reporting period and compound scope.</td></tr>` : ''}
+            </tbody>
+          </table>
+        </div>
+        <div class="p-4 px-5 border-t border-border-hairline flex flex-col sm:flex-row sm:items-center justify-between gap-3 bg-surface-card">
+          <div class="font-body-sm text-body-sm text-text-secondary">
+            Showing <span class="font-semibold text-text-primary">${pFmt(rangeText)}</span> of <span class="font-semibold text-text-primary">${pFmt(total)}</span> records
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="flex items-center gap-1.5 font-body-sm text-body-sm text-text-muted pl-2 border-l border-border-hairline">
+              <span>Rows:</span>
+              <select class="h-8 px-2 rounded bg-surface-subtle border border-border-hairline text-text-primary text-xs font-semibold focus:outline-none" onchange="PalmApp.setAccessPageSize(this.value)">
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+            </div>
+            <nav class="inline-flex items-center gap-1 font-label-sm text-label-sm">
+              <button class="w-8 h-8 flex items-center justify-center rounded bg-surface-card hover:bg-surface-canvas text-text-secondary transition-colors" disabled title="Previous Page" onclick="PalmApp.gotoAccessPrev()">
+                <span class="material-symbols-outlined text-[17px]">chevron_left</span>
+              </button>
+              <button class="w-8 h-8 flex items-center justify-center rounded bg-primary text-on-primary font-semibold shadow-xs">1</button>
+              <button class="w-8 h-8 flex items-center justify-center rounded bg-surface-card hover:bg-surface-subtle text-text-primary transition-colors">2</button>
+              <span class="px-1 text-text-muted text-xs">…</span>
+              <button class="w-8 h-8 flex items-center justify-center rounded bg-surface-card hover:bg-surface-subtle text-text-primary transition-colors">5900</button>
+              <button class="w-8 h-8 flex items-center justify-center rounded bg-surface-card hover:bg-surface-subtle text-text-primary transition-colors" title="Next Page" onclick="PalmApp.gotoAccessNext()">
+                <span class="material-symbols-outlined text-[17px]">chevron_right</span>
+              </button>
+            </nav>
+          </div>
+        </div>
+      </div>
+
+      <!-- Realtime Telemetry Bottom Panel: HCP Live Access Events -->
+      <div class="w-full bg-surface-card rounded-xl p-5 shadow-sm border border-border-hairline mb-12">
+        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-4 border-b border-border-hairline">
+          <div>
+            <div class="flex items-center gap-2">
+              <span class="w-2.5 h-2.5 rounded-full bg-primary animate-ping"></span>
+              <h3 class="font-headline-sm text-headline-sm text-text-primary font-bold">HCP Live Access Events</h3>
+            </div>
+            <p class="font-body-sm text-body-sm text-text-secondary mt-0.5">
+              Read-only vehicle access events retrieved from the HCP Artemis API — provenance: <span class="font-mono text-text-primary">live-hcp-gateway.palmhills</span>
+            </p>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="relative w-56">
+              <select class="w-full h-10 px-3 pl-8 rounded-lg bg-surface-subtle border border-border-hairline font-body-sm text-body-sm text-text-primary appearance-none cursor-pointer focus:outline-none focus:border-primary">
+                <option>All compounds</option>
+                ${compounds.map(c => `<option>${pEsc(c.name)}</option>`).join('')}
+              </select>
+              <span class="absolute inset-y-0 left-0 pl-2.5 flex items-center pointer-events-none text-text-muted">
+                <span class="material-symbols-outlined text-[17px]">domain</span>
+              </span>
+              <span class="absolute inset-y-0 right-0 pr-2.5 flex items-center pointer-events-none text-text-muted">
+                <span class="material-symbols-outlined text-[15px]">expand_more</span>
+              </span>
+            </div>
+            <button class="h-10 px-4 rounded-lg bg-primary hover:bg-[#820E13] text-on-primary font-label-md text-label-md font-semibold transition-all shadow-xs flex items-center gap-2" type="button" onclick="PalmApp.loadHcpLiveEvents(15)">
+              <span class="material-symbols-outlined text-[17px]">refresh</span>
+              Load HCP events
+            </button>
+          </div>
+        </div>
+        <div class="mt-4 p-8 rounded-lg bg-surface-subtle border border-dashed border-border-strong flex flex-col items-center justify-center text-center">
+          <div class="w-12 h-12 rounded-full bg-surface-card flex items-center justify-center text-text-muted shadow-2xs mb-3">
+            <span class="material-symbols-outlined text-[24px]">stream</span>
+          </div>
+          <p class="font-body-md text-body-md text-text-secondary font-medium">Select a compound to stream live HCP vehicle access events.</p>
+          <span class="font-label-sm text-label-sm text-text-muted mt-1">Socket pipeline ready · TLS 1.3 encrypted channel</span>
+        </div>
+      </div>
+    `;
+  },

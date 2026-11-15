@@ -1,0 +1,16 @@
+'use strict';
+const { db } = require('../backend/db');
+const q = (s, p) => db.prepare(s).get(...(p || []));
+console.log('units', q('SELECT COUNT(*) c FROM units').c);
+console.log('users active', q("SELECT COUNT(*) c FROM users WHERE status='Active'").c);
+console.log('units w/ active users', q("SELECT COUNT(DISTINCT unit_id) c FROM user_units WHERE status='Active'").c);
+console.log('hcp PASS', q("SELECT COUNT(*) c FROM hcp_vehicle_events WHERE result='PASS'").c);
+console.log('hcp uniq plates', q('SELECT COUNT(DISTINCT plate_normalized) c FROM hcp_vehicle_events WHERE plate_normalized IS NOT NULL').c);
+console.log('hcp uniq auto', q("SELECT COUNT(DISTINCT plate_normalized) c FROM hcp_vehicle_events WHERE result='PASS' AND plate_normalized IS NOT NULL").c);
+console.log('inv by status', JSON.stringify(db.prepare('SELECT status,COUNT(*) c FROM invitations GROUP BY status ORDER BY c DESC').all()));
+console.log('users by status', JSON.stringify(db.prepare('SELECT status,COUNT(*) c FROM users GROUP BY status').all()));
+console.log('users by reg', JSON.stringify(db.prepare('SELECT registered_as,COUNT(*) c FROM users GROUP BY registered_as ORDER BY c DESC').all()));
+console.log('gp by type', JSON.stringify(db.prepare('SELECT access_type,COUNT(*) c FROM gate_passes GROUP BY access_type').all()));
+console.log('compounds:', db.prepare('SELECT name FROM compounds ORDER BY name').all().map(r => r.name).join(' | '));
+console.log('top unit compounds:', JSON.stringify(db.prepare('SELECT c.name,COUNT(*) n FROM units u JOIN compounds c ON c.id=u.compound_id GROUP BY c.name ORDER BY n DESC LIMIT 8').all()));
+console.log('access compounds:', JSON.stringify(db.prepare('SELECT c.name,COUNT(*) n FROM user_units uu JOIN compounds c ON c.id=uu.compound_id GROUP BY c.name ORDER BY n DESC LIMIT 8').all()));

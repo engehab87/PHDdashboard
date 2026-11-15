@@ -1,0 +1,148 @@
+{
+  "ranAt": "2026-11-06T11:04:12.014Z",
+  "base": "http://localhost:2020",
+  "compounds": {},
+  "total": 23,
+  "passed": 14,
+  "failed": 9,
+  "results": [
+    {
+      "id": 1,
+      "scenario": "Anonymous GET /api/users",
+      "pass": true,
+      "detail": "status=401 code=UNAUTHENTICATED"
+    },
+    {
+      "id": 2,
+      "scenario": "Anonymous POST /api/admin/reset",
+      "pass": true,
+      "detail": "status=401 code=UNAUTHENTICATED"
+    },
+    {
+      "id": 3,
+      "scenario": "Top Management GET /api/users",
+      "pass": true,
+      "detail": "status=403 code=FORBIDDEN"
+    },
+    {
+      "id": 4,
+      "scenario": "Community Manager requests another compound",
+      "pass": false,
+      "detail": "compound=undefined status=404"
+    },
+    {
+      "id": 5,
+      "scenario": "Community Manager sees masked mobile/email",
+      "pass": false,
+      "detail": "status=404 rows=0 mobileMasked=false emailMasked=false"
+    },
+    {
+      "id": "5b",
+      "scenario": "Community Manager resident detail hides national ID",
+      "pass": false,
+      "detail": "no resident with mobile returned"
+    },
+    {
+      "id": 6,
+      "scenario": "Community Manager export is masked",
+      "pass": false,
+      "detail": "status=404 masked=false"
+    },
+    {
+      "id": 7,
+      "scenario": "Admin sees unmasked mobile",
+      "pass": false,
+      "detail": "status=200 sample=*** len=0"
+    },
+    {
+      "id": 8,
+      "scenario": "Community Admin matching permitted (validation response)",
+      "pass": true,
+      "detail": "status=400 code=VALIDATION_ERROR"
+    },
+    {
+      "id": 9,
+      "scenario": "Community Manager matching denied",
+      "pass": true,
+      "detail": "status=403 code=FORBIDDEN"
+    },
+    {
+      "id": 10,
+      "scenario": "Admin rollback authorized (confirmation still required)",
+      "pass": true,
+      "detail": "status=400 code=VALIDATION_ERROR"
+    },
+    {
+      "id": 11,
+      "scenario": "Community Admin reset denied",
+      "pass": true,
+      "detail": "status=403 code=FORBIDDEN"
+    },
+    {
+      "id": 12,
+      "scenario": "Super Admin reset authorized (confirmation still required)",
+      "pass": true,
+      "detail": "status=400 code=VALIDATION_ERROR"
+    },
+    {
+      "id": 13,
+      "scenario": "Cross-compound dashboard denied",
+      "pass": false,
+      "detail": "status=404"
+    },
+    {
+      "id": 14,
+      "scenario": "Cookie write without CSRF denied",
+      "pass": true,
+      "detail": "status=403 code=CSRF_FAILED"
+    },
+    {
+      "id": 15,
+      "scenario": "Repeated failed logins rate-limited",
+      "pass": true,
+      "detail": "lastStatus=429"
+    },
+    {
+      "id": 16,
+      "scenario": "Denial audit has actor role + correlation id",
+      "pass": true,
+      "detail": "denials=14 sample=permission.denied/Community Manager"
+    },
+    {
+      "id": 17,
+      "scenario": "Mode switch cannot change permissions (server has no mode input)",
+      "pass": true,
+      "detail": "permissions=25"
+    },
+    {
+      "id": 18,
+      "scenario": "Revoked session rejected",
+      "pass": true,
+      "detail": "status=401"
+    },
+    {
+      "id": "S1",
+      "scenario": "Community Manager compound list is scoped",
+      "pass": false,
+      "detail": "compounds="
+    },
+    {
+      "id": "S2",
+      "scenario": "Community Manager dashboard equals assigned compound",
+      "pass": false,
+      "detail": "dashboard=undefined expected=12382"
+    },
+    {
+      "id": "S3",
+      "scenario": "Community Manager comparison contains only assigned compounds",
+      "pass": false,
+      "detail": "rows="
+    },
+    {
+      "id": "S4",
+      "scenario": "Top Management has no resident owner names on vehicles",
+      "pass": true,
+      "detail": "rows=5"
+    }
+  ]
+}

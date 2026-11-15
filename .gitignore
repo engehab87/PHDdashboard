@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+
+# Environment
+.env
+
+# Database
+data/app.db
+data/app.db-wal
+data/app.db-shm
+data/uploads/
+data/raw/
+data/backups/
+data/*.log
+data/bootstrap-admin.txt
+data/bootstrap-admin.txt
+
+# Server logs
+server.err
+server.log
+
+# OS
+Thumbs.db
+.DS_Store
+
+# Temp
+__pycache__/
+*.tmp

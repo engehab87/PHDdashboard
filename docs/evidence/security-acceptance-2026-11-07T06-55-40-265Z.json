@@ -1,0 +1,151 @@
+{
+  "ranAt": "2026-11-07T06:55:40.266Z",
+  "base": "http://localhost:2020",
+  "compounds": {
+    "A": "Badya",
+    "B": "Palm Hills New Cairo"
+  },
+  "total": 23,
+  "passed": 23,
+  "failed": 0,
+  "results": [
+    {
+      "id": 1,
+      "scenario": "Anonymous GET /api/users",
+      "pass": true,
+      "detail": "status=401 code=UNAUTHENTICATED"
+    },
+    {
+      "id": 2,
+      "scenario": "Anonymous POST /api/admin/reset",
+      "pass": true,
+      "detail": "status=401 code=UNAUTHENTICATED"
+    },
+    {
+      "id": 3,
+      "scenario": "Top Management GET /api/users",
+      "pass": true,
+      "detail": "status=403 code=FORBIDDEN"
+    },
+    {
+      "id": 4,
+      "scenario": "Community Manager requests another compound",
+      "pass": true,
+      "detail": "compound=Palm Hills New Cairo status=403"
+    },
+    {
+      "id": 5,
+      "scenario": "Community Manager sees masked mobile/email",
+      "pass": true,
+      "detail": "status=200 rows=1 mobileMasked=true emailMasked=true"
+    },
+    {
+      "id": "5b",
+      "scenario": "Community Manager resident detail hides national ID",
+      "pass": true,
+      "detail": "status=200 nationalIdMasked=true mobileMasked=true"
+    },
+    {
+      "id": 6,
+      "scenario": "Community Manager export is masked",
+      "pass": true,
+      "detail": "status=200 rows=1 masked=true"
+    },
+    {
+      "id": 7,
+      "scenario": "Admin sees unmasked mobile/national ID",
+      "pass": true,
+      "detail": "status=200 mobileMatch=true nationalMatch=true"
+    },
+    {
+      "id": 8,
+      "scenario": "Community Admin matching permitted (validation response)",
+      "pass": true,
+      "detail": "status=400 code=VALIDATION_ERROR"
+    },
+    {
+      "id": 9,
+      "scenario": "Community Manager matching denied",
+      "pass": true,
+      "detail": "status=403 code=FORBIDDEN"
+    },
+    {
+      "id": 10,
+      "scenario": "Admin rollback authorized (confirmation still required)",
+      "pass": true,
+      "detail": "status=400 code=VALIDATION_ERROR"
+    },
+    {
+      "id": 11,
+      "scenario": "Community Admin reset denied",
+      "pass": true,
+      "detail": "status=403 code=FORBIDDEN"
+    },
+    {
+      "id": 12,
+      "scenario": "Super Admin reset authorized (confirmation still required)",
+      "pass": true,
+      "detail": "status=400 code=VALIDATION_ERROR"
+    },
+    {
+      "id": 13,
+      "scenario": "Cross-compound dashboard denied",
+      "pass": true,
+      "detail": "status=403"
+    },
+    {
+      "id": 14,
+      "scenario": "Cookie write without CSRF denied",
+      "pass": true,
+      "detail": "status=403 code=CSRF_FAILED"
+    },
+    {
+      "id": 15,
+      "scenario": "Repeated failed logins rate-limited",
+      "pass": true,
+      "detail": "lastStatus=429"
+    },
+    {
+      "id": 16,
+      "scenario": "Denial audit has actor role + correlation id",
+      "pass": true,
+      "detail": "denials=59 sample=permission.denied/Community Manager"
+    },
+    {
+      "id": 17,
+      "scenario": "Mode switch cannot change permissions (server has no mode input)",
+      "pass": true,
+      "detail": "permissions=25"
+    },
+    {
+      "id": 18,
+      "scenario": "Revoked session rejected",
+      "pass": true,
+      "detail": "status=401"
+    },
+    {
+      "id": "S1",
+      "scenario": "Community Manager compound list is scoped",
+      "pass": true,
+      "detail": "compounds=Badya"
+    },
+    {
+      "id": "S2",
+      "scenario": "Community Manager dashboard equals assigned compound",
+      "pass": true,
+      "detail": "dashboard=12382 expected=12382"
+    },
+    {
+      "id": "S3",
+      "scenario": "Community Manager comparison contains only assigned compounds",
+      "pass": true,
+      "detail": "rows=Badya"
+    },
+    {
+      "id": "S4",
+      "scenario": "Top Management has no resident owner names on vehicles",
+      "pass": true,
+      "detail": "rows=5"
+    }
+  ]
+}

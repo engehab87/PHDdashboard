@@ -1,0 +1,13 @@
+'use strict';
+const { computeDashboard, compareCompounds } = require('../backend/kpis');
+const { qualityReport } = require('../backend/quality');
+let t = Date.now();
+const step = n => { console.log(n, ((Date.now() - t) / 1000).toFixed(1) + 's'); t = Date.now(); };
+const d = computeDashboard('2026-09', 'all'); step('dashboard');
+const cmp = compareCompounds('2026-09'); step('compare');
+const q = qualityReport('2026-09'); step('quality');
+const XLSX = require('xlsx');
+const wb = XLSX.utils.book_new();
+XLSX.utils.book_append_sheet(wb, XLSX.utils.aoa_to_sheet([['a', 'b'], ...cmp.rows.map(r => [r.compound, r.activeUnits])]), 'x');
+const buf = XLSX.write(wb, { type: 'buffer', bookType: 'xlsx' });
+step('xlsx ' + buf.length);

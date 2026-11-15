@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Palm Hills — Executive Intelligence</title>
+    <link rel="icon" type="image/svg+xml" href="frontend/brand/favicon.svg" />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Outfit:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              primary: "#c4161c",
+              "primary-dark": "#9b000e",
+              "primary-subtle": "#fdf1f1",
+              "surface-canvas": "#FBFBF9",
+              "surface-card": "#FFFFFF",
+              "surface-subtle": "#F6F5F2",
+              "border-hairline": "#ECEAE5",
+              "border-strong": "#D8D6D0",
+              "text-primary": "#1A1A1A",
+              "text-secondary": "#63615E",
+              "text-muted": "#8E8C88",
+              "status-active": "#1E7E34",
+              "status-warning": "#B8860B",
+              "status-critical": "#B81D24",
+              "warning-bg": "#FEF8EC",
+              "warning-border": "#F3E3B6",
+              "warning-text": "#7A5300"
+            },
+            fontFamily: {
+              sans: ["Outfit", "sans-serif"],
+              display: ["Montserrat", "sans-serif"],
+              mono: ["JetBrains Mono", "monospace"]
+            },
+            fontSize: {
+              "label-caps": ["11px", { lineHeight: "16px", letterSpacing: "0.12em" }],
+              "label-md": ["13px", { lineHeight: "18px", letterSpacing: "0.02em" }],
+              "label-sm": ["11px", { lineHeight: "16px", letterSpacing: "0.02em" }],
+              "body-lg": ["16px", { lineHeight: "24px" }],
+              "body-md": ["14px", { lineHeight: "20px" }],
+              "body-sm": ["12px", { lineHeight: "18px" }],
+              "title-md": ["16px", { lineHeight: "24px", fontWeight: "600" }],
+              "headline-lg": ["28px", { lineHeight: "36px", fontWeight: "600", letterSpacing: "-0.01em" }],
+              "display-lg": ["40px", { lineHeight: "48px", fontWeight: "700", letterSpacing: "-0.02em" }]
+            },
+            borderRadius: {
+              sm: "0.125rem",
+              DEFAULT: "0.25rem",
+              md: "0.375rem",
+              lg: "0.5rem",
+              xl: "0.75rem",
+              full: "9999px"
+            },
+            spacing: {
+              "gutter": "1.25rem",
+              "gutter-desktop": "1.5rem",
+              "space-xs": "0.25rem",
+              "space-sm": "0.5rem",
+              "space-md": "1rem",
+              "space-lg": "1.5rem",
+              "space-xl": "2.25rem",
+              "space-2xl": "3.5rem"
+            }
+          }
+        }
+      };
+    </script>
+    <link rel="stylesheet" href="frontend/styles.css" />
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // Immediate inline render so the page is never blank while ES modules load.
+      document.body.innerHTML = '<div style="padding:60px 40px;font-family:Montserrat,sans-serif;color:#1a1a1a;text-align:center"><div style="width:40px;height:40px;border:3px solid #e0dfdf;border-top-color:#c4161c;border-radius:50%;animation:spin 0.7s linear infinite;margin:0 auto 20px"></div><div style="font-size:14px">Loading Palm Hills Executive Intelligence…</div><style>@keyframes spin{to{transform:rotate(360deg)}}</style></div>';
+    </script>
+    <script src="frontend/app.js"></script>
+    <script src="frontend/app-pages.js"></script>
+  </body>
+</html>
