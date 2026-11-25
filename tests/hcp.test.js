@@ -8,7 +8,7 @@ const assert = require('node:assert');
 process.env.HCP_VAULT_KEY = '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef';
 
 const { encrypt, decrypt, vaultAvailable, isVaultPayload } = require('../backend/hcp/crypto');
-const { resolveAdapter, ADAPTERS } = require('../backend/hcp/registry');
+const { resolveAdapter, matchAdapter, ADAPTERS } = require('../backend/hcp/registry');
 const { GenericAdapter, withRetry, paginateParams } = require('../backend/hcp/adapters/generic');
 const netcheck = require('../backend/hcp/netcheck');
 
@@ -28,22 +28,29 @@ test('vault missing key fails secure (no silent plaintext)', () => {
 });
 
 test('adapter resolution: retired template matches nothing, even plausible versions', () => {
-  assert.equal(resolveAdapter({ hcpVersion: '2.3', openapiVersion: '1.2' }), null);
+  const retired = ADAPTERS.find(a => a.adapterId === 'hcp-openapi-v1-generic');
+  assert.equal(matchAdapter([retired], { hcpVersion: '2.3', openapiVersion: '1.2' }), null);
+  assert.equal(matchAdapter([retired], { hcpVersion: '2.6.0', openapiVersion: '2.6' }), null);
 });
 
-test('adapter resolution: HCP 2.6.0 / OpenAPI 2.6 resolves to hcp-artemis-v26 (unverified)', () => {
+test('adapter resolution: HCP 2.6.0 / OpenAPI 2.6 resolves to hcp-artemis-v26 (verified)', () => {
   const a = resolveAdapter({ hcpVersion: '2.6.0', openapiVersion: '2.6' });
   assert.ok(a);
   assert.equal(a.adapterId, 'hcp-artemis-v26');
-  assert.equal(a.verified, false);
+  assert.equal(a.verified, true);
 });
 
 test('adapter resolution: unknown version returns null (no silent fallback)', () => {
   assert.equal(resolveAdapter({ hcpVersion: '9.9', openapiVersion: '9.9' }), null);
 });
 
-test('registry honesty: no adapter verified without official docs', () => {
-  assert.ok(ADAPTERS.every(a => a.verified === false));
+test('registry honesty: verified entries cite official docs; retired template stays unverified', () => {
+  const retired = ADAPTERS.find(a => a.adapterId === 'hcp-openapi-v1-generic');
+  assert.equal(retired.verified, false);
+  for (const a of ADAPTERS.filter(x => x.verified)) {
+    assert.ok(a.docLocation && /^https?:\/\//.test(a.docLocation), a.adapterId);
+    assert.ok(a.lastVerified, a.adapterId);
+  }
 });
 
 test('generic adapter refuses live auth/fetch without docs (no fabricated endpoints)', async () => {

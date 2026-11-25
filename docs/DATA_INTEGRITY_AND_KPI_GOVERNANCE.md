@@ -150,18 +150,18 @@ Each dimension: weight, threshold, score, issue count, sample (masked), owner, l
 
 | Item | State |
 |---|---|
-| Consistent backup | `scripts/backup-db.js` (`VACUUM INTO`) |
-| Latest backup | `data/backups/app-2026-11-06-10-35-33.db` (533,651,456 bytes) |
-| Schedule | Manual only (gap) |
+| Consistent backup | `scripts/backup-db.js` (logical JSON dump of PostgreSQL tables) |
+| Latest backup | Historical SQLite file `data/backups/app-2026-11-06-10-35-33.db` (533,651,456 bytes) |
+| Schedule | Manual JSON dump; enable Azure PostgreSQL automated backups (gap) |
 | Restore rehearsal | Not performed (gap) |
-| WAL | Enabled; backup includes WAL content |
+| WAL | N/A — remote PostgreSQL with Azure point-in-time restore |
 | Retention | Not defined |
 
 Required:
-1. Daily automated backup with 30-day retention.
+1. Daily automated backup with 30-day retention (Azure PostgreSQL PITR).
 2. Pre-destructive-operation backup enforced in code.
 3. Documented restore runbook with a rehearsal on a copy.
-4. Integrity check (`PRAGMA integrity_check`) after restore.
+4. Verify row counts and constraints after restore (no `PRAGMA integrity_check` on PostgreSQL).
 
 ---
 

@@ -5,6 +5,10 @@
 **Audit basis:** direct inspection of the running application, source files, SQLite schema and live API responses.
 **Reference:** Initium Solutions, *Community Operations Intelligence Platform — Technical Proposal v1.0* (November 2026).
 
+> **Deployment-copy note:** this document is a historical audit of the SQLite
+> build. The `dashboards-azure` deployment copy now targets Azure Database for
+> PostgreSQL via `DATABASE_URL`; see `AZURE_POSTGRES_DEPLOYMENT.md`.
+
 ---
 
 ## 1. Executive summary

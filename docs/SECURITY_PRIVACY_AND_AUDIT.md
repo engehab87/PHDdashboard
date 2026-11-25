@@ -4,6 +4,10 @@
 **Status:** target model + implemented baseline
 **Reference:** Initium Technical Proposal v1.0, section 8 (p. 23)
 
+> **Deployment-copy note:** storage-at-rest details below describe the historical
+> SQLite build. The `dashboards-azure` copy uses Azure Database for PostgreSQL;
+> see `AZURE_POSTGRES_DEPLOYMENT.md`.
+
 ---
 
 ## 1. Current posture (audit finding)

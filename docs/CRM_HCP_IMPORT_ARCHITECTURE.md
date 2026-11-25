@@ -1,7 +1,7 @@
 # CRM & HCP Import Architecture
 
 Date: 2026-11-07.
-Project: Palm Hills Community Intelligence (Node.js/Express/SQLite, `data/app.db`), port 2020.
+Project: Palm Hills Community Intelligence (Node.js/Express/Azure Database for PostgreSQL via `DATABASE_URL`), port 2020.
 Scope: separate CRM and compound-specific HCP manual uploads; future HCP API sync contracts. **No automated synchronization is active.**
 
 ## 1. Workflows

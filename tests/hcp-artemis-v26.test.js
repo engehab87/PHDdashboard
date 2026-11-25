@@ -10,7 +10,6 @@ const fs = require('fs');
 
 process.env.HCP_VAULT_KEY = '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef';
 const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'hcp-artemis-v26-test-'));
-process.env.DB_PATH = path.join(tmpDir, 't.db');
 
 const { resolveAdapter, matchAdapter, normVersion } = require('../backend/hcp/registry');
 const { HcpArtemisV26Adapter, buildSignatureString, signRequest } = require('../backend/hcp/adapters/artemis-v26');

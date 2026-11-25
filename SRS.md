@@ -53,7 +53,7 @@ Backend computes everything; frontend never computes KPIs. Raw preserved (`raw_r
 ## 2. Overall Description
 
 ### 2.1 Product perspective
-Standalone Node.js + Express + SQLite app with static SPA. No external DB, CDN, or build step. XAMPP Apache on `:80` may serve `frontend/` statically; canonical runtime is Node on `:2020` serving both API and frontend. Swappable DB layer (`backend/db.js`) for future Postgres.
+Node.js + Express app with static SPA, backed by Azure Database for PostgreSQL. No CDN or frontend build step. XAMPP Apache on `:80` may serve `frontend/` statically; canonical runtime is Node on `:2020` serving both API and frontend. The DB layer (`backend/db.js`) preserves the original synchronous API over a PostgreSQL worker.
 
 ### 2.2 Major functions (summary)
 1. Upload → classify → validate → process → snapshot monthly ZIPs.
@@ -68,7 +68,7 @@ Standalone Node.js + Express + SQLite app with static SPA. No external DB, CDN, 
 
 ### 2.3 Constraints
 - Offline-safe frontend: no CDN, hand-rolled SVG charts, dependency-free SPA.
-- `node:sqlite` built-in (Node 22+ required); no native builds.
+- `pg` client (Node 22+ required for `node:sqlite` only in the one-time migration script); no native builds.
 - Upload cap 1 GB; JSON body 2 MB; list pages cap 5000 rows; duplicates/changes cap 500; exports cap 200k (all) / 5k (view).
 - No hardcoded compounds/statuses/types/gates/filenames — all discovered dynamically.
 
@@ -89,7 +89,7 @@ Destructive actions require explicit `confirm:true` (+ period echo / `RESET ALL 
 ---
 ## 4. Operating Environment & Tech Stack
 - OS: Windows (primary), any Node 22+ host. Runtime: Node `24.21.0` observed, npm `11.19.0`.
-- Backend deps: `express@4.19.2`, `multer`, `xlsx` (SheetJS), `adm-zip`. DB: `node:sqlite` (`DatabaseSync`), WAL mode, file `data/app.db` (+ `-shm/-wal`), `DB_PATH` override, `PORT` override (default 2020).
+- Backend deps: `express@4.19.2`, `multer`, `xlsx` (SheetJS), `adm-zip`, `pg`. DB: Azure Database for PostgreSQL via `DATABASE_URL` (or `PG*` vars), `PORT` override (default 2020).
 - Frontend: `frontend/index.html` shell + `app.js` (core: nav, charts, tables, API client) + `app-pages.js` (pages) + `styles.css` (dark/light themes via `localStorage ph_theme`, ops/mgmt mode via `ph_mode`).
 - Entry: `server.js` shim (`chdir + require backend/server.js`); `start.bat` (checks node, `npm install` if needed, opens browser, `node server.js`); `index.php` / root `index.html` redirect to `frontend/` with note to run backend.
 - CORS `*`; `API_BASE` = `''` on `:2020`, else `http://localhost:2020`.
@@ -215,7 +215,7 @@ September 2026 results (actual): Active units 30,151 (25,395 CRM + refs) · 8,11
 
 ---
 ## 8. Database Design
-Engine: SQLite WAL, FK ON. `migrate()` idempotent + `ensureCol` guards. Seed `settings(processing_version, timezone=Africa/Cairo, parking_lot_compound, ai_provider=local, ai_api_key, ai_model)`.
+Engine: PostgreSQL, FK ON. `migrate()` idempotent + information_schema column guards. Seed `settings(processing_version, timezone=Africa/Cairo, parking_lot_compound, ai_provider=local, ai_api_key, ai_model)`.
 
 Core tables: `reporting_periods`, `imports`, `raw_files`, `raw_rows`, `source_files`, `compounds`, `compound_aliases`, `units(id,external_id UNIQUE,norm_unit,unit_number,compound_id,related_unit,…)`, `users(id,external_id UNIQUE,norm_name,norm_mobile,status,registered_as,…)`, `user_units`, `vehicles(plate_norm,plate_norm_latin)`, `invitations`, `gate_passes`, `hcp_vehicle_events(event_hash,import_id,plate_normalized(_latin),direction,result,gate,compound_id,owner_*)`, `handover(event_hash,import_id)`, `identity_maps(source_kind,source_key,crm_user_id,match_method,confidence,status)`, `period_metrics(period_id,metric_key,compound_id,value_num)`, `period_snapshots`, `audit_log`, `settings`, `import_log`, `event_fingerprints(unique type+system+hash)`, `user/unit/vehicle/user_unit_history`, `duplicate_records`, `changed_records`.
 Indexes: units/users/uu/vehicles plates/inv status/gp/hcp/owner/latin/source hash/event hash/history/import (see `db.js` ~399 lines).
@@ -265,7 +265,7 @@ API: Express JSON (2 MB), CORS `*`, Multer 1 GB, static `frontend/`. See Appendi
 - Performance: Sept import ~5 min normal (batched events); dashboard/compare/quality <2s warm (see `repcheck.js`); paged lists indexed; 60s client abort.
 - Reliability: WAL + FK; per-file atomic rollback; idempotent reprocess; fingerprints prevent double-count; snapshots incremental.
 - Maintainability: adding dataset = entry in `datasets.js` + branch in `ingestFile()` + tables in `db.js` + KPIs in `kpis.js` + docs.
-- Portability: Node 22+, no native modules, no CDN, `DB_PATH`/`PORT` env.
+- Portability: Node 22+, no native modules, no CDN, `DATABASE_URL`/`PORT` env.
 - Usability: honest empty states (face/visitors/trends), dismissible warnings per session, `How was this calculated?` on AI.
 - Auditability: `audit_log` (imports/matching/exports/reports/settings/AI), `import_log` per phase, `changed/duplicate_records`, `*_history`, `period_snapshots`.
 
@@ -281,8 +281,8 @@ API: Express JSON (2 MB), CORS `*`, Multer 1 GB, static `frontend/`. See Appendi
 2. If empty: `npm run import` (needs `C:/Users/…/Downloads/*.xlsx` Sept files) or use Monthly Import upload.
 3. Verify: `npm test` (ingest/kpi/phase2), `node scripts/apicheck.js|check.js|filtercheck.js|staticcheck.js`.
 4. XAMPP: Apache `:80` serves static; API must run on `:2020` (frontend auto-selects). `EADDRINUSE` → `taskkill /F /IM node.exe`.
-5. Config: `settings` table (`parking_lot_compound` JSON, `ai_provider/endpoint/model/key`, `timezone`); env `PORT`, `DB_PATH` (isolates tests/scratch; `phase2.test.js` uses temp DB).
-6. Data dirs: `data/app.db`, `data/raw/`, `data/uploads/`; reports on demand. `server.log/.err`, `start.bat` included.
+5. Config: `settings` table (`parking_lot_compound` JSON, `ai_provider/endpoint/model/key`, `timezone`); env `PORT`, `DATABASE_URL` (use a disposable PostgreSQL database for tests).
+6. Data dirs: `data/raw/`, `data/uploads/`, `data/backups/`; PostgreSQL is remote. Reports on demand. `server.log/.err`, `start.bat` included.
 
 ---
 ## 15. Test & Acceptance Criteria

@@ -1,11 +1,11 @@
 'use strict';
 /* HCP integration persistence: additive, non-destructive migrations on the
-   existing SQLite DB. Reuses the existing `compounds` table — no parallel
+   Azure PostgreSQL DB. Reuses the existing `compounds` table — no parallel
    compound system. Secrets stored only as vault payloads (v1:...). */
 const { encrypt, decrypt, vaultAvailable } = require('./crypto');
 const { ADAPTERS, KNOWN_CATEGORIES } = require('./registry');
 
-function migrateHcp(db) {
+function migrateHcp(db, tableColumns) {
   db.exec(`
   CREATE TABLE IF NOT EXISTS compound_integrations(
     compound_id INTEGER PRIMARY KEY REFERENCES compounds(id) ON DELETE CASCADE,
@@ -150,7 +150,9 @@ function migrateHcp(db) {
 
   // Phase 2: additive columns on pre-existing connectivity table (live-DB safe).
   const ensureCol = (table, col, ddl) => {
-    const cols = db.prepare(`PRAGMA table_info(${table})`).all().map(c => c.name);
+    const cols = tableColumns ? tableColumns(table) : db.prepare(
+      "SELECT column_name AS name FROM information_schema.columns WHERE table_schema='public' AND table_name=?"
+    ).all(table).map(c => c.name);
     if (!cols.includes(col)) db.exec(`ALTER TABLE ${table} ADD COLUMN ${ddl}`);
   };
   ensureCol('compound_connectivity', 'vpn_state', `vpn_state TEXT DEFAULT 'unknown'`);
@@ -203,8 +205,8 @@ function validateHcpConfig(h) {
   }
   const tlsVerify = cfg.tlsVerify === false || cfg.tls_verify === 0 ? false : true;
   if (tlsVerify === false) {
-    warnings.push({ code: 'TLS_VERIFY_DISABLED',
-      message: 'TLS certificate verification is disabled. VPN tunnel provides transport encryption; API requests proceed without certificate validation.' });
+    errors.push({ code: 'TLS_VERIFY_DISABLED',
+      message: 'TLS certificate verification cannot be disabled for HCP API requests.' });
   }
   const ca = cfg.tlsCa != null ? cfg.tlsCa : cfg.tls_ca;
   if (ca && !String(ca).includes('BEGIN CERTIFICATE')) {

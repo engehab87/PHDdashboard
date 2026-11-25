@@ -1,6 +1,6 @@
 'use strict';
 /* Import worker: runs ONE monthly import in its own process so the Express
-   event loop stays responsive. Progress/logs are written to SQLite by the
+   event loop stays responsive. Progress/logs are written to PostgreSQL by the
    ingest layer; this process only reports failure. */
 const importId = Number(process.argv[2]);
 const periodKey = process.argv[3] || undefined;

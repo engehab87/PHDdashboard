@@ -1,6 +1,6 @@
 'use strict';
 /* Read-only verification of period readiness and reconciliation for the audit.
-   Usage: DB_PATH=... node scripts/verify-period.js [periodKey] */
+   Usage: DATABASE_URL=... node scripts/verify-period.js [periodKey] */
 const path = require('path');
 const { db } = require(path.join(__dirname, '..', 'backend', 'db'));
 

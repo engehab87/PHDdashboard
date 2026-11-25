@@ -1,11 +1,23 @@
 'use strict';
 /* Read-only database inventory: table row counts, periods and import status.
-   Usage: node scripts/db-inventory.js  (honours DB_PATH) */
-const { db, DB_PATH } = require('../backend/db');
+   Usage: node scripts/db-inventory.js  (honours DATABASE_URL / PG* vars) */
+const { db } = require('../backend/db');
 
-const tables = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name").all().map(r => r.name);
+const tables = db.prepare("SELECT table_name AS name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE' AND table_name NOT LIKE 'sqlite_%' ORDER BY table_name").all().map(r => r.name);
 
-console.log('DB_PATH: ' + DB_PATH);
+let dbLabel;
+const rawUrl = process.env.DATABASE_URL || process.env.PG_CONNECTION_STRING;
+if (rawUrl) {
+  try {
+    const u = new URL(rawUrl);
+    dbLabel = `${u.hostname}:${u.port || 5432}/${u.pathname.replace(/^\//, '')}`;
+  } catch (_) {
+    dbLabel = 'DATABASE_URL (configured)';
+  }
+} else {
+  dbLabel = `${process.env.PGHOST || 'localhost'}:${process.env.PGPORT || 5432}/${process.env.PGDATABASE || 'palm_hills'}`;
+}
+console.log('DATABASE: ' + dbLabel);
 console.log('\nTABLE ROW COUNTS');
 for (const t of tables) {
   try {

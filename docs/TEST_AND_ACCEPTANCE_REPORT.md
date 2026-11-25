@@ -4,6 +4,8 @@ Status: **CONDITIONAL PASS for Phase 1 (local credentials)**.
 Date: 2026-11-10 (latest update; original verdict 2026-11-07).
 Scope: Node.js/Express/SQLite build at `http://localhost:2020`, periods 2026-09 and 2026-10, 47 compounds. React 19 / ASP.NET Core / Azure SQL / Entra ID / Dynamics are explicitly out of scope for this verdict.
 
+> **Deployment-copy note:** this verdict covers the historical SQLite build. The `dashboards-azure` copy now targets Azure Database for PostgreSQL; see `AZURE_POSTGRES_DEPLOYMENT.md`.
+
 ## Summary
 
 | Area | Result | Evidence |

@@ -39,11 +39,14 @@ test('truncation warnings surfaced, never silent', () => {
 test('compare covers all compounds; unassigned units explain the difference to portfolio total', () => {
   const cmp = compareCompounds(P);
   const nComp = db.prepare('SELECT COUNT(*) c FROM compounds').get().c;
-  assert.equal(cmp.rows.length, nComp);
+  assert.equal(cmp.rows.length, nComp + 1); // compare adds an explicit Unassigned row
+  const unassignedRow = cmp.rows.find(r => r.unassigned);
+  assert.ok(unassignedRow, 'Unassigned row must be present');
   const sumUnits = cmp.rows.reduce((s, r) => s + r.activeUnits, 0);
   const total = computeDashboard(P, 'all').cards.find(c => c.id === 'active_units').value;
   const unassigned = db.prepare('SELECT COUNT(*) c FROM units WHERE compound_id IS NULL').get().c;
-  assert.equal(sumUnits + unassigned, total);
+  assert.equal(unassignedRow.activeUnits, unassigned);
+  assert.equal(sumUnits, total);
 });
 test('quality report flags missing HCP person data instead of inventing', () => {
   const q = qualityReport(P);

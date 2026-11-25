@@ -6,16 +6,17 @@ Internal platform replacing the manual monthly reporting process. Upload a month
 
 ## Architecture
 
-- **Backend:** Node.js + Express, SQLite (`node:sqlite`, built-in — no native builds), SheetJS ingestion
+- **Backend:** Node.js + Express, PostgreSQL (`pg`), SheetJS ingestion
 - **Frontend:** dependency-free SPA (offline-safe, hand-rolled SVG charts — no CDN)
-- **DB file:** `data/app.db` (swap the access layer in `backend/db.js` for Postgres later)
+- **Database:** Azure Database for PostgreSQL via `DATABASE_URL`; no local database server/install
 - **AI:** local grounded analyst by default; optional OpenAI-compatible provider only verbalizes pre-computed DB results (key stored server-side)
 
 ## Installation & start (Windows)
 
-1. Install Node.js 22+ from https://nodejs.org/
-2. Double-click **`start.bat`** (installs dependencies on first run, opens http://localhost:2020)
-3. Or manually: `npm install` then `node server.js`
+1. Install Node.js 22.9+ from https://nodejs.org/
+2. Set `DATABASE_URL` to the Azure PostgreSQL connection string (see `AZURE_POSTGRES_DEPLOYMENT.md`)
+3. Double-click **`start.bat`** (installs dependencies on first run, opens http://localhost:2020)
+4. Or manually: `npm install`, `node --env-file-if-exists=.env -e "require('./backend/db').migrate()"`, then `npm start`
 
 ## Monthly upload workflow (Phase 2 engine)
 
@@ -52,7 +53,7 @@ backend/  db.js  datasets.js  normalize.js  ingest.js  kpis.js  quality.js
 frontend/ index.html  styles.css  app.js  app-pages.js
 scripts/  import-sep2026.js (CLI fixture load)  *.js (checks)
 tests/    ingest.test.js  kpi.test.js   (`npm test`, needs September loaded)
-data/     app.db  raw/  uploads/   reports are generated on demand
+data/     raw/  uploads/  backups/   reports are generated on demand (DB is remote PostgreSQL)
 ```
 
 ## Key design decisions

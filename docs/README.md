@@ -1,6 +1,6 @@
 # Palm Hills Dashboard — docs
 
-Current stack: Node.js/Express/SQLite (`data/app.db`), port 2020. Future state (React 19 / ASP.NET Core / Azure SQL / Entra ID / Dynamics) is not yet built.
+Current deployment copy: Node.js/Express + Azure Database for PostgreSQL (`DATABASE_URL`), port 2020. Older SQLite/audit documents below are historical evidence; see `AZURE_POSTGRES_DEPLOYMENT.md` for the live deployment procedure. React 19 / ASP.NET Core / Entra ID / Dynamics are not yet built.
 
 ## Start here
 

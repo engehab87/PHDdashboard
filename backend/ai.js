@@ -356,10 +356,10 @@ async function ask(question, opts = {}) {
 
 function gatherContext(question, opts, period) {
   const lines = [];
-  lines.push('DATABASE SCHEMA (SQLite):');
-  const tables = db.prepare("SELECT name FROM sqlite_master WHERE type='table' AND name NOT LIKE 'sqlite_%' ORDER BY name").all().map(r => r.name);
+  lines.push('DATABASE SCHEMA (PostgreSQL):');
+  const tables = db.prepare("SELECT table_name AS name FROM information_schema.tables WHERE table_schema='public' AND table_type='BASE TABLE' AND table_name NOT LIKE 'sqlite_%' ORDER BY table_name").all().map(r => r.name);
   for (const t of tables) {
-    const cols = db.prepare('PRAGMA table_info(' + t + ')').all().map(col => col.name + (col.type ? ':' + col.type : ''));
+    const cols = db.prepare("SELECT column_name AS name, data_type AS type FROM information_schema.columns WHERE table_schema='public' AND table_name=? ORDER BY ordinal_position", [t]).all().map(col => col.name + (col.type ? ':' + col.type : ''));
     let cnt = 0;
     try { cnt = db.prepare('SELECT COUNT(*) c FROM ' + t).get().c; } catch (_) {}
     lines.push('- ' + t + ' (' + cnt + ' rows): ' + cols.join(', '));

@@ -13,11 +13,10 @@ const https = require('https');
 
 process.env.HCP_VAULT_KEY = '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef';
 const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'hcp-phase1-test-'));
-process.env.DB_PATH = path.join(tmpDir, 't.db');
 
 const { db, migrate } = require('../backend/db');
 const { migrateHcp, saveHcpConfig } = require('../backend/hcp/store');
-const { matchAdapter, normVersion, resolveAdapter } = require('../backend/hcp/registry');
+const { matchAdapter, normVersion, resolveAdapter, ADAPTERS } = require('../backend/hcp/registry');
 const { nextConnState, dueForCheck, checkConnectivity, getConnectivity, syncGate, startHealthScheduler } = require('../backend/hcp/health');
 const { doSync } = require('../backend/hcp/routes');
 const { makeLab } = require('./helpers/makecerts');
@@ -43,18 +42,25 @@ function freePort() {
 
 /* ---------- registry hardening ---------- */
 
-test('selection is exact: no major-version prefix matching', () => {
+test('selection is exact: point releases use a marked fallback, never an exact match', () => {
   const entries = [{ adapterId: 'v2', hcpVersions: ['2.6.0'], openapiVersions: ['2.6'], verified: true }];
-  assert.ok(matchAdapter(entries, { hcpVersion: '2.6.0', openapiVersion: '2.6' }));
-  assert.equal(matchAdapter(entries, { hcpVersion: '2.6.1', openapiVersion: '2.6' }), null);
-  assert.equal(matchAdapter(entries, { hcpVersion: '2.6', openapiVersion: '2.6' }), null);
-  assert.equal(matchAdapter(entries, { hcpVersion: '2.6.0', openapiVersion: '2.7' }), null);
+  const exact = (hcpVersion, openapiVersion) => {
+    const a = matchAdapter(entries, { hcpVersion, openapiVersion });
+    return a && !a.fallback ? a : null;
+  };
+  assert.ok(exact('2.6.0', '2.6'));
+  assert.ok(exact('2.6', '2.6')); // trailing .0 is normalized away
+  assert.equal(exact('2.6.1', '2.6'), null);
+  assert.equal(matchAdapter(entries, { hcpVersion: '2.6.1', openapiVersion: '2.6' }).fallback, true);
+  assert.equal(matchAdapter(entries, { hcpVersion: '3.6.0', openapiVersion: '3.6' }), null);
 });
 
-test('leading V prefix is normalized, matching stays exact', () => {
-  assert.equal(normVersion('V2.6.0'), '2.6.0');
+test('leading V prefix is normalized, matching stays within the exact major', () => {
+  assert.equal(normVersion('V2.6.0'), '2.6');
   const entries = [{ adapterId: 'v2', hcpVersions: ['2.6.0'], openapiVersions: [], verified: true }];
-  assert.ok(matchAdapter(entries, { hcpVersion: 'V2.6.0', openapiVersion: '' }));
+  const a = matchAdapter(entries, { hcpVersion: 'V2.6.0', openapiVersion: '' });
+  assert.ok(a);
+  assert.equal(a.adapterId, 'v2');
 });
 
 test('retired/empty entries match nothing; missing HCP version matches nothing', () => {
@@ -68,11 +74,11 @@ test('unidentified OpenAPI version allows HCP-only match; identified mismatch re
   assert.equal(matchAdapter(entries, { hcpVersion: '2.6.0', openapiVersion: '3.1' }), null);
 });
 
-test('live registry: HCP 2.6.0 / OpenAPI 2.6 resolves to hcp-artemis-v26 (unverified)', () => {
+test('live registry: HCP 2.6.0 / OpenAPI 2.6 resolves to hcp-artemis-v26 (verified)', () => {
   const a = resolveAdapter({ hcpVersion: '2.6.0', openapiVersion: '2.6' });
   assert.ok(a);
   assert.equal(a.adapterId, 'hcp-artemis-v26');
-  assert.equal(a.verified, false);
+  assert.equal(a.verified, true);
 });
 
 test('migration neutralizes the retired generic claim on previously seeded DBs', () => {
@@ -83,7 +89,8 @@ test('migration neutralizes the retired generic claim on previously seeded DBs',
   assert.equal(row.hcp_versions, '[]');
   assert.equal(row.openapi_versions, '[]');
   assert.equal(row.verified, 0);
-  assert.equal(resolveAdapter({ hcpVersion: '2.3', openapiVersion: '1.2' }), null);
+  const retired = ADAPTERS.find(a => a.adapterId === 'hcp-openapi-v1-generic');
+  assert.equal(matchAdapter([retired], { hcpVersion: '2.3', openapiVersion: '1.2' }), null);
 });
 
 /* ---------- connectivity state machine ---------- */
@@ -153,7 +160,7 @@ function gateSetup({ enabled = false, versions = true } = {}) {
   if (versions) saveHcpConfig(db, 1, { hcpHost: '127.0.0.1', hcpPort: 443, https: true, hcpVersion: '2.6.0', openapiVersion: '2.6', tlsVerify: true, versionSource: 'manual' });
 }
 
-test('gate blocks disabled integration, unknown/down connectivity, missing adapter, missing auth', async () => {
+test('gate blocks disabled integration, unknown/down connectivity, and missing auth', async () => {
   db.prepare('DELETE FROM compound_connectivity WHERE compound_id=1').run();
   gateSetup({ enabled: false });
   let g = await syncGate(db, 1);
@@ -171,7 +178,7 @@ test('gate blocks disabled integration, unknown/down connectivity, missing adapt
   db.prepare(`UPDATE compound_connectivity SET conn_state='up', last_check_at=datetime('now'), backoff_until=NULL WHERE compound_id=1`).run();
   g = await syncGate(db, 1);
   assert.equal(g.allowed, false);
-  assert.ok(g.reasons.some(r => r.code === 'ADAPTER_UNVERIFIED'));
+  assert.ok(!g.reasons.some(r => r.code === 'ADAPTER_UNVERIFIED'));
   assert.ok(g.reasons.some(r => r.code === 'AUTH_MISSING'));
 });
 

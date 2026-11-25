@@ -4,6 +4,11 @@
 **Status:** future-state plan — **not executed**
 **Note:** the running application uses **SQLite**, not MySQL. A MySQL-compatibility note is included because the original brief assumed MySQL.
 
+> **Deployment-copy note:** this is the historical Azure SQL plan. The
+> `dashboards-azure` deployment copy was converted to **Azure Database for
+> PostgreSQL** instead; see `AZURE_POSTGRES_DEPLOYMENT.md`. This document remains
+> as the original decision record.
+
 ---
 
 ## 1. Why migrate

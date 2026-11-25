@@ -81,6 +81,11 @@ async function httpsGet(baseUrl, path, headers, timeoutMs, verify, caPem) {
   let u;
   try { u = new URL(url); } catch (e) { return { ok: false, ms: 0, error: 'Invalid API base URL.', code: 'BAD_CONFIG' }; }
   const isTls = u.protocol === 'https:';
+  // Fail closed: callers may not opt out of certificate verification for real
+  // API traffic. Return before any socket is opened.
+  if (isTls && verify === false) {
+    return { ok: false, ms: Date.now() - t0, error: 'TLS certificate verification cannot be disabled for API requests.', code: 'TLS_POLICY' };
+  }
   return new Promise((resolve) => {
     const done = (r) => resolve({ ...r, ms: Date.now() - t0 });
     let agent = null;

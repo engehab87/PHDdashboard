@@ -1,7 +1,7 @@
 'use strict';
 /* HCP TLS-transport + HTTPS-config tests. Offline and hermetic: certificates
    come from tests/helpers/makecerts.js (in-memory only) and the database is a
-   temp file (DB_PATH set before requiring backend/db, isolated per process).
+   database is TEST_DATABASE_URL (disposable PostgreSQL DB, isolated per run).
    No live HCP server is contacted; nothing here proves production connectivity. */
 const { test, after } = require('node:test');
 const assert = require('node:assert');
@@ -11,7 +11,6 @@ const fs = require('fs');
 const https = require('https');
 
 const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'hcp-tls-test-'));
-process.env.DB_PATH = path.join(tmpDir, 't.db');
 
 const { db, migrate } = require('../backend/db');
 const { migrateHcp, validateHcpConfig, saveHcpConfig, getHcpConfig } = require('../backend/hcp/store');

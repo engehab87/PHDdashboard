@@ -90,7 +90,14 @@ function multiInsert(table, cols, rows, orReplace) {
     const ph = slice.map(() => `(${cols.map(() => '?').join(',')})`).join(',');
     const flat = [];
     for (const r of slice) for (const v of r) flat.push(v === undefined ? null : v);
-    db.prepare(`INSERT ${orReplace ? 'OR REPLACE' : ''} INTO ${table}(${cols.join(',')}) VALUES ${ph}`.replace('  ', ' ')).run(...flat);
+    let sql = `INSERT INTO ${table}(${cols.join(',')}) VALUES ${ph}`;
+    if (orReplace) {
+      // Only the master tables use OR REPLACE; both conflict on external_id.
+      const conflict = 'external_id';
+      const updates = cols.filter(c => c !== conflict).map(c => `${c}=EXCLUDED.${c}`).join(',');
+      sql += ` ON CONFLICT (${conflict}) DO UPDATE SET ${updates}`;
+    }
+    db.prepare(sql).run(...flat);
   }
 }
 
@@ -1128,8 +1135,11 @@ function autoMatch(periodId, M) {
     if (existing) { if (existing.status === 'MATCHED') matched++; continue; }
     if ((nameCount[key] || 0) === 1) {
       const uid = maps.usersByName.get(key);
-      ps(`INSERT OR REPLACE INTO identity_maps(source_kind,source_key,crm_user_id,match_method,confidence,status,created_at)
-        VALUES('hcp_owner',?,?,'NAME_EXACT_SINGLE',0.9,'MATCHED',datetime('now'))`).run(key, uid);
+      ps(`INSERT INTO identity_maps(source_kind,source_key,crm_user_id,match_method,confidence,status,created_at)
+        VALUES('hcp_owner',?,?,'NAME_EXACT_SINGLE',0.9,'MATCHED',datetime('now'))
+        ON CONFLICT (source_kind, source_key) DO UPDATE SET
+          crm_user_id=EXCLUDED.crm_user_id, match_method=EXCLUDED.match_method,
+          confidence=EXCLUDED.confidence, status=EXCLUDED.status, created_at=EXCLUDED.created_at`).run(key, uid);
       ps('UPDATE hcp_vehicle_events SET owner_user_id=? WHERE period_id=? AND owner_raw=?').run(uid, periodId, o.owner_raw);
       matched++;
     } else if ((nameCount[key] || 0) > 1) {
@@ -1181,7 +1191,9 @@ function snapshotMetrics(periodId, periodKey) {
     put('invitations_total', c == null ? scalar('SELECT COUNT(*) v FROM invitations WHERE period_id=?', [periodId]) : 0);
     put('gatepass_total', scalar('SELECT COUNT(*) v FROM gate_passes WHERE period_id=?' + cf, [periodId, ...cp]));
   }
-  const ins = ps('INSERT OR REPLACE INTO period_metrics(period_id,metric_key,compound_id,value_num,value_text) VALUES(?,?,?,?,?)');
+  const ins = ps(`INSERT INTO period_metrics(period_id,metric_key,compound_id,value_num,value_text) VALUES(?,?,?,?,?)
+    ON CONFLICT (period_id, metric_key, (COALESCE(compound_id, 0))) DO UPDATE SET
+      value_num=EXCLUDED.value_num, value_text=EXCLUDED.value_text`);
   withTx(() => { for (const r of M) ins.run(...r); });
 }
 
@@ -1193,7 +1205,9 @@ function writeSnapshot(periodKey, importId, summary) {
   }
   const period = ps('SELECT id FROM reporting_periods WHERE period_key=?').get(periodKey);
   const metrics = period ? db.prepare('SELECT metric_key, compound_id, value_num FROM period_metrics WHERE period_id=?').all(period.id) : [];
-  ps(`INSERT OR REPLACE INTO period_snapshots(period_key,import_id,master_counts,metrics) VALUES(?,?,?,?)`)
+  ps(`INSERT INTO period_snapshots(period_key,import_id,master_counts,metrics) VALUES(?,?,?,?)
+      ON CONFLICT (period_key, import_id) DO UPDATE SET
+        master_counts=EXCLUDED.master_counts, metrics=EXCLUDED.metrics`)
     .run(periodKey, importId, JSON.stringify(masterCounts), JSON.stringify(metrics));
   ilog(importId, 'info', 'metrics', `${periodKey} Snapshot written (${Object.entries(masterCounts).map(([k, v]) => `${k}=${v}`).join(', ')}).`);
 }

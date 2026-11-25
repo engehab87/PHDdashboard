@@ -6,6 +6,10 @@
 **Backup taken:** `data/backups/app-2026-11-06-10-35-33.db` (533,651,456 bytes, `VACUUM INTO`, consistent)
 **Schema source:** `backend/db.js` (SCHEMA + `migrate()`); HCP tables added by `backend/hcp/store.js`
 
+> **Deployment-copy note:** historical SQLite inventory. The `dashboards-azure`
+> deployment copy now targets Azure Database for PostgreSQL; see
+> `AZURE_POSTGRES_DEPLOYMENT.md`.
+
 > Row counts below were captured read-only on 2026-11-06 after import #2 (2026-10) completed. Masters are global (not period-scoped), so their counts span both periods.
 
 ---

@@ -2,7 +2,9 @@
 
 **Date:** 2026-11-06
 **Baseline:** Initium proposal v1.0, 22-week plan (M1 week 2, M2 week 11, M3 week 16, M4 week 21, M5 week 22)
-**Constraint:** keep the running Node.js/Express/SQLite application; React 19, ASP.NET Core and Azure SQL are future state only.
+**Constraint (historical):** keep the running Node.js/Express/SQLite application; React 19, ASP.NET Core and Azure SQL were future state only.
+
+> **Deployment-copy note:** `dashboards-azure` is now backed by Azure Database for PostgreSQL; see `AZURE_POSTGRES_DEPLOYMENT.md`.
 
 ---
 

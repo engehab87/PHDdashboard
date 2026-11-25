@@ -10,7 +10,6 @@ const fs = require('fs');
 
 process.env.HCP_VAULT_KEY = '0123456789abcdef0123456789abcdef0123456789abcdef0123456789abcdef';
 const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'hcp-vpn-test-'));
-process.env.DB_PATH = path.join(tmpDir, 't.db');
 
 const { db, migrate } = require('../backend/db');
 const { migrateHcp, saveHcpConfig } = require('../backend/hcp/store');

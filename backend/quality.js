@@ -40,7 +40,7 @@ function qualityReport(periodKey) {
     R('warning', 'relationships', 'Unit-access rows with no linked user.', S("SELECT COUNT(*) c FROM user_units WHERE user_id IS NULL"), "SELECT unit_ref_raw, compound_raw, access_type FROM user_units WHERE user_id IS NULL LIMIT 20"),
     R('warning', 'relationships', 'Unit-access rows with no linked unit.', S("SELECT COUNT(*) c FROM user_units WHERE unit_id IS NULL"), "SELECT user_name_raw, unit_ref_raw, compound_raw FROM user_units WHERE unit_id IS NULL LIMIT 20"),
     R('warning', 'units', 'Units with no compound assigned.', S('SELECT COUNT(*) c FROM units WHERE compound_id IS NULL'), "SELECT unit_number FROM units WHERE compound_id IS NULL LIMIT 20"),
-    R('warning', 'units', 'Duplicate unit numbers (same number, different CRM records).', S('SELECT COUNT(*) c FROM (SELECT norm_unit FROM units WHERE norm_unit IS NOT NULL GROUP BY norm_unit HAVING COUNT(*)>1)'), "SELECT norm_unit, COUNT(*) n FROM units WHERE norm_unit IS NOT NULL GROUP BY norm_unit HAVING n>1 ORDER BY n DESC LIMIT 20"),
+    R('warning', 'units', 'Duplicate unit numbers (same number, different CRM records).', S('SELECT COUNT(*) c FROM (SELECT norm_unit FROM units WHERE norm_unit IS NOT NULL GROUP BY norm_unit HAVING COUNT(*)>1)'), "SELECT norm_unit, COUNT(*) n FROM units WHERE norm_unit IS NOT NULL GROUP BY norm_unit HAVING COUNT(*)>1 ORDER BY n DESC LIMIT 20"),
     R('warning', 'gate_passes', 'Gate passes with no compound.', S('SELECT COUNT(*) c FROM gate_passes WHERE period_id=? AND compound_id IS NULL'), "SELECT unit_ref_raw, user_name_raw FROM gate_passes WHERE period_id=? AND compound_id IS NULL LIMIT 20", [pid, pid]),
     R('warning', 'gate_passes', 'Gate passes with no unit reference.', S('SELECT COUNT(*) c FROM gate_passes WHERE period_id=? AND unit_id IS NULL'), "SELECT compound_raw, user_name_raw, access_type FROM gate_passes WHERE period_id=? AND unit_id IS NULL LIMIT 20", [pid, pid]),
     R('info', 'hcp', 'HCP events with unreadable plate ("Unknown").', S("SELECT COUNT(*) c FROM hcp_vehicle_events WHERE period_id=? AND plate_normalized IS NULL"), "SELECT parking_lot, gate, direction, COALESCE(enter_time,exit_time) t FROM hcp_vehicle_events WHERE period_id=? AND plate_normalized IS NULL LIMIT 20", [pid, pid]),
@@ -52,7 +52,7 @@ function qualityReport(periodKey) {
   // reconciliation from latest import log
   let reconciliation = [];
   try {
-    const imp = db.prepare("SELECT log FROM imports WHERE period_id=? AND status='completed' ORDER BY id DESC LIMIT 1").get(pid);
+    const imp = db.prepare("SELECT log FROM imports WHERE period_id=? AND LOWER(status) LIKE 'completed%' ORDER BY id DESC LIMIT 1").get(pid);
     if (imp && imp.log) {
       const s = JSON.parse(imp.log);
       reconciliation = (s.files || []).map(f => ({ file: f.filename, dataset: f.dataset, status: f.status, source: f.sourceRows || 0, processed: f.processed || 0, rejected: f.rejected || 0, duplicates: f.duplicates || 0, reason: f.reason || null }));

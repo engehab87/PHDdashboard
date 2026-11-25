@@ -4,6 +4,10 @@
 **Audit method:** source inspection, live API calls, SQLite inspection, and the import/security tests documented in `TEST_AND_ACCEPTANCE_REPORT.md`. A screen or endpoint existing is **not** treated as proof.
 **Date:** 2026-11-06.
 
+> **Deployment-copy note:** historical audit of the SQLite build. The
+> `dashboards-azure` deployment copy now uses Azure Database for PostgreSQL;
+> see `AZURE_POSTGRES_DEPLOYMENT.md`.
+
 Status values: **IMPLEMENTED AND VERIFIED** · **PARTIALLY IMPLEMENTED** · **NOT IMPLEMENTED** · **DEFECTIVE** · **NOT APPLICABLE TO CURRENT PHASE** · **REQUIRES BUSINESS APPROVAL**.
 
 ---

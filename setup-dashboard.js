@@ -129,7 +129,15 @@ HCP_VAULT_KEY=${get(existing, 'HCP_VAULT_KEY', vaultKey)}
 
 # Backend
 PORT=${get(existing, 'PORT', '2020')}
-DB_PATH=${get(existing, 'DB_PATH', 'data/app.db')}
+
+# REQUIRED: Azure Database for PostgreSQL connection string.
+# No local PostgreSQL server is installed or required.
+DATABASE_URL=${get(existing, 'DATABASE_URL', 'postgresql://REPLACE_WITH_USER:REPLACE_WITH_PASSWORD@REPLACE_WITH_HOST.postgres.database.azure.com:5432/REPLACE_WITH_DB?sslmode=require')}
+PGSSLMODE=${get(existing, 'PGSSLMODE', 'require')}
+
+# Optional synchronous DB RPC tuning.
+DB_RPC_BUFFER_MB=${get(existing, 'DB_RPC_BUFFER_MB', '64')}
+DB_QUERY_TIMEOUT_MS=${get(existing, 'DB_QUERY_TIMEOUT_MS', '120000')}
 
 # FortiClient VPN control (disabled by default — safer for first runs)
 # Set FORTICLIENT_ENABLED=true only after the CLI path and tunnel name are verified.

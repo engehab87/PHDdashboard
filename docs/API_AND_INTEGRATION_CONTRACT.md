@@ -181,7 +181,7 @@ When `detected.periodKey` is null, the client must ask for a month and call `/ap
 |---|---|---|---|
 | Entra ID | Not implemented | Tenant app registration + consent | **Do not claim** |
 | Dynamics 365 / Dataverse | Not implemented | Environment + service principal | **Do not claim** |
-| Azure SQL | SQLite only | Migration plan + environment | **Do not claim** |
+| Azure Database for PostgreSQL | Code converted; requires `DATABASE_URL` | Provisioned server + first `migrate()` run | **Do not claim until verified** |
 | HCP live API | Code prepared, not verified | Network + credentials | **Do not claim** |
 | Power BI | Not implemented | Contract + gateway | Not claimed |
 | SMTP/notifications | Not implemented | Provider | Not claimed |

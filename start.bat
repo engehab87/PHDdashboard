@@ -13,5 +13,5 @@ if not exist node_modules (
 )
 echo Starting Palm Hills Community Operations Intelligence on http://localhost:2020 ...
 start "" "http://localhost:2020"
-node server.js
+node --env-file-if-exists=.env server.js
 pause

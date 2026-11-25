@@ -1,7 +1,7 @@
 'use strict';
 /* Background import runner.
    - Starts each import in a child Node process (see run-import.js) so long
-     synchronous SQLite/Excel work never blocks dashboard API requests.
+     synchronous PostgreSQL/Excel work never blocks dashboard API requests.
    - De-duplicates concurrent starts for the same import id.
    - Records the worker PID so a restart can distinguish a live orphan worker
      from an interrupted import. */

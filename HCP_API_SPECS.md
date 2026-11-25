@@ -2,7 +2,7 @@
 
 > **Palm Hills Community Operations Intelligence Platform**
 > **Document date:** Sun Oct 18 2026
-> **Stack:** Node.js v24.21.0 + Express 4 + SQLite (`node:sqlite`) + SheetJS
+> **Stack:** Node.js v24.21.0 + Express 4 + PostgreSQL (`pg`, Azure Database for PostgreSQL) + SheetJS
 > **Backend port:** `http://localhost:2020` (configurable via `PORT` env)
 > **Frontend port:** Served by XAMPP Apache on `:80`; CORS allows `:80` → `:2020`
 >
@@ -341,7 +341,8 @@ Nine stages, in order, run on `POST /compounds/:id/test` (async, polled via `GET
 |---|---|---|
 | `HCP_VAULT_KEY` | 64-hex AES-256-GCM key (REQUIRED for secrets) | unset → fail-secure; generate: `crypto.randomBytes(32).toString('hex')` |
 | `PORT` | Backend port | `2020` |
-| `DB_PATH` | SQLite file path | `data/app.db` |
+| `DATABASE_URL` | PostgreSQL connection string (required) | `postgresql://user:password@server.postgres.database.azure.com:5432/db?sslmode=require` |
+| `PGSSLMODE` | PostgreSQL TLS mode | `require` |
 | `FORTICLIENT_ENABLED` | Enable VPN control | (unset = disabled) |
 | `FORTICLIENT_CLI` | Full path to `forticli.exe` | `C:\Program Files\Fortinet\FortiClient\forticli.exe` |
 | `FORTICLIENT_TUNNEL` | Tunnel/profile name to connect | `PHNC-Tunnel` |

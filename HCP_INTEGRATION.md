@@ -1,13 +1,14 @@
 # Compound Connectivity & HCP Integration — operations guide
 
-> Stack note: the project is **Node.js + Express + SQLite** (`backend/`, `node:sqlite`),
-> not PHP. This feature was implemented on the existing stack per the
-> preserve-conventions rule. All paths below are relative to the project root.
+> Stack note: the project is **Node.js + Express + PostgreSQL** (`backend/`, `pg`,
+> Azure Database for PostgreSQL), not PHP. No local database server is installed.
+> This feature was implemented on the existing stack per the preserve-conventions
+> rule. All paths below are relative to the project root.
 
 ## 1. Architecture discovered (summary)
 
-- Backend: Node 22+ (`24.21.0` observed), Express 4, Multer, SheetJS; DB `data/app.db`
-  via `backend/db.js` (`migrate()` idempotent + `ensureCol` guards).
+- Backend: Node 22+ (`24.21.0` observed), Express 4, Multer, SheetJS; PostgreSQL
+  via `DATABASE_URL` and `backend/db.js` (`migrate()` idempotent + column guards).
 - Reused, not duplicated: `compounds` table (id/name/code/active). New tables are
   additive (`compound_integrations`, `compound_network`, `compound_hcp`,
   `compound_credentials`, `hcp_adapter_registry`, `hcp_test_runs`,
@@ -71,7 +72,7 @@
 |---|---|---|
 | `HCP_VAULT_KEY` | 64-hex vault key (REQUIRED for secrets) | unset → fail-secure |
 | `PORT` | backend port | 2020 |
-| `DB_PATH` | sqlite file | `data/app.db` |
+| `DATABASE_URL` | PostgreSQL connection string (required) | Azure PostgreSQL URL with `sslmode=require` |
 
 ## 6. VPN / network prerequisites (for Palm Hills IT)
 

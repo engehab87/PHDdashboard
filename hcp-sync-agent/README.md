@@ -150,7 +150,7 @@ CMD ["node", "src/index.js"]
 
 ## Relationship to the parent dashboard
 
-This agent mirrors the normalization and endpoint set used by the main Palm Hills dashboard (`backend/hcp/adapters/artemis-v26.js`, `HCP_API_SPECS.md`). It can run independently to feed a cloud data warehouse, while the dashboard continues to use its local SQLite database for uploaded monthly files.
+This agent mirrors the normalization and endpoint set used by the main Palm Hills dashboard (`backend/hcp/adapters/artemis-v26.js`, `HCP_API_SPECS.md`). It can run independently to feed a cloud data warehouse, while the dashboard uses Azure Database for PostgreSQL for uploaded monthly files.
 
 ## License
 

@@ -1,7 +1,7 @@
 'use strict';
 /* CRM vs HCP workflow separation: source classification, mandatory compound,
    compound ID persistence, cross-workflow rejection, dedup, rollback.
-   Runs against an isolated temp SQLite DB (never touches data/app.db). */
+   Runs against TEST_DATABASE_URL (disposable PostgreSQL DB, never production). */
 const { test, before } = require('node:test');
 const assert = require('node:assert');
 const fs = require('fs');
@@ -9,7 +9,6 @@ const os = require('os');
 const path = require('path');
 
 const TMP = fs.mkdtempSync(path.join(os.tmpdir(), 'ph-crm-hcp-'));
-process.env.DB_PATH = path.join(TMP, 'test.db');
 
 const AdmZip = require('adm-zip');
 const XLSX = require('xlsx');
